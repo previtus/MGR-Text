@@ -1,72 +1,44 @@
-% This is example for Doctoral Thesis Statement used by CTUStyle
-% CTUStyle is the plainTeX template for theses at CTU in Prague
-% ---------------------------------------------------------------------
-% Petr Olsak  May 2014
+% From plainTeX template CTUStyle
+% Run:  pdfcsplain your-file
 
-% You can copy this file to your own file and do some changes.
-% Then you can run:  pdfcsplain your-file
-
-\input ctustyle-ts   % The template is included here.
+\input ctustyle
 %\input pdfuni    % Uncomment this if you need accented PDFoutlines
 %\input opmac-bib % Uncomment this for direct reading of .bib database files 
 
-\worktype [O/EN] % Type: O = other
-                 % / the language: CZ = Czech, SK = Slovak, EN = English
+%\shortcitations
+\sortcitations
 
-% Use main language of your document while filling in the items.
-% The mandatory items: \faculty, \depatment, \title, \author, \date, \address
-% \studyspec, \studyform, \studyinfo, \orohead, \candidate, \supervisor
+\worktype [M/EN]
+\faculty {F3}
+\department {Department of Computer Science}
+\title {Estimating Bicycle Route Attractivity from Image Data}
+\titleCZ {cz Estimating Bicycle Route Attractivity from Image Data}
+\author {Vít Růžička}
+\authorinfo {ruzicvi3@fel.cvut.cz}
+\date {July 2017} 
+\studyinfo {
+   Master Programme: Open Informatics\nl
+   Branch of Study: Computer Graphics and Interaction
+}
 
-\faculty    {F3}  % Type your faculty F1, F2, F3, etc.
-\department {Department of Mathematics}
-\title      {CTUstyle -- The plain \TeX{} template}
-\author     {Petr Olšák}
-\date       {Prague, January 2013} 
-\address    {Technická~2, Prague~6}    % The address of Dean Office
-\studyspec  {Mathematical Engineering} % The branch of study
-\studyform  {full-time}  % full-time / combined / prezenční / kombinované
-
-\studyinfo {  % Programme + branch separeted by \nl
-   Ph.D. Programme: Electrical Engineering and Information Technology\nl
-   Branch of Study: \the\studyspec
-}
-\orohead {    % The chairman of the Board (see the bottom of the page 4)
-  Prof. RNDr. Jan Hamhalter, CSc.\nl
-  Chairman of the Board for the Defence of the Doctoral Thesis 
-  in the branch of study \the\studyspec\ 
-  Faculty of Electrical Engineering of the CTU in Prague\nl
-  \the\address
-}
-\candidate {  % Author including degrees, department and address separeted by \nl
-  RNDr. Petr Olšák\nl
-  \the\department\nl 
-  Zikova 4\nl
-  CZ-16636 Prague 6
-}
 \supervisor { % Supervisor including degrees, department and address
-  Doc. Ing. Josef Zlo, DrSc.\nl
-  Department of Measurement\nl
-  Faculty of Electrical Engineering of the CTU in Prague\nl
-  Technická 2\nl
-  CZ-16627 Prague 6
+  Ing. Jan Drchal, Ph.D.\nl
+  Department of Computer Science
 }
 
-% Optional items: \supervisorspec, \opponents.
-% Fill in them in the same form as \supervisor if they are known.
+\abstractEN {abs}
+\abstractCZ {tract}
 
-% \supervisorspec {} 
-% \opponents  {}    
+\keywordsEN {a}
+\keywordsCZ {b}
 
-% You can re-declare the dafault texts.
+\thanks{I}
 
-% \workname {Doctoral Thesis Statement by default}
-% \titleinfo {info about ``Doctor'' abbreviated to ``Ph.D.'' on the page 2}
-% \infoA {info on the top of the page 4}
-% \infoB {first info below Opponents about distributing}
-% \infoC {second info about meeting}
-% \infoD {third info about Dean Office}
+\declaration {dec}
 
 %%%%% <--   % The place for your own macros is here.
+
+\input mymacros
 
 %\draft     % Uncomment this if the version of your document is working only.
 %\linespacing=1.7  % uncomment this if you need more spaces between lines
@@ -76,85 +48,352 @@
 %\blackwhite       % Use this if you need really Black+White thesis.
 %\onesideprinting  % Use this if you really don't use duplex printing. 
 
-\makefront  % Mandatory command. Makes title page and info page
-
-% Don't use \chap command here; only \sec, \secc are recommended.
-
+\makefront
 \nonum\notoc\sec Contents
 
-\maketoc \outlines0  % These commands generates TOC and PDF outlines
+\maketoc \outlines0
 
-\sec Current Situation of the Studied Problem
-%============================================
+% THESIS MAIN SECTION
 
-Aha uff. \lorem.
-
-\sec Aims of the Doctoral Thesis
+\chap Introduction
 %===============================
 
-Aha uff. \lorem.
+A
 
-\sec Working Methods 
+\chap Research
+%===============================
+
+B
+
+\sec Planning
 %===================
 
-Aha uff. \lorem.
+Planning
 
-\secc First Variant
+\secc Data collection
 %------------------
 
-\lorem.
-
-\secc Second Variant
-%-------------------
-
-\lorem.
-
-\sec Results
-%===========
-
-Aha uff. See Table~\ref[curious_result]. \lorem.
-
-\midinsert \clabel[curious_result]{The Magic Numbers}
-  \ctable{lccc}{
-    Number    & First & Second & Third \crl \tskip4pt
-    ones      &   1   &    2   &    3 \cr
-    tens      &  10   &   20   &   30 \cr
-    hundreds  & 100   &  200   &  300 \cr
-}
-\caption/t The magic numbers. The core result of this work.
-\endinsert
+Data collection
 
 
-\sec Conclusion
-%==============
+\sec History of Convolutional Neural Networks 
+%===================
 
-Aha uff. \lorem.
+History of Convolutional Neural Networks
 
-\nonum\sec References used in the thesis statement 
-%=================================================
 
-Aha uff.
+\secc ImageNet dataset
+%------------------
 
-\nonum\sec List of candidate's works\nl relating to the doctoral thesis 
-%======================================================================
+Data collection
 
-Aha ufff.
+\secc ImageNet Large Scale Visual Recognition Competition (ILSVRC)
+%------------------
 
-\nonum\sec Response / No response and reviews 
-%============================================
+Data collection
 
-Aha uff. \lorem.
+\seccc AlexNet, CNN using huge datasets
+%------------------
 
-\nonum\sec Summary
-%=================
+A
 
-Aha uff. \lorem.
+\seccc VGG16, VGG19, going deeper
+%------------------
 
-\nonum\sec Resumé
-%================
+A
 
-\chyph 
-Resumé napíšu v češtině. Proto předchází příkaz "\chyph", který zapne české
-dělení slov. Uff.
+\seccc ResNet, recurrent connections and residual learning
+%------------------
+
+A
+
+\seccc Ensemble models
+%------------------
+
+A
+
+\secc Feature transfer
+%------------------
+
+B
+
+\secc Common structures
+%------------------
+
+B
+
+\chap The Task
+%===============================
+
+\sec Route planning for bicycles 
+%===================
+
+A
+
+\sec Available data and collection 
+%===================
+
+\secc Initial dataset
+%------------------
+
+I
+
+\secc Street View
+%------------------
+
+I
+
+\seccc Downloading Street View images
+%------------------
+
+I
+
+\seccc Data augmentation introduction
+%------------------
+
+I
+
+\secc Neighborhood in Open Street Map data
+%------------------
+
+I
+
+\seccc OSM neighborhood vector
+%------------------
+
+I
+
+\seccc Radius choice
+%------------------
+
+I
+
+\seccc Data transformation
+%------------------
+
+I
+
+\chap The Method
+%===============================
+
+M
+
+\sec Building blocks 
+%===================
+
+A
+
+\secc Model abstraction
+%------------------
+
+A
+
+\secc Fully-connected layers
+%------------------
+
+A
+
+\secc Convolutional layers
+%------------------
+
+A
+
+\secc Pooling layers
+%------------------
+
+A
+
+\secc Dropout layers
+%------------------
+
+A
+
+\sec Open Street Map neighborhood vector model 
+%===================
+
+A
+
+\sec Street View images model 
+%===================
+
+A
+
+\secc Model architecture
+%------------------
+
+I
+
+\seccc Base model
+%------------------
+
+I
+
+\seccc Custom top model
+%------------------
+
+I
+
+\seccc The final architecture
+%------------------
+
+I
+
+\sec Mixed model 
+%===================
+
+A
+
+\sec Data Augmentation 
+%===================
+
+A
+
+\sec Model Training 
+%===================
+
+A
+
+\secc Dataset split into validation and training data 
+%------------------
+
+A
+
+\secc Training setting 
+%------------------
+
+A
+
+\secc Specific setting for models using images 
+%------------------
+
+A
+
+\secc Feature cooking 
+%------------------
+
+A
+
+\sec Model evaluation 
+%===================
+
+A
+
+\secc K-fold cross validation 
+%------------------
+
+A
+
+\sec Frameworks and projects 
+%===================
+
+A
+
+\secc Keras
+%------------------
+
+A
+
+\secc Metacentrum project
+%------------------
+
+A
+
+\chap The Implementation
+%===============================
+
+
+\sec Project overview 
+%===================
+
+A
+
+\sec Experiment running 
+%===================
+
+A
+
+\sec Downloader functionality 
+%===================
+
+A
+
+\sec OSM Marker 
+%===================
+
+A
+
+\sec Datasets and DatasetHandler 
+%===================
+
+A
+
+\secc Dataset statistics
+%------------------
+
+C
+
+\secc DatasetHandler structure
+%------------------
+
+D
+
+\sec Models and ModelHandler 
+%===================
+
+A
+
+
+\secc Model description in Keras
+%------------------
+
+C
+
+\secc ModelHandler structure
+%------------------
+
+D
+
+\sec Settings structure 
+%===================
+
+A
+
+\sec Training 
+%===================
+
+A
+
+\sec Testing 
+%===================
+
+A
+
+\sec Reporting and folder structure 
+%===================
+
+A
+
+\sec Metacentrum scripting 
+%===================
+
+A
+
+\chap Results
+%===============================
+
+C
+
+\chap Discussion
+%===============================
+
+B
+
+\chap Conclusions
+%===============================
+
+V
+
+
+
 
 \bye

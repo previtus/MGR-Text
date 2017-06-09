@@ -1,22 +1,76 @@
 %% OPmac - REF file (\inputref)
 \Xrefversion{2}
+\Xpage{-1}
+\Xpage{-2}
+\Xpage{-3}
+\Xpage{-4}
+\Xpage{-5}
+\Xpage{-6}
 \Xpage{1}
+\Xpage{2}
 \Xpage{3}
+\Xtoc{0}{\bfshape }{1}{Introduction }{3}
 \Xpage{4}
+\Xtoc{0}{\bfshape }{2}{Research }{4}
+\Xtoc{1}{\rm }{2.1}{Planning }{4}
+\Xtoc{2}{\rm }{2.1.1}{Data collection }{4}
+\Xtoc{1}{\rm }{2.2}{History of Convolutional Neural Networks }{4}
+\Xtoc{2}{\rm }{2.2.1}{ImageNet dataset }{4}
+\Xtoc{2}{\rm }{2.2.2}{ImageNet Large Scale Visual Recognition Competition (ILSVRC) }{4}
+\Xtoc{2}{\rm }{2.2.3}{Feature transfer }{4}
+\Xtoc{2}{\rm }{2.2.4}{Common structures }{4}
 \Xpage{5}
-\Xtoc{1}{\rm }{1}{Current Situation of the Studied Problem }{5}
-\Xtoc{1}{\rm }{2}{Aims of the Doctoral Thesis }{5}
-\Xtoc{1}{\rm }{3}{Working Methods }{5}
+\Xtoc{0}{\bfshape }{3}{The Task }{5}
+\Xtoc{1}{\rm }{3.1}{Route planning for bicycles }{5}
+\Xtoc{1}{\rm }{3.2}{Available data and collection }{5}
+\Xtoc{2}{\rm }{3.2.1}{Initial dataset }{5}
+\Xtoc{2}{\rm }{3.2.2}{Street View }{5}
+\Xtoc{2}{\rm }{3.2.3}{Neighborhood in Open Street Map data }{5}
 \Xpage{6}
-\Xtoc{2}{\rm }{3.1}{First Variant }{6}
-\Xtoc{2}{\rm }{3.2}{Second Variant }{6}
-\Xtoc{1}{\rm }{4}{Results }{6}
-\Xtab{curious_result}{1}{The Magic Numbers}
-\Xlabel{curious_result}{1}
-\Xtoc{1}{\rm }{5}{Conclusion }{6}
-\Xtoc{1}{\rm }{!2}{References used in the thesis statement }{6}
+\Xtoc{0}{\bfshape }{4}{The Method }{6}
+\Xtoc{1}{\rm }{4.1}{Building blocks }{6}
+\Xtoc{2}{\rm }{4.1.1}{Model abstraction }{6}
+\Xtoc{2}{\rm }{4.1.2}{Fully-connected layers }{6}
+\Xtoc{2}{\rm }{4.1.3}{Convolutional layers }{6}
+\Xtoc{2}{\rm }{4.1.4}{Pooling layers }{6}
+\Xtoc{2}{\rm }{4.1.5}{Dropout layers }{6}
+\Xtoc{1}{\rm }{4.2}{Open Street Map neighborhood vector model }{6}
+\Xtoc{1}{\rm }{4.3}{Street View images model }{6}
+\Xtoc{2}{\rm }{4.3.1}{Model architecture }{6}
 \Xpage{7}
-\Xtoc{1}{\rm }{!3}{List of candidate's works relating to the doctoral thesis }{7}
-\Xtoc{1}{\rm }{!4}{Response / No response and reviews }{7}
-\Xtoc{1}{\rm }{!5}{Summary }{7}
-\Xtoc{1}{\rm }{!6}{Resumé }{7}
+\Xtoc{1}{\rm }{4.4}{Mixed model }{7}
+\Xtoc{1}{\rm }{4.5}{Data Augmentation }{7}
+\Xtoc{1}{\rm }{4.6}{Model Training }{7}
+\Xtoc{2}{\rm }{4.6.1}{Dataset split into validation and training data }{7}
+\Xtoc{2}{\rm }{4.6.2}{Training setting }{7}
+\Xtoc{2}{\rm }{4.6.3}{Specific setting for models using images }{7}
+\Xtoc{2}{\rm }{4.6.4}{Feature cooking }{7}
+\Xtoc{1}{\rm }{4.7}{Model evaluation }{7}
+\Xtoc{2}{\rm }{4.7.1}{K-fold cross validation }{7}
+\Xtoc{1}{\rm }{4.8}{Frameworks and projects }{7}
+\Xtoc{2}{\rm }{4.8.1}{Keras }{7}
+\Xtoc{2}{\rm }{4.8.2}{Metacentrum project }{7}
+\Xpage{8}
+\Xtoc{0}{\bfshape }{5}{The Implementation }{8}
+\Xtoc{1}{\rm }{5.1}{Project overview }{8}
+\Xtoc{1}{\rm }{5.2}{Experiment running }{8}
+\Xtoc{1}{\rm }{5.3}{Downloader functionality }{8}
+\Xtoc{1}{\rm }{5.4}{OSM Marker }{8}
+\Xtoc{1}{\rm }{5.5}{Datasets and DatasetHandler }{8}
+\Xtoc{2}{\rm }{5.5.1}{Dataset statistics }{8}
+\Xtoc{2}{\rm }{5.5.2}{DatasetHandler structure }{8}
+\Xtoc{1}{\rm }{5.6}{Models and ModelHandler }{8}
+\Xtoc{2}{\rm }{5.6.1}{Model description in Keras }{8}
+\Xtoc{2}{\rm }{5.6.2}{ModelHandler structure }{8}
+\Xtoc{1}{\rm }{5.7}{Settings structure }{8}
+\Xpage{9}
+\Xtoc{1}{\rm }{5.8}{Training }{9}
+\Xtoc{1}{\rm }{5.9}{Testing }{9}
+\Xtoc{1}{\rm }{5.10}{Reporting and folder structure }{9}
+\Xtoc{1}{\rm }{5.11}{Metacentrum scripting }{9}
+\Xpage{10}
+\Xtoc{0}{\bfshape }{6}{Results }{10}
+\Xpage{11}
+\Xtoc{0}{\bfshape }{7}{Discussion }{11}
+\Xpage{12}
+\Xtoc{0}{\bfshape }{8}{Conclusions }{12}
