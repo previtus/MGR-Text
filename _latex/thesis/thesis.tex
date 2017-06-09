@@ -1,6 +1,8 @@
 % From plainTeX template CTUStyle
 % Run:  pdfcsplain your-file
 
+\input eplain
+
 \input ctustyle
 %\input pdfuni    % Uncomment this if you need accented PDFoutlines
 %\input opmac-bib % Uncomment this for direct reading of .bib database files 
@@ -12,7 +14,7 @@
 \faculty {F3}
 \department {Department of Computer Science}
 \title {Estimating Bicycle Route Attractivity from Image Data}
-\titleCZ {cz Estimating Bicycle Route Attractivity from Image Data}
+\titleCZ {Odhadování atraktivity cyklistických tras z obrazových dat}
 \author {Vít Růžička}
 \authorinfo {ruzicvi3@fel.cvut.cz}
 \date {July 2017} 
@@ -36,23 +38,57 @@ tract
 }
 
 \keywordsEN {
-	a
+	deep convolutional neural networks, feature transfer, machine learning, computer vision
 }
 \keywordsCZ {
 	b
 \hfil\break
 }
 
-\thanks{I}
+\thanks{I would like to thank ...}
 
 \def \dnes {\number\day. \ifcase\month\or ledna\or \'unora\or
    b\v rezna\or dubna\or kv\v etna\or \v cervna\or \v cervence\or
    srpna\or z\'a\v r\'i\or \v r\'ijna\or listopadu\or
    prosince\fi \space\number\year
 }
+
 \declaration {
-  de
+  I declare that I worked out the presented thesis independently
+  and I quoted all used sources of information in accord with
+  Methodical instructions about ethical principles for writing
+  academic thesis.
+
+   \signature % makes dots
+
+  Vít Růžička
+
+  \hfil\break 
+  \indent Prague, \today
+
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+ \hfil\break
+  \indent Prohlašuji, že jsem předloženou práci vypracoval samostatně,
+  a~že jsem uvedl veškeré použité informační zdroje v~souladu
+  s~Metodickým pokynem o~dodržování etických principů při přípravě
+  vysokoškolských závěrečných prací.
+
+   \signature % makes dots
+
+  Vít Růžička
+
+  \hfil\break 
+  \indent V Praze, \dnes %2. května, 2014 
 }
+
 
 %%%%% <--   % The place for your own macros is here.
 
