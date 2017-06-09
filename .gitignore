@@ -1,3 +1,7 @@
+## Added
+*.ref
+*.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
