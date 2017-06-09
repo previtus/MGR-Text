@@ -1,0 +1,628 @@
+% !TEX root = ../thesis.tex
+\chap Introduction
+%==============================================================
+
+Introduction, which chapter contains what.
+
+\chap Research
+%==============================================================
+
+\sec Planning
+%===================
+
+
+There are many applications for the task to search for the shortest route on graph representation of map. We can abstract many real world scenario problems into this representation and then use many already existing algorithms commonly used for this class of tasks.
+
+\midinsert
+\clabel[1_abstracted_map]{General evolutionary algorithm}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Description.
+\endinsert
+
+We have a set of nodes N, which can be understood as places on map and edges E, which are the possible paths from one node to another, In order to have measurement of quality of traveling between two nodes, we also need a cost function. This cost function will assign a positive value c $\in$ \realnumbers + to each edge. Typically we are facing the task of finding the shortest path, in which we are minimizing the aggregated cost. See illustration of Figure \ref[1_abstracted_map].
+
+In real life scenario, road segments exhibit many different parameters which influence how fast we can traverse them. More or less objective criteria such as surface material, size of the road, time of the day, or criteria which depends solely on the preference of driver. What is the surrounding environment, what is the comfort level of the road. 
+
+This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see [hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in realistic time. We can expect such task on hand-held devices of car gps.
+
+\secc Data collection
+%------------------
+
+Cost function can be very simple, but in order that it works on real life scenarios, we usually need more complicated one with lots of data recorded. Estimation of how much “cost” we associate with one street (represented by edge e $\in$ E connecting two crossroads represented by nodes) should reflect how much time we spend in crossing it.
+
+In case of planning for cars we generally just want to get across as fast as possible, or to cover minimizing distance. When the user is driving a bicycle, more factors become relevant. We need to know the quality of terrain, steepness of the road, amount of traffic in the area and overall pleasantness of the road. In many cases the bikers will not follow the strictly shortest path, choosing their own criteria, such as for example stopping for a rest in a park.
+
+Some of these these criteria are measurable and objectively visible in the real world. For these we need to have highly detailed data available with parameters such as the quality of road and others. Other criteria are based on subjective, personal preference of some routes over other and for these we might need a long period of traces recording which routes have users selected in past. For example the work of [Navigation made personal] makes heavy use of user recorded traces.
+
+See [Practical Multicrit.] and [Figure F2] for examples of types of measurements we would likely need to estimate cost of each edge considering the slowdown effect of these features.
+
+\midinsert
+\clabel[2_slowdown_features]{General evolutionary algorithm}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Example of the categories of highly detailed data we would require for multi-criteria cost function formulation as presented by [Practical Multicrit.]. List of features contributing to a slowdown effect on route segment.
+\endinsert
+
+In any case highly qualitative, detailed and annotated dataset is required to begin with and a carefully fitted cost function which would take all these parameters into weighted account is also needed. Large companies are usually protective of their proprietary formulas of evaluating costs for route planners. For example [Navigation made personal] makes use of the road network data of Bing Maps with many parameters related to categories such as speed, delay on segment and turning to another street, however the exact representation remains unpublished.
+
+As we will touch upon this topic in later chapters, its useful to realize that this highly qualitative dataset is not always available. We would like to carry information we can infer from small annotated dataset into different areas, where we lack detailed measurements. (We are using visual information of Google Street View images, which is more readily available in certain areas than the highly qualitative dataset.)=if its now somewhere else already
+
+\sec History of Convolutional Neural Networks 
+%===================
+
+Initial idea to use Convolutional Neural Networks (CNNs) as model was introduced in [x] by LeCun with his LeNet network design trained on the task of handwritten digits recognition.
+
+In this section we try to trace the important steps in the field of Computer Vision which lead to the widespread use of CNNs in current state of the art research.
+
+\secc ImageNet dataset
+%------------------
+
+Computer Vision research has experienced a great boost in the work of [deng2009imagenet] in the form of image database ImageNet. ImageNet contains full resolution images built into the hierarchical structure of WordNet, database of synsets, “synonym sets” linked into a hierarchy.
+
+WordNet is often used as a resource in the tasks of natural language processing, such as word sense disambiguation, spellcheck and other. ImageNet is a project which tries to populate the entries of WordNet with imagery representation of given synset with accurate and diverse enough images illustrating the object in various poses, viewing points and with changing occlusion.
+
+As the work suggests, with internet and social media, the available data is plenty, but qualitative annotation is not, which is why such hierarchical dataset like ImageNet is needed. The argument for choosing WordNet is that the resulting structure of ImageNet is more diverse than any other related database. The goal is to populate the whole structure of WordNet with 500-1000 high quality images per synset, which would roughly total to 50 million images. Even till today, the ImageNet project is not yet finished, however many following articles already take advantage of this database with great benefits.
+
+Effectively ImageNet became the huge qualitative dataset which was needed to properly teach large CNN models.
+
+\secc ImageNet Large Scale Visual Recognition Competition (ILSVRC)
+%------------------
+
+The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) [Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure of cucumbers [webpage of google blog post].
+
+\seccc{AlexNet, CNN using huge datasets}1
+%------------------
+
+The task of object recognition has been waiting for larger databases with high quality of annotation to move from easier tasks done in relatively controlled environment, such as the MNIST task. In the work of [krizhevsky2012imagenet] the ImageNet database was used to teach a Deep Convolutional Neural Network (CNN) in a model later referred to as AlexNet. At the time this method has achieved more than 10% improvement over its competitors in an ILSVRC 2012 competition.
+
+Given hardware limitations and limited time available for learning, this work made use of only subsets of the ImageNet database used in ILSVRC-2010 and ILSVRC-2012 competition. Choice of CNN as a machine learning model has been made with the reasoning that it behaves almost as well as fully connected neural networks, but the amount of parameters of connections is much smaller and the learning is then more efficient.
+
+For the competition an architecture of five convolutional and three fully-connected layers composed of Rectified Linear Units (ReLUs) as neuron models was used. Other alterations on the CNN architecture were also employed to combat overfitting, to fine-tune and increase score and reflect the limitations of hardware. Output of last fully-connected layer feeds to a softmax layer which produces a distribution over 1000 classes as a result of CNN.
+
+The stochastic gradient descent was used for training the model for roughly 90 cycles through training set composed of 1.2 million of images, which took five to six days to train on two NVIDIA GTX 580 3GB GPUs.
+
+\seccc{VGG16, VGG19, going deeper}2
+%------------------
+
+Following the successful use of CNNs in ILSVRC2012, the submissions of following years tried to tweak the parameters of CNN architecture. Approach chosen by [VGG16] stands out because of its success. It focused on increasing the depth of CNN while altering the structure of network.  In their convolutional layers they chose to use very small convolution filter (with 3x3 receptive field), which leads to large decrease of amount of parameters generated by each layer.
+
+This allowed them to build much deeper architectures and acquire second place in the classification task and first place in localization task of ILSVRC 2014.
+
+\seccc{ResNet, recurrent connections and residual learning}3
+%------------------
+
+The work of [ResNet] introduced a new framework of deep residual learning which allowed them to go even deeper with their CNN models. They encountered the problem of degradation, where accuracy was in fact decreasing with deeper networks. This issue is not caused by overfitting as the error was increased both in the training and validation dataset.
+
+Alternative architecture of model, where a identity shortcut  connection was introduced between building blocks of the model, allowing it to combat this degradation issue and in fact gain better results with increasing CNN depth.
+
+Their model ResNet 152 using 152 layers achieved a first place in the classification task of ILSVRC 2015.
+
+\seccc{Ensemble models}4
+%------------------
+
+The state of the art models as of ILSVRC 2016 made use of the ensemble approach. Multiple models are used for the task and final ensemble model weights their contribution into an aggregated score.
+
+The widespread of using the ensemble technique reflects the democratization and emergence of more platforms and public cloud computing solutions giving more processing power to the competing teams of ILSVRC.
+
+\secc Feature transfer
+%------------------
+
+The success of large CNNs with many parameters trained on large datasets like ImageNet has not only been positive, it also poses a question – will we always need huge datasets like ImageNet to properly teach CNN models? ImageNet has millions of annotated images and it has been gradually growing over time.
+
+Article [Oqutab2014] talks about this issue and proposes a strategy called feature transfer or model finetuning, which composes of using CNN models trained at one task to be retrained to a different task.
+
+They offer a solution, where similar architecture of CNNs can be taught upon one task and then several of its layers can be reused, effectively transferring the mid-level feature representations to different tasks.
+
+This can be used, when the source task has a rich annotated dataset available (for example ImageNet), whereas the target one doesn’t. When talking about two tasks, the source and target classes might differ, when for example the labeling is different. Furthermore the whole domain of class labels can be also different – for example two datasets of images, where first mostly exhibits single objects and the second one rather contains more objects composed into scenes. This issue is referred to as a “dataset capture bias”.
+
+The issue of different class labels is combated by adding two new adaptation layers which are retrained on the new set of classes. The problems of different positions and distributions of objects in image is addressed by employing a strategy of sliding window decomposition of the original image, continuing with sensible subsamples and finally having the result classifying all objects in the source image separately.
+
+The article also works with a special target dataset Pascal VOC 2012 containing difficult class categories of activities described like “taking photos” or “playing instrument”. In this case the source dataset of ImageNet doesn’t contain labels which could overlap with these activities, yet the result of this “action recognition” task achieves best average precision on this dataset.
+
+This article gives us hope, that we can similarly transfer layers of Deep CNN trained on the ImageNet visual recognition source task to a different target task of Google Street View imagery analysis for cost estimation over each edge segment.
+
+Articles being submitted to the ILSVRC competition often include a section dedicated on using their designed models on different tasks then what they were trained upon. Effectively they should the models suitability for feature transfering.
+
+
+\midinsert
+\clabel[3_feature_transfer]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
+\endinsert
+
+
+\secc Common structures
+%------------------
+
+When designing the architecture of custom CNN model, we are using certain layers and building block schemes established as common practice in the ILSVRC competition. For a new unresearched task it has been suggested (by lecturers and online sources such as [website of the class]) to stick to an established way of designing the overall architecture.
+
+\midinsert
+\clabel[4_structure]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Structure.
+\endinsert
+
+Refer to Figure 4. For illustration of this recommended architecture. Naturally for custom tasks this architecture is later adapted and tweaked to serve well in its specific situation. We will return to this suggested architecture scheme when building our own custom CNN models in [4.1. Building Blocks].
+
+\chap The Task
+%==============================================================
+
+\sec Route planning for bicycles 
+%===================
+
+The task we are faced with consists of planning a route for bicycle on a map of nodes and edges. We are designing an evaluation method, which will give each edge segment appropriate cost. In such a way we are building one part of route planner, which will use our model for cost evaluation and fit into a larger scheme mentioned in [2.1. Planning].
+
+As has been stated in [2.1.1. Data collection] a cost function can be an explicitly defined formula depending on many measured variables. Similar formula has been used by the ATG research group, which produced a partially annotated section of map with scores of bike attractivity. We want to enrich this dataset with additional visual information from Google Street View and with vector data of Open Street Map.
+
+We want to train a model on the small annotated map segment and later use it in areas where such detailed information is not available. We argue that Google Street View and Open Street Map data are more readily obtainable, than supply of highly qualitative measurements.
+
+\sec Available data and collection 
+%===================
+
+\secc Initial dataset
+%------------------
+
+We are given a dataset from the ATG research group of nodes and edges with score ranking ranging from 0 to 1. Score of 0 denotes, that in simulation this route segment was not used and value 1 means that it was a highly attractive road to take.
+
+Each node in supplied with longitude, latitude location, which gives us the option to enrich them with additional real world information. Figure 5. shows the structure of initial data source.
+	
+\midinsert
+\clabel[5_yet_to_do]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f 5 yet to do.
+\endinsert
+
+\secc Street View
+%------------------
+
+As each edge segment connecting two nodes is representing a real world street connecting two crossroads, we can get additional information from the location. We can download one or more images alongside the road and associate it with the edge and it’s score from the initial dataset.
+
+We are using a Google Street View API which allows us to generate links of images at specific locations and facing specific ways.
+
+\seccc{Downloading Street View images}1
+%------------------
+
+Google Street View API uses the parameters of location which is the latitude and longitude and heading, which is the deviation angle from the North Pole in degrees. See Figure 6. In calculation of heading we are making a simplification of Earth being spherical using formula for initial bearing [formula 1].
+
+Formula 1.
+
+\midinsert
+\clabel[6_google_api]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f url and api
+\endinsert
+
+In order to make good use of the location and collect enough data, we decided to break down longer edges into smaller segments maintaining the minimal edge size fixed. We also select both of the starting and ending locations of each segment. In each position we also rotate around the spot.
+
+We collect total of 6 images from each segment, 3 in each of its corners while rotating 120° degrees around the spot. This allows us to get enough distinct images from each location and we don’t overlap with neighboring edges. See the illustration in Figure 7. Note that all of these images will correspond to one edge and thus to one shared score value.
+
+Also note that we are limited to downloading images of maximal size 640x640 pixels as per the limitation of free use of Google Street View API.
+
+\midinsert
+\clabel[7_edge_breakdown]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f edge and breakdown
+\endinsert
+
+\seccc{Data augmentation introduction}2
+%------------------
+
+In CNNs we often use the method of data augmentation to extend datasets by simple image transformations to overcome limitations of small datasets. We can generate crops of the original images, flip and rotate them or alter their colors.
+
+We will return to the issue of dataset augmentation in [4.5. Data Augmentation]
+
+\secc Neighborhood in Open Street Map data
+%------------------
+
+We are looking for another source of information about an edge segment in the neighborhood surrounding its location in Open Street Map data.
+
+Open Street Map data is structured as vector objects placed with location parameters and large array of attributes and values. We can encounter point objects, line objects and polygon objects, which represent points of interest, streets and roads, building, parks and other landmarks.
+
+\midinsert
+\clabel[8_ex_params]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Example of structure of OSM data with parameters
+\endinsert
+
+From implementation standpoint, we have downloaded the OSM data covering map of our location and loaded it into a PostgreSQL database. In this way we can send queries for lists of objects in the vicinity of queried location. We will get into more detail about implementation in [5.4. OSM Marker].
+
+\seccc{OSM neighborhood vector}1
+%------------------
+
+The structure of OSM data consists of geometrical objects with attributes describing their properties. In the PostgreSQL database each row represents object and attributes are kept as table columns.
+
+Depending on the object type, different attributes will have sensible values while the rest will be empty. For better understanding consult table T. with examples of attributes and their values and table L. for examples of objects in OSM dataset.
+
+[Table T.]
+
+[Table L.]
+
+For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
+
+Out of these pairs, we can build a vector of their occurrences. The only remaining issue is to determine which attribute-value pairs we select into our vector. If we used every pair possible, the vector would be rather large and more importantly mostly filled with zeros.
+
+In order to select which pairs are important, we chose to look at OSM data statistics available at webpage taginfo.openstreetmap.org. From an ordered list of most commonly used attribute-value pairs, we have selected relevant pairs and generated our own list of pairs which we consider important.
+
+Then for each distinct location of edge segment, we look into its neighborhood and count the number of occurrences of each pair from the list.
+
+\midinsert
+\clabel[9_ex_loc]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure D. / examples of locations
+\endinsert
+
+\midinsert
+\clabel[10_vec_count]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure E. / OSM vector counting
+\endinsert
+
+Each distinct location of each edge will end up with same sized OSM vector marking their neighborhood. Note that due to the method of downloading multiple images per one edge, for example by using the same location and rotating around the spot, some of these will have the same OSM vectors.
+	
+Figure F. / some same data in dataset because of how we generate images
+
+One further undivided edge segment contains 6 images which share the same score, and some of which will share location and therefore also their OSM vectors. For illustration see Figure F.
+
+\seccc{Radius choice}2
+%------------------
+
+Depending on the radius we choose different area will be considered as neighborhood. If we were to choose too small radius, the occurrences would mostly result in zero OSM vector. On the other hand selecting too high radius would lead many OSM vectors to be indistinguishable from each other as they would share the exact same values.
+
+Our final choice for radius was value of 100 meters, which was empirically tested in [6. Results].
+
+\seccc{Data transformation}3
+%------------------
+
+Similar to the spirit of data augmentation for images, we can try editing the OSM vectors in order that they will be more easily used by CNN models.
+
+Instead of raw data of occurrences, we can convert this information into one-hot categorical representations or reduce them into Boolean values. Multiple readings of varying radius size can also be used for better insight of the neighborhood area.
+
+See more about data augmentation in [4.5. Data Augmentation].
+
+\chap The Method
+%==============================================================
+
+Our method will rely upon using Convolutional Neural Networks (CNNs) mentioned in [2.2. History of Convolutional Neural Networks] on an annotated dataset described in [3. The Task]. As we have enriched our original dataset with multiple types of data, particularly imagery Street View data and the neighborhood vectors, we have an option to build more or less sophisticated models, depending on which data will they be using. We can build a model which uses only relatively simple OSM data, or big dataset of images, or finally the combination of both.
+
+Depending on which data we choose to use, different model architecture will be selected. Furthermore we can slightly modify each of these models to tweak its performance.
+
+\sec Building blocks 
+%===================
+
+Regardless of the model type or purpose, there are certain construction blocks, which are repeated in the architecture used by most CNN models.
+
+\secc Model abstraction
+%------------------
+
+When building a CNN model, we can observe an abstracted view of such model in terms of its design. Whereas at the input side of the model we want to extract general features from the dataset, at the output side we stride for a clear classification of the image.
+
+\midinsert
+\clabel[11_extractor_class]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure G. / feature extractor + classification
+\endinsert
+
+Each of these segments will require different sets of building blocks and will prioritize different behavior. Good model design will lead to generalization of concrete task-specific data into general features, which will then be again converted into concrete categories or scores. The deeper the generic abstraction is, the better the model behavior in terms of overfitting will be.
+
+Classification segment transforms the internal feature representation back into the realm of concrete data related to our task. In our tasks we are interested in score in range from 0 to 1 as illustrated by Figure H.
+
+\midinsert
+\clabel[12_sigmoid_output]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure H. / output = sigmoid(dot(input,weights)+bias)
+\endinsert
+
+\secc Fully-connected layers
+%------------------
+
+The fully-connected layer denoted as “Dense” in Keras stands for a structure of neurons connected with every input and output by weighed connections. In Neural Networks these are named as hidden layers.
+
+\midinsert
+\clabel[13_fc]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure CH. / input hidden layer output, width / Shows the model of connections of neurons in fully-connected layer.
+\endinsert
+
+The fully-connected layer suffers from a large amount of parameters it generates – weights in each connection between neurons and biases in individual neuron units. Fully-connected layers are usually present in the classification section of the model.
+
+\secc Convolutional layers
+%------------------
+
+Convolutional layers are trying to circumvent the large amount of parameters of fully-connected layers by localized connectivity. Each neuron looks only at certain area of the previous layer.
+
+\midinsert
+\clabel[14_conv]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure I. / 2d 1d examples of convolutional layer connectivity
+\endinsert
+
+For their property to use considerably less parameters while at the same time to focus on features present in particular sections of image, they are often used as the main workforce in the feature extractor section of CNN models.
+
+\secc Pooling layers
+%------------------
+
+Pooling layers are put in between convolutional layers in order to decrease the size of data effectively by downsampling the volume. This forces the model to reduce its number of parameters and to generalize better over the data. Pooling layers can apply different functions while they are downsamplig the data – max, average, or some other type of normalization function.
+
+\midinsert
+\clabel[15_pool]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure J. pooling layer img
+\endinsert
+
+\secc Dropout layers
+%------------------
+
+Dropout layer is special layer suggested by [srivastava14a] which has since been widely used on the design of CNN architectures as a tool to prevent model overfitting.
+
+The dropout layer placed between two fully-connected layers functions randomly drops connections between neurons with certain probability during the training period. Instead of fully-connected network of connections we are left with a thinned network with only some of the connections remaining. This thinned networks is used during training and prevents neurons to rely too much on co-adaptation. They are instead forced to develop more ways to fit the data as there is the effect of connection dropping. During test evaluation, the full model is used with its weights changed by the probability of dropout probability.
+
+\midinsert
+\clabel[16_drop]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure K. dropout img
+\endinsert
+	
+\sec Open Street Map neighborhood vector model 
+%===================
+
+In this version of model, we broke down edge segments formerly representing streets in real world into regularly sized sections each containing two locations of its beginning and ending location. These locations were enriched with OSM neighborhood vectors in [3.2.3. Neighborhood in Open Street Map data].
+	
+\midinsert
+\clabel[17_one_edge_to_many_loc]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure L. / one edge to many to only locations + each distinct location attr=val table
+\endinsert
+
+Single unit of data is therefore a neighborhood vector linked to each distinct location of the original dataset. We have designed a model which takes these vectors as inputs and scores as outputs.
+
+The OSM vector model is built from repeated building blocks of fully-connected layer followed by dropout layer. Fully connected layer of width 1 with sigmoid activation function is used as the final classification segment. Figure N. shows the model alongside its dimensions.
+
+\midinsert
+\clabel[18_osm_model]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure N. / osm\_only model
+\endinsert
+
+\sec Street View images model 
+%===================
+
+Each edge segment is represented by multiple images captured via the Street View API. Images generated from the same edge segment will share the same score label, however the individual images will differ. We can understand one image-score pair as a single unit of data.
+
+The image data can be augmented in order to achieve richer dataset, see [4.5. Data Augmentation].
+
+As discussed in [2.2. History of Convolutional Neural Networks] we are using a CNN model which has been trained on ImageNet dataset. We reuse parts of the original model keeping its weights and attach a new custom classification segment architecture at the top of the model.
+
+We can generally divide even the more complicated CNN models into two abstract segments as mentioned in [4.1.1. Model abstraction]. The beginning of the model, which usually comprises of repeated structure of convolutional layers, followed by a classification section usually made of fully-connected layers.
+
+The former works in extracting high dimensional features of incoming imagery data, whereas the classification section translates those features into a probability distribution over categories or score. In our case we are considering a regression problem model, which works with score instead of categories.
+
+As was mentioned in [2.2.3. Feature transfer] we reuse the model trained on large dataset of ImageNet, separate it from its classificatory and instead provide our own custom made top model. See Figure O.
+
+\midinsert
+\clabel[19_base_top]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure O. / base model cut out of its own classifier
+\endinsert
+
+We prevent the layers of base model from changing their weights and train only the newly attached top model for the new task. There are certain specifics connected with this approach which we will explore in [4.6.3. Specific setting for models using images] section.
+
+\secc Model architecture
+%------------------
+
+The final model architecture is determined by two major choices: which CNN to choose as its base model and how to design the custom top model so it’s able to transfer the base models features to our task.
+
+\seccc{Base model}1
+%------------------
+
+The framework we are working with, Keras, allows us to simply load many of the successful CNN models and by empirical experiments asses, which one is best suited for our task. More about Keras in the appropriate section [4.8.1. Keras].
+
+The output of what remains of the base CNN model is data in feature space. The dimension will vary depending on the type of model we choose, the size of images we feed the base models and also the depth in which we chose to cut the base CNN model.
+
+The remains of base CNN model are followed by a Flatten layer which converts the possibly multidimensional feature data into a one dimensional vector, which we can feed into the custom top model.
+
+\midinsert
+\clabel[20_diff_in_diff_out]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure P. / Example of differently sized images on the input and resulting feature vector size.
+\endinsert
+
+\seccc{Custom top model}2
+%------------------
+
+We feed the feature vector into a custom model built of repeated blocks of fully-connected neuron layers interlaced with dropout layers. The number of neurons used in each of the layers influences the so called model “width” and the number of used layers influences the model “depth”. Both of these attributes influence the amount of parameters of our model. We can try various combinations of these parameters to explore the models optimal shape.
+
+The final layer of the classification section consists of fully-connected layer of width 1 with sigmoid activation function which weighs in all neurons of the previous layer. See Figure Q. Note that in the final model we chose to interlace individual fully-connected layers with dropout layers.
+
+\midinsert
+\clabel[21_custom_top]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure Q. / feature input - first hidden - ... - output score, custom top model
+\endinsert
+
+\seccc{The final architecture}3
+%------------------
+
+The final architecture composes of base CNN model with its weights trained on the ImageNet dataset and of custom classification top model trained to fit the base model for our task.
+
+\midinsert
+\clabel[22_img_model]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure R. / architecture of img model
+\endinsert
+
+\sec Mixed model 
+%===================
+
+After discussing the architecture of two models making only a partial use of the data collected in our dataset, we would like to propose a model combining the two previous ones.
+
+In this case one segment again generates multiple images, which share the same score and depending on how they are created they could also share the same neighborhood OSM vector representing the occurrences of interesting structures in its proximity. Different edges will generate not only different images, but also different scores and OSM vectors.
+
+As a single unit of data we can consider the triplet of image, OSM vector and score. It’s useful to note that later in designing the evaluation method of models, we should take into account, that the neighborhood vector and score can be repeated across data. When splitting the dataset into training and validation sets, we should be careful and place images from one edge into only one of these sets. Otherwise data with distinct images, but possibly the same neighborhood vector and score could end up in both of these sets. Figure S. illustrates how single data units are generated from one edge.
+
+\midinsert
+\clabel[23_single_data_unit_for_mix]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure S. / Example of possible decomposition of original edge into rows of data accepted by the mixed model.
+\endinsert
+
+We can join the architectures designed in previous steps, or we can design a new model. We chose to join the models in their classification segment. We propose a basic idea for a simple model architecture, which concatenates feature vectors obtained in previous models and follows with structure of repeated fully-connected layers with dropout layers in between. Concatenation joins the two differently sized one dimensional vectors into one. As is observable on Figure T. we use several parameters to describe the models width and depth.
+
+\midinsert
+\clabel[24_mix_model]{Brekeke}
+\picw=13cm \cinspic figures/nullfig.pdf 
+\caption/f Figure T. / final architecture of mixed model
+\endinsert
+
+
+\sec Data Augmentation 
+%===================
+
+A
+
+\sec Model Training 
+%===================
+
+A
+
+\secc Dataset split into validation and training data 
+%------------------
+
+A
+
+\secc Training setting 
+%------------------
+
+A
+
+\secc Specific setting for models using images 
+%------------------
+
+A
+
+\secc Feature cooking 
+%------------------
+
+A
+
+\sec Model evaluation 
+%===================
+
+A
+
+\secc K-fold cross validation 
+%------------------
+
+A
+
+\sec Frameworks and projects 
+%===================
+
+A
+
+\secc Keras
+%------------------
+
+A
+
+\secc Metacentrum project
+%------------------
+
+A
+
+\chap The Implementation
+%==============================================================
+
+
+\sec Project overview 
+%===================
+
+A
+
+\sec Experiment running 
+%===================
+
+A
+
+\sec Downloader functionality 
+%===================
+
+A
+
+\sec OSM Marker 
+%===================
+
+A
+
+\sec Datasets and DatasetHandler 
+%===================
+
+A
+
+\secc Dataset statistics
+%------------------
+
+C
+
+\secc DatasetHandler structure
+%------------------
+
+D
+
+\sec Models and ModelHandler 
+%===================
+
+A
+
+
+\secc Model description in Keras
+%------------------
+
+C
+
+\secc ModelHandler structure
+%------------------
+
+D
+
+\sec Settings structure 
+%===================
+
+A
+
+\sec Training 
+%===================
+
+A
+
+\sec Testing 
+%===================
+
+A
+
+\sec Reporting and folder structure 
+%===================
+
+A
+
+\sec Metacentrum scripting 
+%===================
+
+A
+
+\chap Results
+%==============================================================
+
+C
+
+\chap Discussion
+%==============================================================
+
+B
+
+\chap Conclusions
+%==============================================================
+
+V
+
+\endinput
+%%
+%% End of file `ch00.tex'.
