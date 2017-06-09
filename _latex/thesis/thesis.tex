@@ -1,0 +1,417 @@
+% From plainTeX template CTUStyle
+% Run:  pdfcsplain your-file
+
+\input ctustyle
+%\input pdfuni    % Uncomment this if you need accented PDFoutlines
+%\input opmac-bib % Uncomment this for direct reading of .bib database files 
+
+%\shortcitations
+\sortcitations
+
+\worktype [M/EN]
+\faculty {F3}
+\department {Department of Computer Science}
+\title {Estimating Bicycle Route Attractivity from Image Data}
+\titleCZ {cz Estimating Bicycle Route Attractivity from Image Data}
+\author {Vít Růžička}
+\authorinfo {ruzicvi3@fel.cvut.cz}
+\date {July 2017} 
+\studyinfo {
+   Master Programme: Open Informatics\nl
+   Branch of Study: Computer Graphics and Interaction
+}
+
+\supervisor { % Supervisor including degrees, department and address
+  Ing. Jan Drchal, Ph.D.\nl
+  Department of Computer Science
+}
+
+\abstractEN {
+abs
+\hfil\break
+}
+\abstractCZ {
+tract
+\hfil\break
+}
+
+\keywordsEN {
+	a
+}
+\keywordsCZ {
+	b
+\hfil\break
+}
+
+\thanks{I}
+
+\def \dnes {\number\day. \ifcase\month\or ledna\or \'unora\or
+   b\v rezna\or dubna\or kv\v etna\or \v cervna\or \v cervence\or
+   srpna\or z\'a\v r\'i\or \v r\'ijna\or listopadu\or
+   prosince\fi \space\number\year
+}
+\declaration {
+  de
+}
+
+%%%%% <--   % The place for your own macros is here.
+
+\input mymacros
+
+%\draft     % Uncomment this if the version of your document is working only.
+%\linespacing=1.7  % uncomment this if you need more spaces between lines
+                   % Warning: this works only when \draft is activated!
+%\savetoner        % Turns off the lightBlue backround of tables and
+                   % verbatims, only for \draft version.
+%\blackwhite       % Use this if you need really Black+White thesis.
+%\onesideprinting  % Use this if you really don't use duplex printing. 
+
+\makefront
+%\nonum\notoc\sec Contents
+%\maketoc \outlines0
+
+% THESIS MAIN SECTION
+
+\chap Introduction
+%===============================
+
+A
+
+
+\chap Research
+%===============================
+
+B
+
+\sec Planning
+%===================
+
+Planning
+
+\secc Data collection
+%------------------
+
+Data collection
+
+
+\sec History of Convolutional Neural Networks 
+%===================
+
+History of Convolutional Neural Networks
+
+
+\secc ImageNet dataset
+%------------------
+
+Data collection
+
+\secc ImageNet Large Scale Visual Recognition Competition (ILSVRC)
+%------------------
+
+Data collection
+
+\seccc{AlexNet, CNN using huge datasets}1
+%------------------
+
+A
+
+\seccc{VGG16, VGG19, going deeper}2
+%------------------
+
+A
+
+\seccc{ResNet, recurrent connections and residual learning}3
+%------------------
+
+A
+
+\seccc{Ensemble models}4
+%------------------
+
+A
+
+\secc Feature transfer
+%------------------
+
+B
+
+\secc Common structures
+%------------------
+
+B
+
+\chap The Task
+%===============================
+
+\sec Route planning for bicycles 
+%===================
+
+A
+
+\sec Available data and collection 
+%===================
+
+\secc Initial dataset
+%------------------
+
+I
+
+\secc Street View
+%------------------
+
+I
+
+\seccc{Downloading Street View images}1
+%------------------
+
+I
+
+\seccc{Data augmentation introduction}2
+%------------------
+
+I
+
+\secc Neighborhood in Open Street Map data
+%------------------
+
+I
+
+\seccc{OSM neighborhood vector}1
+%------------------
+
+I
+
+\seccc{Radius choice}2
+%------------------
+
+I
+
+\seccc{Data transformation}3
+%------------------
+
+I
+
+\chap The Method
+%===============================
+
+M
+
+\sec Building blocks 
+%===================
+
+A
+
+\secc Model abstraction
+%------------------
+
+A
+
+\secc Fully-connected layers
+%------------------
+
+A
+
+\secc Convolutional layers
+%------------------
+
+A
+
+\secc Pooling layers
+%------------------
+
+A
+
+\secc Dropout layers
+%------------------
+
+A
+
+\sec Open Street Map neighborhood vector model 
+%===================
+
+A
+
+\sec Street View images model 
+%===================
+
+A
+
+\secc Model architecture
+%------------------
+
+I
+
+\seccc{Base model}1
+%------------------
+
+I
+
+\seccc{Custom top model}2
+%------------------
+
+I
+
+\seccc{The final architecture}3
+%------------------
+
+I
+
+\sec Mixed model 
+%===================
+
+A
+
+\sec Data Augmentation 
+%===================
+
+A
+
+\sec Model Training 
+%===================
+
+A
+
+\secc Dataset split into validation and training data 
+%------------------
+
+A
+
+\secc Training setting 
+%------------------
+
+A
+
+\secc Specific setting for models using images 
+%------------------
+
+A
+
+\secc Feature cooking 
+%------------------
+
+A
+
+\sec Model evaluation 
+%===================
+
+A
+
+\secc K-fold cross validation 
+%------------------
+
+A
+
+\sec Frameworks and projects 
+%===================
+
+A
+
+\secc Keras
+%------------------
+
+A
+
+\secc Metacentrum project
+%------------------
+
+A
+
+\chap The Implementation
+%===============================
+
+
+\sec Project overview 
+%===================
+
+A
+
+\sec Experiment running 
+%===================
+
+A
+
+\sec Downloader functionality 
+%===================
+
+A
+
+\sec OSM Marker 
+%===================
+
+A
+
+\sec Datasets and DatasetHandler 
+%===================
+
+A
+
+\secc Dataset statistics
+%------------------
+
+C
+
+\secc DatasetHandler structure
+%------------------
+
+D
+
+\sec Models and ModelHandler 
+%===================
+
+A
+
+
+\secc Model description in Keras
+%------------------
+
+C
+
+\secc ModelHandler structure
+%------------------
+
+D
+
+\sec Settings structure 
+%===================
+
+A
+
+\sec Training 
+%===================
+
+A
+
+\sec Testing 
+%===================
+
+A
+
+\sec Reporting and folder structure 
+%===================
+
+A
+
+\sec Metacentrum scripting 
+%===================
+
+A
+
+\chap Results
+%===============================
+
+C
+
+\chap Discussion
+%===============================
+
+B
+
+\chap Conclusions
+%===============================
+
+V
+
+
+
+
+\bye
