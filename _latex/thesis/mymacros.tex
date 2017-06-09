@@ -1,17 +1,21 @@
 % seccc
 \newcount\secccnum
 
-\def\seccc#1\par{%
-   \ifx\prevseccnum\theseccnum \global\advance\secccnum by1
-   \else \global\let\prevseccnum=\theseccnum \global\secccnum=1
-   \fi
-   \edef\thesecccnum{\theseccnum.\the\secccnum}%
-   \printseccc{#1\unskip}%
+\def\secccfont{\typobase\typoscale[\magstep1/\magstep2]\bfshape}
+
+\def\printseccc#1{\par \norempenalty-200 \medskip
+  {\secccfont \noindent \dotocnum{\thetocnum\quad}#1\nbpar}%
+  \nobreak \remskip\medskipamount \firstnoindent
 }
-\def\printseccc#1{\norempenalty-100 \medskip
-  \line{\locc\Blue\vrule height 3mm width4mm depth.1mm\Black
-  \hss\vtop{\locc\advance\hsize by-8mm
-   \bf \noindent \thesecccnum\quad \nBlue#1\strut\nbpar\kern-4.5pt}}%
-  \nobreak\vskip-.5\parskip\smallskip\kern2pt
-  \firstnoindent
+
+\def\seccc#1#2\par{
+  \secchook {}\relax
+  \edef\theseccnum{\othe\chapnum.\the\secnum.\the\seccnum.#2}\let\thetocnum=\theseccnum
+  \def\dotocnumafter{\wcontents\Xseccc{#1}}%
+  \printseccc{#1\unskip}\resetnonumnotoc
+% \printsecc{#1\unskip}\resetnonumnotoc -- bude mit stejny styl, co \secc
+
 }
+
+% usage:
+%\seccc{AlexNet, CNN using huge datasets}1
