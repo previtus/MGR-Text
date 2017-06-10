@@ -14,16 +14,16 @@ Introduction, which chapter contains what.
 There are many applications for the task to search for the shortest route on graph representation of map. We can abstract many real world scenario problems into this representation and then use many already existing algorithms commonly used for this class of tasks.
 
 \midinsert
-\clabel[1_abstracted_map]{abstracted representation of map}
+\clabel[1_abstracted_map]{Abstracted representation of map}
 \picw=13cm \cinspic figures/2.1._abstracted_representation_of_map.pdf 
-\caption/f Description.
+\caption/f Abstracted representation of map into graph of nodes and edges.
 \endinsert
 
 We have a set of nodes N, which can be understood as places on map and edges E, which are the possible paths from one node to another, In order to have measurement of quality of traveling between two nodes, we also need a cost function. This cost function will assign a positive value c $\in$ \realnumbers + to each edge. Typically we are facing the task of finding the shortest path, in which we are minimizing the aggregated cost. See illustration of Figure \ref[1_abstracted_map].
 
 In real life scenario, road segments exhibit many different parameters which influence how fast we can traverse them. More or less objective criteria such as surface material, size of the road, time of the day, or criteria which depends solely on the preference of driver. What is the surrounding environment, what is the comfort level of the road. 
 
-This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see [hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in realistic time. We can expect such task on hand-held devices of car gps.
+This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see ~\cite[hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in realistic time. We can expect such task on hand-held devices of car gps.
 
 \secc Data collection
 %------------------
@@ -34,29 +34,29 @@ In case of planning for cars we generally just want to get across as fast as pos
 
 Some of these these criteria are measurable and objectively visible in the real world. For these we need to have highly detailed data available with parameters such as the quality of road and others. Other criteria are based on subjective, personal preference of some routes over other and for these we might need a long period of traces recording which routes have users selected in past. For example the work of [Navigation made personal] makes heavy use of user recorded traces.
 
-See [Practical Multicrit.] and [Figure F2] for examples of types of measurements we would likely need to estimate cost of each edge considering the slowdown effect of these features.
+See ~\cite[hrnvcivr2016practical] and Figure \ref[2_slowdown_features] for examples of types of measurements we would likely need to estimate cost of each edge considering the slowdown effect of these features.
 
 \midinsert
 \clabel[2_slowdown_features]{example slowdown features}
 \picw=13cm \cinspic figures/2.1.1._example_slowdown_features.pdf 
-\caption/f Example of the categories of highly detailed data we would require for multi-criteria cost function formulation as presented by [Practical Multicrit.]. List of features contributing to a slowdown effect on route segment.
+\caption/f Example of the categories of highly detailed data we would require for multi-criteria cost function formulation as presented by ~\cite[hrnvcivr2016practical]. List of features contributing to a slowdown effect on route segment.
 \endinsert
 
-In any case highly qualitative, detailed and annotated dataset is required to begin with and a carefully fitted cost function which would take all these parameters into weighted account is also needed. Large companies are usually protective of their proprietary formulas of evaluating costs for route planners. For example [Navigation made personal] makes use of the road network data of Bing Maps with many parameters related to categories such as speed, delay on segment and turning to another street, however the exact representation remains unpublished.
+In any case highly qualitative, detailed and annotated dataset is required to begin with and a carefully fitted cost function which would take all these parameters into weighted account is also needed. Large companies are usually protective of their proprietary formulas of evaluating costs for route planners. For example ~\cite[navigation-made-personal] makes use of the road network data of Bing Maps with many parameters related to categories such as speed, delay on segment and turning to another street, however the exact representation remains unpublished.
 
-As we will touch upon this topic in later chapters, its useful to realize that this highly qualitative dataset is not always available. We would like to carry information we can infer from small annotated dataset into different areas, where we lack detailed measurements. (We are using visual information of Google Street View images, which is more readily available in certain areas than the highly qualitative dataset.)=if its now somewhere else already
+As we will touch upon this topic in later chapters, its useful to realize that this highly qualitative dataset is not always available. We would like to carry information we can infer from small annotated dataset into different areas, where we lack detailed measurements. We are using visual information of Google Street View images, which is more readily available in certain areas than the highly qualitative dataset.
 
 \sec History of Convolutional Neural Networks 
 %===================
 
-Initial idea to use Convolutional Neural Networks (CNNs) as model was introduced in [x] by LeCun with his LeNet network design trained on the task of handwritten digits recognition.
+Initial idea to use Convolutional Neural Networks (CNNs) as model was introduced in ~\cite[lecun1998gradient] by LeCun with his LeNet network design trained on the task of handwritten digits recognition.
 
 In this section we try to trace the important steps in the field of Computer Vision which lead to the widespread use of CNNs in current state of the art research.
 
 \secc ImageNet dataset
 %------------------
 
-Computer Vision research has experienced a great boost in the work of [deng2009imagenet] in the form of image database ImageNet. ImageNet contains full resolution images built into the hierarchical structure of WordNet, database of synsets, “synonym sets” linked into a hierarchy.
+Computer Vision research has experienced a great boost in the work of ~\cite[deng2009imagenet] in the form of image database ImageNet. ImageNet contains full resolution images built into the hierarchical structure of WordNet, database of synsets, “synonym sets” linked into a hierarchy.
 
 WordNet is often used as a resource in the tasks of natural language processing, such as word sense disambiguation, spellcheck and other. ImageNet is a project which tries to populate the entries of WordNet with imagery representation of given synset with accurate and diverse enough images illustrating the object in various poses, viewing points and with changing occlusion.
 
@@ -67,7 +67,7 @@ Effectively ImageNet became the huge qualitative dataset which was needed to pro
 \secc ImageNet Large Scale Visual Recognition Competition (ILSVRC)
 %------------------
 
-The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) [Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure of cucumbers [webpage of google blog post].
+The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) ~\cite[Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure of cucumbers ~\cite[japanese-cucumber].
 
 \seccc{AlexNet, CNN using huge datasets}1
 %------------------
