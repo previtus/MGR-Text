@@ -19,7 +19,7 @@ There are many applications for the task to search for the shortest route on gra
 \midinsert
 \clabel[1_abstracted_map]{Abstracted representation of map}
 \picw=13cm \cinspic figures/2.1._abstracted_representation_of_map.pdf 
-\caption/f Abstracted representation of map into graph of nodes and edges.
+\caption/f Abstracted representation of map, description of real world location via set of nodes and edges. This representation allows us to run generic algorithms over it.
 \endinsert
 
 We have a set of nodes N, which can be understood as places on map and edges E, which are the possible paths from one node to another, In order to have measurement of quality of traveling between two nodes, we also need a cost function. This cost function will assign a positive value c $\in$ \realnumbers + to each edge. Typically we are facing the task of finding the shortest path, in which we are minimizing the aggregated cost. See illustration of Figure \ref[1_abstracted_map].
@@ -41,7 +41,7 @@ Some of these these criteria are measurable and objectively visible in the real 
 See ~\cite[hrnvcivr2016practical] and Figure \ref[2_slowdown_features] for examples of types of measurements we would likely need to estimate cost of each edge considering the slowdown effect of these features.
 
 \midinsert
-\clabel[2_slowdown_features]{Example of slowdown features}
+\clabel[2_slowdown_features]{Measurable features of real world road segment}
 \picw=13cm \cinspic figures/2.1.1._example_slowdown_features.pdf 
 \caption/f Example of the categories of highly detailed data we would require for multi-criteria cost function formulation as presented by ~\cite[hrnvcivr2016practical]. List of features contributing to a slowdown effect on route segment.
 \endinsert
@@ -69,7 +69,7 @@ As the work suggests, with internet and social media, the available data is plen
 
 Effectively ImageNet became the huge qualitative dataset which was needed to properly teach large CNN models.
 
-\secc ImageNet Large Scale Visual Recognition Competition (ILSVRC)
+\secc ImageNet Large Scale Visual Recognition Competition
 %------------------
 
 The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) ~\cite[Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure of cucumbers ~\cite[japanese-cucumber].
@@ -108,7 +108,7 @@ The state of the art models as of ILSVRC 2016 made use of the ensemble approach.
 
 The widespread of using the ensemble technique reflects the democratization and emergence of more platforms and public cloud computing solutions giving more processing power to the competing teams of ILSVRC.
 
-\label[ch2_feature_transfer]
+\label[ch2_feature_transfer_research]
 \secc Feature transfer
 %------------------
 
@@ -129,9 +129,9 @@ This article gives us hope, that we can similarly transfer layers of Deep CNN tr
 Articles being submitted to the ILSVRC competition often include a section dedicated on using their designed models on different tasks then what they were trained upon. Effectively they should the models suitability for feature transfering.
 
 \midinsert
-\clabel[3_feature_transfer]{Feature transfer}
+\clabel[3_feature_transfer]{Feature transfer illustrated}
 \picw=13cm \cinspic figures/2.2.3._feature_transform.pdf 
-\caption/f Basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
+\caption/f Illustration of the basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
 \endinsert
 
 \secc Common structures
@@ -140,9 +140,9 @@ Articles being submitted to the ILSVRC competition often include a section dedic
 When designing the architecture of custom CNN model, we are using certain layers and building block schemes established as common practice in the ILSVRC competition. For a new unresearched task it has been suggested (by lecturers and online sources such as [website of the class]) to stick to an established way of designing the overall architecture.
 
 \midinsert
-\clabel[4_structure]{Common CNN structures}
+\clabel[4_structure]{Generic CNN architecture formula}
 \picw=13cm \cinspic figures/2.2.4.building_blocks_with_blocks.pdf 
-\caption/f Structure.
+\caption/f Formula describing a generic CNN architecture used with image data.
 \endinsert
 
 Refer to Figure \ref[4_structure]. For illustration of this recommended architecture. Naturally for custom tasks this architecture is later adapted and tweaked to serve well in its specific situation. We will return to this suggested architecture scheme when building our own custom CNN models in \ref[ch4_building_blocks].
@@ -171,9 +171,9 @@ We are given a dataset from the ATG research group of nodes and edges with score
 Each node in supplied with longitude, latitude location, which gives us the option to enrich them with additional real world information. Figure \ref[5_yet_to_do]. shows the structure of initial data source.
 	
 \midinsert
-\clabel[5_yet_to_do]{yet to do}
-\picw=13cm \cinspic figures/nullfig.pdf 
-\caption/f yet to do.
+\clabel[5_yet_to_do]{Sample of the initial dataset}
+\picw=5cm \cinspic figures/temp_structure_of_edges_geojson_file.jpg
+\caption/f Sample of the structure of initial dataset. IMAGE IS TEMPORARY.
 \endinsert
 
 \secc Street View
@@ -189,16 +189,16 @@ We are using a Google Street View API which allows us to generate links of image
 Google Street View API uses the parameters of location which is the latitude and longitude and heading, which is the deviation angle from the North Pole in degrees. See Figure \ref[6_google_api]. In calculation of heading we are making a simplification of Earth being spherical using formula for initial bearing in Figure \ref[6_bearing].
 
 \midinsert
-\clabel[6_bearing]{Bearing formula}
+\clabel[6_bearing]{Initial bearing formula}
 \picw=10cm \cinspic figures/3.2.2.1._formula_bearing.pdf 
-\caption/f Bearing formula
+\caption/f Formula for calculation of initial bearing when looking from one location (lon$_{1}$, lat$_{1}$) to another (lon$_{2}$, lat$_{2}$).
 \endinsert
 
 
 \midinsert
 \clabel[6_google_api]{Google Street View API url generation}
 \picw=10cm \cinspic figures/3.2.2.1._google_api-get_svg_v2.pdf 
-\caption/f Google Street View API url generation
+\caption/f Illustration of Google Street View API url generation
 \endinsert
 
 In order to make good use of the location and collect enough data, we decided to break down longer edges into smaller segments maintaining the minimal edge size fixed. We also select both of the starting and ending locations of each segment. In each position we also rotate around the spot.
@@ -208,9 +208,9 @@ We collect total of 6 images from each segment, 3 in each of its corners while r
 Also note that we are limited to downloading images of maximal size 640x640 pixels as per the limitation of free use of Google Street View API.
 
 \midinsert
-\clabel[7_edge_breakdown]{Breakdown of long edge}
+\clabel[7_edge_breakdown]{Edge splitting and image generation scheme}
 \picw=13cm \cinspic figures/3.2.2.1._breakdown_of_edge.pdf 
-\caption/f Breakdown of long edge into smaller sections
+\caption/f Splitting of initial possibly large edge segments into sections not smaller than the minimal length limit for edge segment. Each of these generates six images, which are usually not overlapping even with neighboring edges.  
 \endinsert
 
 \seccc{Data augmentation introduction}2
@@ -229,23 +229,31 @@ We are looking for another source of information about an edge segment in the ne
 Open Street Map data is structured as vector objects placed with location parameters and large array of attributes and values. We can encounter point objects, line objects and polygon objects, which represent points of interest, streets and roads, building, parks and other landmarks.
 
 \midinsert
-\clabel[8_ex_params]{Example of OSM data parameters}
+\clabel[8_ex_params]{OSM data structure with parameters}
 \picw=13cm \cinspic figures/3.2.3._osm_map_with_params.pdf 
-\caption/f Example of structure of OSM data with parameters
+\caption/f Example of structure of OSM data with parameters showing its properties.
 \endinsert
 
-From implementation standpoint, we have downloaded the OSM data covering map of our location and loaded it into a PostgreSQL database. In this way we can send queries for lists of objects in the vicinity of queried location. We will get into more detail about implementation in \ref[ch6_osm_marker].
+From implementation standpoint, we have downloaded the OSM data covering map of our location and loaded it into a PostgreSQL database. In this way we can send queries for lists of objects in the vicinity of queried location. We will get into more detail about implementation in \ref[ch5_osm_marker].
 
 \seccc{OSM neighborhood vector}1
 %------------------
 
 The structure of OSM data consists of geometrical objects with attributes describing their properties. In the PostgreSQL database each row represents object and attributes are kept as table columns.
 
-Depending on the object type, different attributes will have sensible values while the rest will be empty. For better understanding consult table T. with examples of attributes and their values and table L. for examples of objects in OSM dataset.
+Depending on the object type, different attributes will have sensible values while the rest will be empty. For better understanding consult table in Figure \ref[8_osm_interesting_attributes] with examples of attributes and their values and table in Figure \ref[8_osm_objects]. for examples of objects in OSM dataset.
 
-[Table T.]
+\midinsert
+\clabel[8_osm_interesting_attributes]{Sample of OSM attributes}
+\picw=13cm \cinspic figures/3.2.3.1_table_possible_values.pdf 
+\caption/f Sample of interesting attributes and their possible values in OSM dataset.
+\endinsert
 
-[Table L.]
+\midinsert
+\clabel[8_osm_objects]{Sample of OSM objects}
+\picw=7cm \cinspic figures/3.2.3.1_(semi)_table_objects_with_values.pdf 
+\caption/f Example of values given to a selection of objects from OSM dataset. IMAGE IS STILL TEMPORARY, WILL BE FILLED WITH REAL DATA.
+\endinsert
 
 For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
 
@@ -256,23 +264,23 @@ In order to select which pairs are important, we chose to look at OSM data stati
 Then for each distinct location of edge segment, we look into its neighborhood and count the number of occurrences of each pair from the list.
 
 \midinsert
-\clabel[9_ex_loc]{Different locations and their OSM vectors}
+\clabel[9_ex_loc]{Unique locations with neighborhood vectors}
 \picw=15cm \cinspic figures/3.2.3.1_locations_with_table.pdf 
-\caption/f Example with different locations generating different OSM neighborhood vectors
+\caption/f Four unique locations with their corresponding neighborhood vectors. Note that these can be very similar for close enough locations.
 \endinsert
 
 \midinsert
-\clabel[10_vec_count]{Brekeke}
-\picw=13cm \cinspic figures/nullfig.pdf 
-\caption/f Figure E. / OSM vector counting
+\clabel[10_vec_count]{Construction of neighborhood vector}
+\picw=11cm \cinspic figures/3.2.3.1_construction_of_osm_vec.pdf 
+\caption/f The construction of neighborhood vector from collection of nearby objects.
 \endinsert
 
 Each distinct location of each edge will end up with same sized OSM vector marking their neighborhood. Note that due to the method of downloading multiple images per one edge, for example by using the same location and rotating around the spot, some of these will have the same OSM vectors.
 
 \midinsert
-\clabel[10b_six_imgs]{Generation of images and shared data}
+\clabel[10b_six_imgs]{Generation of data entries from edge segment}
 \picw=10cm \cinspic figures/3.2.3.1_6images_and_their_shared_data.pdf 
-\caption/f Generation of images and shared data
+\caption/f Example of further not divided edge segment, which generates data entries, where certain values overlap. For example the score is shared among all images produced from one segment.
 \endinsert
 
 One further undivided edge segment contains 6 images which share the same score, and some of which will share location and therefore also their OSM vectors. For illustration see Figure \ref[10b_six_imgs].
@@ -316,7 +324,7 @@ When building a CNN model, we can observe an abstracted view of such model in te
 \midinsert
 \clabel[11_extractor_class]{Feature extractor and classificator}
 \picw=13cm \cinspic figures/4.1.1_model_abstraction.pdf 
-\caption/f Figure G. / Abstraction of model into feature extractor and classificator
+\caption/f Abstraction of CNN model into feature extractor section and classificator section.
 \endinsert
 
 Each of these segments will require different sets of building blocks and will prioritize different behavior. Good model design will lead to generalization of concrete task-specific data into general features, which will then be again converted into concrete categories or scores. The deeper the generic abstraction is, the better the model behavior in terms of overfitting will be.
@@ -324,9 +332,9 @@ Each of these segments will require different sets of building blocks and will p
 Classification segment transforms the internal feature representation back into the realm of concrete data related to our task. In our tasks we are interested in score in range from 0 to 1 as illustrated by Figure \ref[12_sigmoid_output].
 
 \midinsert
-\clabel[12_sigmoid_output]{Sigmoid activation formula}
+\clabel[12_sigmoid_output]{Classificator section formula}
 \picw=13cm \cinspic figures/4.1.1._output_formula.pdf 
-\caption/f Sigmoid activation formula
+\caption/f Classificator section formula describing how we generate one value at the end of CNN model ranging from 0 to 1 as a score estimate.
 \endinsert
 
 \secc Fully-connected layers
@@ -335,9 +343,9 @@ Classification segment transforms the internal feature representation back into 
 The fully-connected layer denoted as “Dense” in Keras stands for a structure of neurons connected with every input and output by weighed connections. In Neural Networks these are named as hidden layers.
 
 \midinsert
-\clabel[13_fc]{fully-connected}
+\clabel[13_fc]{Fully connected layer}
 \picw=13cm \cinspic figures/4.1.2._fully-connected.pdf 
-\caption/f Figure CH. / input hidden layer output, width / Shows the model of connections of neurons in fully-connected layer.
+\caption/f Shows the model of connections of neurons in fully connected layer.
 \endinsert
 
 The fully-connected layer suffers from a large amount of parameters it generates – weights in each connection between neurons and biases in individual neuron units. Fully-connected layers are usually present in the classification section of the model.
@@ -348,9 +356,9 @@ The fully-connected layer suffers from a large amount of parameters it generates
 Convolutional layers are trying to circumvent the large amount of parameters of fully-connected layers by localized connectivity. Each neuron looks only at certain area of the previous layer.
 
 \midinsert
-\clabel[14_conv]{convolutional}
+\clabel[14_conv]{Convolutional layer}
 \picw=10cm \cinspic figures/4.1.3_convolutional_layer.pdf 
-\caption/f Figure I. / 2d 1d examples of convolutional layer connectivity
+\caption/f Schematic illustration of connectivity of convolutional layer. Connections are limited to the scope of receptive field.
 \endinsert
 
 For their property to use considerably less parameters while at the same time to focus on features present in particular sections of image, they are often used as the main workforce in the feature extractor section of CNN models.
@@ -361,9 +369,9 @@ For their property to use considerably less parameters while at the same time to
 Pooling layers are put in between convolutional layers in order to decrease the size of data effectively by downsampling the volume. This forces the model to reduce its number of parameters and to generalize better over the data. Pooling layers can apply different functions while they are downsamplig the data – max, average, or some other type of normalization function.
 
 \midinsert
-\clabel[15_pool]{pooling}
+\clabel[15_pool]{Pooling layer}
 \picw=10cm \cinspic figures/4.1.4._pooling_layer.pdf 
-\caption/f Figure J. pooling layer img
+\caption/f Pooling layer structure effectively downsampling the volume of input data.
 \endinsert
 
 \secc Dropout layers
@@ -374,9 +382,9 @@ Dropout layer is special layer suggested by ~\cite[srivastava2014dropout] which 
 The dropout layer placed between two fully-connected layers functions randomly drops connections between neurons with certain probability during the training period. Instead of fully-connected network of connections we are left with a thinned network with only some of the connections remaining. This thinned networks is used during training and prevents neurons to rely too much on co-adaptation. They are instead forced to develop more ways to fit the data as there is the effect of connection dropping. During test evaluation, the full model is used with its weights changed by the probability of dropout probability.
 
 \midinsert
-\clabel[16_drop]{dropout}
+\clabel[16_drop]{Dropout layer}
 \picw=8cm \cinspic figures/4.1.5._dropout.pdf 
-\caption/f Figure K. dropout img
+\caption/f Illustration of dropout layers effect during the training period, which renders certain connection invalid with set probability. This prevents the network to depend too much on overly complicated formations of neurons.
 \endinsert
 	
 \sec Open Street Map neighborhood vector model 
@@ -385,9 +393,9 @@ The dropout layer placed between two fully-connected layers functions randomly d
 In this version of model, we broke down edge segments formerly representing streets in real world into regularly sized sections each containing two locations of its beginning and ending location. These locations were enriched with OSM neighborhood vectors in \ref[ch3_neighborhood_in_osm].
 	
 \midinsert
-\clabel[17_one_edge_to_many_loc]{edge to many loc}
+\clabel[17_one_edge_to_many_loc]{Distinct locations from edge segment}
 \picw=12cm \cinspic figures/4.2._edge_progress.pdf 
-\caption/f Figure L. / one edge to many to only locations + each distinct location attr=val table
+\caption/f Edge segment broken down into set of distinct locations, where each of these locations is assigned its own neighborhood vector.
 \endinsert
 
 Single unit of data is therefore a neighborhood vector linked to each distinct location of the original dataset. We have designed a model which takes these vectors as inputs and scores as outputs.
@@ -395,9 +403,9 @@ Single unit of data is therefore a neighborhood vector linked to each distinct l
 The OSM vector model is built from repeated building blocks of fully-connected layer followed by dropout layer. Fully connected layer of width 1 with sigmoid activation function is used as the final classification segment. Figure \ref[18_osm_model] shows the model alongside its dimensions.
 
 \midinsert
-\clabel[18_osm_model]{osm model}
+\clabel[18_osm_model]{OSM neighborhood vector CNN model}
 \picw=15cm \cinspic figures/4.2._model.pdf 
-\caption/f Figure N. / osm\_only model
+\caption/f CNN model making use of only the neighborhood OSM vector data.
 \endinsert
 
 \sec Street View images model 
@@ -413,12 +421,12 @@ We can generally divide even the more complicated CNN models into two abstract s
 
 The former works in extracting high dimensional features of incoming imagery data, whereas the classification section translates those features into a probability distribution over categories or score. In our case we are considering a regression problem model, which works with score instead of categories.
 
-As was mentioned in \ref[ch2_feature_transfer] we reuse the model trained on large dataset of ImageNet, separate it from its classificatory and instead provide our own custom made top model. See Figure \ref[19_base_top].
+As was mentioned in \ref[ch2_feature_transfer_research] we reuse the model trained on large dataset of ImageNet, separate it from its classificatory and instead provide our own custom made top model. See Figure \ref[19_base_top].
 
 \midinsert
-\clabel[19_base_top]{base and top}
+\clabel[19_base_top]{Reused base model with custom top model}
 \picw=12cm \cinspic figures/4.3._feature_transfer.pdf 
-\caption/f Figure O. / base model cut out of its own classifier
+\caption/f Reusing part of already trained CNN model as a base model and adding our custom top model.
 \endinsert
 
 We prevent the layers of base model from changing their weights and train only the newly attached top model for the new task. There are certain specifics connected with this approach which we will explore in \ref[ch4_specific_setting] section.
@@ -438,9 +446,9 @@ The output of what remains of the base CNN model is data in feature space. The d
 The remains of base CNN model are followed by a Flatten layer which converts the possibly multidimensional feature data into a one dimensional vector, which we can feed into the custom top model.
 
 \midinsert
-\clabel[20_diff_in_diff_out]{different sized imgs}
+\clabel[20_diff_in_diff_out]{Dimensionality of feature vectors}
 \picw=13cm \cinspic figures/4.3.1.1_different_sized_imgs.pdf 
-\caption/f Figure P. / Example of differently sized images on the input and resulting feature vector size.
+\caption/f Example of differently sized images on the input which result in different feature vector size. TEMPORARY VALUES
 \endinsert
 
 \seccc{Custom top model}2
@@ -451,9 +459,9 @@ We feed the feature vector into a custom model built of repeated blocks of fully
 The final layer of the classification section consists of fully-connected layer of width 1 with sigmoid activation function which weighs in all neurons of the previous layer. See Figure \ref[21_custom_top]. Note that in the final model we chose to interlace individual fully-connected layers with dropout layers.
 
 \midinsert
-\clabel[21_custom_top]{custom top}
+\clabel[21_custom_top]{Top model structure}
 \picw=14cm \cinspic figures/4.3.1.2_feature-score.pdf 
-\caption/f Figure Q. / feature input - first hidden - ... - output score, custom top model
+\caption/f Top model structure which takes in the feature vector and follows with fully connected layers which are retrained on our own task.
 \endinsert
 
 \seccc{The final architecture}3
@@ -462,9 +470,9 @@ The final layer of the classification section consists of fully-connected layer 
 The final architecture composes of base CNN model with its weights trained on the ImageNet dataset and of custom classification top model trained to fit the base model for our task.
 
 \midinsert
-\clabel[22_img_model]{img model}
+\clabel[22_img_model]{Image model structure}
 \picw=15cm \cinspic figures/4.3.1.3._img_model.pdf 
-\caption/f Figure R. / architecture of img model
+\caption/f Final schematic representation of CNN model using Google Street View images. Note that parameters of width and depth can change its performance.
 \endinsert
 
 \sec Mixed model 
@@ -477,17 +485,17 @@ In this case one segment again generates multiple images, which share the same s
 As a single unit of data we can consider the triplet of image, OSM vector and score. It’s useful to note that later in designing the evaluation method of models, we should take into account, that the neighborhood vector and score can be repeated across data. When splitting the dataset into training and validation sets, we should be careful and place images from one edge into only one of these sets. Otherwise data with distinct images, but possibly the same neighborhood vector and score could end up in both of these sets. Figure \ref[23_single_data_unit_for_mix] illustrates how single data units are generated from one edge.
 
 \midinsert
-\clabel[23_single_data_unit_for_mix]{mixed model data repetition}
+\clabel[23_single_data_unit_for_mix]{Structure of mixed model input data}
 \picw=14.5cm \cinspic figures/4.4._mixed_data_repetition.pdf 
-\caption/f Figure S. / Example of possible decomposition of original edge into rows of data accepted by the mixed model.
+\caption/f Example of possible decomposition of original edge into rows of data accepted by the mixed model. We use both the image data and the OSM neighborhood vectors.
 \endinsert
 
 We can join the architectures designed in previous steps, or we can design a new model. We chose to join the models in their classification segment. We propose a basic idea for a simple model architecture, which concatenates feature vectors obtained in previous models and follows with structure of repeated fully-connected layers with dropout layers in between. Concatenation joins the two differently sized one dimensional vectors into one. As is observable on Figure \ref[24_mix_model] we use several parameters to describe the models width and depth.
 
 \midinsert
-\clabel[24_mix_model]{mixed model}
+\clabel[24_mix_model]{Mixed model structure}
 \picw=15cm \cinspic figures/4.4._mixed_model.pdf 
-\caption/f Figure T. / final architecture of mixed model
+\caption/f Final architecture of the mixed model, which uses both OSM vector and the image data.
 \endinsert
 
 
@@ -549,7 +557,7 @@ A
 
 A
 
-\ref[ch5]
+\label[ch5]
 \chap The Implementation
 %==============================================================
 
@@ -569,7 +577,7 @@ A
 
 A
 
-\label[ch6_osm_marker]
+\label[ch5_osm_marker]
 \sec OSM Marker 
 %===================
 
