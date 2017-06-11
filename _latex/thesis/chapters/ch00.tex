@@ -338,6 +338,7 @@ Classification segment transforms the internal feature representation back into 
 \caption/f Classificator section formula describing how we generate one value at the end of CNN model ranging from 0 to 1 as a score estimate.
 \endinsert
 
+\label[ch4_fully_connected_layers]
 \secc Fully-connected layers
 %------------------
 
@@ -375,6 +376,7 @@ Pooling layers are put in between convolutional layers in order to decrease the 
 \caption/f Pooling layer structure effectively downsampling the volume of input data.
 \endinsert
 
+\label[ch4_dropout_layers]
 \secc Dropout layers
 %------------------
 
@@ -387,7 +389,8 @@ The dropout layer placed between two fully-connected layers functions randomly d
 \picw=8cm \cinspic figures/4.1.5._dropout.pdf 
 \caption/f Illustration of dropout layers effect during the training period, which renders certain connection invalid with set probability. This prevents the network to depend too much on overly complicated formations of neurons.
 \endinsert
-	
+
+\label[osm_model]
 \sec Open Street Map neighborhood vector model 
 %===================
 
@@ -409,6 +412,7 @@ The OSM vector model is built from repeated building blocks of fully-connected l
 \caption/f CNN model making use of only the neighborhood OSM vector data.
 \endinsert
 
+\label[img_model]
 \sec Street View images model 
 %===================
 
@@ -452,6 +456,7 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 \caption/f Example of differently sized images on the input which result in different feature vector size. TEMPORARY VALUES
 \endinsert
 
+\label[ch4_custom_top]
 \seccc{Custom top model}2
 %------------------
 
@@ -476,6 +481,7 @@ The final architecture composes of base CNN model with its weights trained on th
 \caption/f Final schematic representation of CNN model using Google Street View images. Note that parameters of width and depth can change its performance.
 \endinsert
 
+\label[mix_model]
 \sec Mixed model 
 %===================
 
@@ -506,6 +512,7 @@ We can join the architectures designed in previous steps, or we can design a new
 
 A
 
+\label[ch4_training]
 \sec Model Training 
 %===================
 
