@@ -1,0 +1,18 @@
+4.5. Data Augmentation
+
+	When using complicated models with high number of parameters on relatively small datasets, the danger of overfitting is always present. We would like to combat this by expanding our dataset with the help of data augmentation.
+	Overfiting occurs when the model is basically able to remember all the samples of the training dataset perfectly and incorporate them into its structure. It achieves very low error on the training data, but looses its ability to generalize and results in comparably worse results on the validation set.
+	The idea of data augmentation is to transform the data we have in order to get more samples and a model which in turn behaves better on more generalized cases.
+	This cannot be done just blindly, as some of these transformations could mislead our model (for example left to right vertical flip makes sense in our case, but a up side down horizontal flip wouldn't).
+	There are multiple ways we can approach the problem of generating as many images from our initial dataset as we can. Before getting to the data augmentation aspect, please note, that this is also the reason, why we are generating multiple images per segment. We stand in two cordners of each edge segment and rotate 120 \degrees degrees to get three images on each side. We have also employed a technique, which splits long edges into as many small segments as possible, while not hitting the self imposed minimal edge length.
+	It could be debated, that we could rotate for smaller angle or split edges to even smaller segments in order to take advantage of the initial dataset fully. However we came across an issue, that with too small minimal edge length or with different rotation scheme, we obtain very similar images, which actually do not improve the overall performance. This occurs when we don't generate differing enough images during downloading. For actual performance change see chapter \ref[ch results].
+
+	We face similar issue when choosing a radius for obtaining OSM neighborhood vector as specified in the section \ref[ch 3 2 3 neigh]. Instead of selecting one particular radius setting, we can make use of results of multiple querries. When building the OSM vector we would effectively multiply its length by concaterating it with other versions of OSM vectors. We could concaterate the vectors acquired with one fixed radius setting with another version with different radius. See Figure \ref[figFGIG] for illustration.
+
+	fig fig FGIG
+
+	Finally we also come across the method of data augmentation by transformation of the original image dataset. Certain operation, such as vertically flipping the image make sense for our dataset. (Also the normalization of color palete can be used in our task.)
+	We show an example of images undergoing such transformation on Figure \ref[BUMBAUM]. Note that in this particular example we chose vertical flipping alongside with clipping of 90% of the image while making up for the lost 10%. These operations are random and the resulting images are added to create a larger dataset. For the sake of repetition of experiments with the same data, we save these generated images into an expanded dataset.
+
+
+	fig BUMBAUM
