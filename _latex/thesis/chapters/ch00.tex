@@ -69,6 +69,7 @@ As the work suggests, with internet and social media, the available data is plen
 
 Effectively ImageNet became the huge qualitative dataset which was needed to properly teach large CNN models.
 
+\label[ch2_competition]
 \secc ImageNet Large Scale Visual Recognition Competition
 %------------------
 
@@ -176,7 +177,7 @@ Each node in supplied with longitude, latitude location, which gives us the opti
 \caption/f Sample of the structure of initial dataset. IMAGE IS TEMPORARY.
 \endinsert
 
-\secc Street View
+\secc Google Street View
 %------------------
 
 As each edge segment connecting two nodes is representing a real world street connecting two crossroads, we can get additional information from the location. We can download one or more images alongside the road and associate it with the edge and it’s score from the initial dataset.
@@ -434,14 +435,15 @@ As was mentioned in \ref[ch2_feature_transfer_research] we reuse the model train
 \caption/f Reusing part of already trained CNN model as a base model and adding our custom top model.
 \endinsert
 
-We prevent the layers of base model from changing their weights and train only the newly attached top model for the new task. There are certain specifics connected with this approach which we will explore in \ref[ch4_specific_setting] section.
+We prevent the layers of base model from changing their weights and train only the newly attached top model for the new task. There are certain specifics connected with this approach which we will explore in \ref[ch4_feature_cooking] section.
 
+\label[ch4_model_architecture]
 \secc Model architecture
 %------------------
 
 The final model architecture is determined by two major choices: which CNN to choose as its base model and how to design the custom top model so it’s able to transfer the base models features to our task.
 
-\seccc{Base model}1
+\secc{Base model}
 %------------------
 
 The framework we are working with, Keras, allows us to simply load many of the successful CNN models and by empirical experiments asses, which one is best suited for our task. More about Keras in the appropriate section \ref[ch4_keras].
@@ -457,7 +459,7 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 \endinsert
 
 \label[ch4_custom_top]
-\seccc{Custom top model}2
+\secc{Custom top model}
 %------------------
 
 We feed the feature vector into a custom model built of repeated blocks of fully-connected neuron layers interlaced with dropout layers. The number of neurons used in each of the layers influences the so called model “width” and the number of used layers influences the model “depth”. Both of these attributes influence the amount of parameters of our model. We can try various combinations of these parameters to explore the models optimal shape.
@@ -470,7 +472,7 @@ The final layer of the classification section consists of fully-connected layer 
 \caption/f Top model structure which takes in the feature vector and follows with fully connected layers which are retrained on our own task.
 \endinsert
 
-\seccc{The final architecture}3
+\secc{The final architecture}
 %------------------
 
 The final architecture composes of base CNN model with its weights trained on the ImageNet dataset and of custom classification top model trained to fit the base model for our task.
@@ -510,49 +512,112 @@ We can join the architectures designed in previous steps, or we can design a new
 \sec Data Augmentation 
 %===================
 
-A
+When using complicated models with high number of parameters on relatively small datasets, the danger of overfitting is always present. We would like to combat this by expanding our dataset with the help of data augmentation.
 
-\label[ch4_training]
+Overfitting occurs when the model is basically able to remember all the samples of the training dataset perfectly and incorporate them into its structure. It achieves very low error on the training data, but looses its ability to generalize and results in comparably worse results on the validation set.
+
+The idea of data augmentation is to transform the data we have in order to get more samples and a model which in turn behaves better on more generalized cases.
+
+This cannot be done just blindly, as some of these transformations could mislead our model (for example left to right vertical flip makes sense in our case, but a up side down horizontal flip wouldn't).
+
+There are multiple ways we can approach the problem of generating as many images from our initial dataset as we can. Before getting to the data augmentation aspect, please note, that this is also the reason, why we are generating multiple images per segment. We stand in two corners of each edge segment and rotate 120\degrees degrees to get three images on each side. We have also employed a technique, which splits long edges into as many small segments as possible, while not hitting the self imposed minimal edge length.
+
+It could be debated, that we could rotate for smaller angle or split edges to even smaller segments in order to take advantage of the initial dataset fully. However we came across an issue, that with too small minimal edge length or with different rotation scheme, we obtain very similar images, which actually do not improve the overall performance. This occurs when we don't generate differing enough images during downloading. For actual performance change see chapter \ref[ch6].
+
+We face similar issue when choosing a radius for obtaining OSM neighborhood vector as specified in the section \ref[ch3_neighborhood_in_osm]. Instead of selecting one particular radius setting, we can make use of results of multiple queries. When building the OSM vector we would effectively multiply its length by concatenating it with other versions of OSM vectors. We could concatenate the vectors acquired with one fixed radius setting with another version with different radius. See Figure \ref[25_osm_multiple_radius_aug] for illustration.
+
+\midinsert
+\clabel[25_osm_multiple_radius_aug]{Multiple OSM vector use}
+\picw=13cm \cinspic figures/4.5._data_augmentation_osm.pdf 
+\caption/f Illustration of the construction of combined OSM vector and the expected result of more specific area targetting by the model.
+\endinsert
+
+	Finally we also come across the method of data augmentation by transformation of the original image dataset. Certain operation, such as vertically flipping the image make sense for our dataset. (Also the normalization of color palete can be used in our task.)
+	We show an example of images undergoing such transformation on Figure \ref[26_image_augmentation_flips]. Note that in this particular example we chose vertical flipping alongside with clipping of 90\% of the image while making up for the lost 10\%. These operations are random and the resulting images are added to create a larger dataset. For the sake of repetition of experiments with the same data, we save these generated images into an expanded dataset.
+
+\midinsert
+\clabel[26_image_augmentation_flips]{Image data augmentation}
+\picw=12cm \cinspic figures/nullfig.pdf 
+\caption/f Data augmentation example.
+\endinsert
+
+\label[ch4_model_training]
 \sec Model Training 
 %===================
 
-A
-
-\secc Dataset split into validation and training data 
+\secc Data Split 
 %------------------
 
-A
+Traditionally we split our dataset into two sets – training set, which we use for training of model and so called validation set, which is used only for models performance evaluation. As we discuss in \ref[ch4_model_evaluation], we employ more complex strategy of k-fold cross validation test to obtain more precise results.
+
+The difference between the error achieved on training data and on validation data can be used as a measure of our model overfitting.
 
 \secc Training setting 
 %------------------
 
-A
+We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as ‘rmsprop’ and ‘adam’ (see ~\cite[adam_optimizer]). For greater parametric control we can also select the SGD optimizer.
 
-\label[ch4_specific_setting]
-\secc Specific setting for models using images 
+Given the nature of our task, we are solving a regression problem, trying to minimize deviation from scored data. In most models mentioned in \ref[ch2_competition], the task revolves around selecting the correct category to classify objects.
+
+Accordingly we have to select appropriate loss function. We have selected the mean squared error metric with the formula given by Figure \ref[27_mse_formula].
+
+\midinsert
+\clabel[27_mse_formula]{Mean squared error metric}
+\picw=8cm \cinspic figures/4.6.2_mse_formula.pdf 
+\caption/f Mean squared error metric used as loss function when training models.
+\endinsert
+
+\secc Training stages 
 %------------------
 
-A
+As has been discussed in \ref[ch4_model_architecture], we are building models by reusing base of other already trained CNN models. In our case we make use of weights loaded from model trained on the ImageNet dataset.
 
+We attach a custom classifier section to base model and try to train it on a new task. In order to preserve the information stored in connections of the base model, we lock its weights and prevent it from retraining. The only weight values which are changing are in the custom top model. This can be understood as a first stage of training the model as illustrated on Figure \ref[28_training_stages].
+
+\midinsert
+\clabel[28_training_stages]{Training stages schematics}
+\picw=10cm \cinspic figures/4.6.3_training_stages.pdf 
+\caption/f Training stages illustrated for feature transfer approach.
+\endinsert
+
+This is sometimes followed with a finetunning period, where we unlock certain levels of the base CNN model for training. However this is commonly done with customized optimizer setting, so that the changes to the whole model weights are not too drastic. We are also usually not retraining the whole model, because of the computational load this would take.
+
+\label[ch4_feature_cooking]
 \secc Feature cooking 
 %------------------
 
-A
+This method is specific to situation when we are training a model with parts, which are frozen, as is in the case of \ref[img_model] image and \ref[mix_model] mixed model design. We can take advantage of the fact that certain section of the model will never change and precompute the image features for a fixed dataset.
 
+In this way we can save computational costs associated with training the model. In the end the original model can be rebuilt by loading obtained weight values.
+
+This allows for fast prototyping of the custom top model, even if the whole model composes of many parameters in the frozen base model. For illustration see figure \ref[29_reusing_features].
+
+\midinsert
+\clabel[29_reusing_features]{Reusing saved image features from a file}
+\picw=14cm \cinspic figures/4.6.4_feature_cooking.pdf 
+\caption/f Reusing saved image features from a file instead of costly computations.
+\endinsert
+
+\label[ch4_model_evaluation]
 \sec Model evaluation 
 %===================
 
-A
+As was mentioned in \ref[ch4_model_training] we are using the practice of splitting dataset into training and validation dataset, with the k-fold cross validation technique.
 
-\secc K-fold cross validation 
-%------------------
+In order to prevent from being influenced by the selection bias, we split our entire dataset into k folds and then in sequence we use these to build training datasets and validation datasets. Every fold will take role of validation set for a model, which will train on data composed from all the remaining folds. Each of these will run a full training ended by an evaluation giving us score. Eventually we can calculate the average score with standard deviation.
 
-A
+This approach obviously increases the computational requirements, because it repeats the whole experiment for each fold. It is not used while prototyping models, but as a reliable method to later generate score. We have chosen the number of folds to be 10, as is a traditionally recommended approach.
+
+\midinsert
+\clabel[30_k_fold]{K-fold cross validation}
+\picw=11cm \cinspic figures/4.7._k_fold_cross_validation.pdf 
+\caption/f Splitting schema employed in the k-fold cross validation. We are given average score alongside with its standard deviation.
+\endinsert
 
 \sec Frameworks and projects 
 %===================
 
-A
+The existence of this thesis depends on couple of frameworks which helped it greatly. Framework called “Keras” allowed for fast prototyping of Deep CNN models as well as efficient training environment. Thanks to the Metacentrum project we had access to machines with high enough computational power needed to teach these models.
 
 \label[ch4_keras]
 \secc Keras
