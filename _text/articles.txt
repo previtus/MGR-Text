@@ -1,0 +1,5 @@
+adam optimizer
+https://arxiv.org/abs/1412.6980
+
+RMSprop is an unpublished, adaptive learning rate method proposed by Geoff Hinton
+http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf
