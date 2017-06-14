@@ -1,6 +1,3 @@
-keys:
-Dataset, init_from_segments, init_from_lists, load_data_from_segments, get_image_filename, get_score, get_id, shuffle_by_segments, LoadDataFile
-
 def load_dataset(path_to_segments_file):
 # part of DatasetHandler which creates the Dataset object
 	dataset = Dataset()

@@ -1,5 +1,3 @@
-keys: Model, Input, Dense, Dropout
-
 from keras.models import Model
 from keras.layers import Input, Dense, Dropout
 
