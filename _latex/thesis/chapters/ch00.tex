@@ -170,12 +170,12 @@ We want to train a model on the small annotated map segment and later use it in 
 
 We are given a dataset from the ATG research group of nodes and edges with score ranking ranging from 0 to 1. Score of 0 denotes, that in simulation this route segment was not used and value 1 means that it was a highly attractive road to take.
 
-Each node in supplied with longitude, latitude location, which gives us the option to enrich them with additional real world information. Figure \ref[5_yet_to_do]. shows the structure of initial data source.
+Each node in supplied with longitude, latitude location, which gives us the option to enrich them with additional real world information. Figure \ref[5_geojson]. shows the structure of initial data source.
 	
 \midinsert
-\clabel[5_yet_to_do]{Sample of the initial dataset}
-\picw=5cm \cinspic figures/temp_structure_of_edges_geojson_file.jpg
-\caption/f Sample of the structure of initial dataset. IMAGE IS TEMPORARY.
+\clabel[5_geojson]{Sample of the initial dataset}
+\picw=11cm \cinspic figures/3_example_geojson_data.pdf
+\caption/f Sample of the structure of initial dataset.
 \endinsert
 
 \secc Google Street View
@@ -621,41 +621,101 @@ This approach obviously increases the computational requirements, because it rep
 The existence of this thesis depends on couple of frameworks which helped it greatly. Framework called “Keras” allowed for fast prototyping of Deep CNN models as well as efficient training environment. Thanks to the Metacentrum project we had access to machines with high enough computational power needed to teach these models.
 
 \label[ch4_keras]
-\secc Keras
+%\secc Keras
 %------------------
+%A
 
-A
-
-\secc Metacentrum project
+%\secc Metacentrum project
 %------------------
-
-A
+%A
 
 \label[ch5]
 \chap The Implementation
 %==============================================================
 
-\midinsert
-\clabel[code1_]{code1}
-\picw=13cm \cinspic pseudocodes/5.3._downloader.pdf
-\caption/t Code sample
-\endinsert
-
-
 \sec Project overview 
 %===================
 
-A
+In planning of the composition of project code, we have somewhat separated the sections responsible for downloading data, from those managing the dataset and modeling and running experiments.
 
-\sec Experiment running 
-%===================
+Downloader is tasked to download images from Google Street View API from the initial dataset of edges and nodes mentioned in \ref[ch3_initial_dataset]. Segment object works as a unit holding information about edge and its corresponding images and score. See \ref[ch5_downloader].
 
-A
+However for later working with data, we have created a DatasetHandler which contains all the necessary functions. See \ref[ch5_dataset_handler].
 
+To run more instances of models and later evaluate them, we have chosen to build individual experiments from custom written setting files in \ref[ch5_settings]. Experiment Runner provides the common framework for all these more complicated computations in \ref[ch5_experiment_runner]. In Settings folder we hold setting files defining each experiment.
+
+\midinsert
+\clabel[31_overview]{Project structure overview}
+\picw=11cm \cinspic figures/5.1._project_overview.pdf 
+\caption/f Project structure in a schema.
+\endinsert
+
+\label[ch5_downloader]
 \sec Downloader functionality 
 %===================
 
-A
+The Downloader is the main method of acquiring imagery data and preparation of dataset. It first creates necessary folders according to the directory path and custom name we provide it with.
+
+Defaults.py contains default settings for the downloader, such as default number of times the code should try downloading each image and internal codes with which to mark unsuccessfully downloaded segments. Besides these internal representation settings, it also controls the pixel size of downloaded images.
+
+\midinsert
+\clabel[code1_downloader]{RunDownload}
+\picw=13cm \cinspic pseudocodes/5.3._downloader.pdf
+\caption/t RunDownload code sample.
+\endinsert
+
+Downloading procedure is initiated in RunDownload() method (see Code \ref[code1_downloader]), which parses node and edge data in provided GeoJSON files and build an array of Segments.
+
+For each segment in this array, we generate list of images to download. Long segments will be split by interpolating the start and end location to create smaller edge sections (see Code \ref[code3_longedges]). We generate a url link an shape corresponding to Google Street View API discussed in Code \ref[code2_googleapi] alongside with unique  file name.
+
+\midinsert
+\clabel[code2_googleapi]{Google Street View API url}
+\begtt
+http://maps.googleapis.com/maps/api/streetview?size=600x400
+   &location=<lat>,<long>&heading=<angle from north>&key=<api>
+\endtt
+\caption/t Exact Google Street View API url we need to generate
+\endinsert
+
+\midinsert
+\clabel[code3_longedges]{Break down long edges}
+\picw=13cm \cinspic pseudocodes/5.3._break_down_long_edge.pdf
+\caption/t Code segment which breaks down long edges and generates lists of urls and filenames Segment.getGoogleViewUrls().
+\endinsert
+
+One by one we try to download each of these images, marking segments with error flag, if we were unable to access them. The code attempts to retry each request for default number of times, to prevent temporary instability of network to hinder the downloading process.
+
+We also check for invalid images in areas where Google Street View doesn’t have any data available (see Figure \ref[32_noimagery]).
+
+\midinsert
+\clabel[32_noimagery]{No imagery available on Google Street View}
+\picw=6cm \cinspic figures/sorry_no_imagery_here.jpg 
+\caption/f Location outside of streets with available photographic imagery.
+\endinsert
+
+
+Eventually we save the pickled array into file for further processing. Folder structure is as follows in Figure \ref[code4_folder_struct]
+
+\midinsert
+\clabel[code4_folder_struct]{Dataset folder structure}
+\begtt
+dataset folder: 5556x_example_dataset_299px/
+SegmentsData.dump
+images/0000_0.jpg
+images/0000_1.jpg
+…
+images/5546_5.jpg
+\endtt
+\caption/t Folder structure of dataset.
+\endinsert
+
+\midinsert
+\clabel[code5_downloader_check]{Check downloaded dataset}
+\picw=13cm \cinspic pseudocodes/5.3._downloader_check.pdf
+\caption/t RunCheck code sample checks the downloaded dataset and redownloads missing images.
+\endinsert
+
+Function RunCheck() in \ref[code5_downloader_check] allows us to load previously downloaded Segments file and check for erroneous data – for example in case of sudden network failure we can download only the missing files and then save the fixed Segments file.
 
 \label[ch5_osm_marker]
 \sec OSM Marker 
@@ -663,6 +723,7 @@ A
 
 A
 
+\label[ch5_dataset_handler]
 \sec Datasets and DatasetHandler 
 %===================
 
@@ -694,7 +755,14 @@ C
 
 D
 
+\label[ch5_settings]
 \sec Settings structure 
+%===================
+
+A
+
+\label[ch5_experiment_runner]
+\sec Experiment running 
 %===================
 
 A
