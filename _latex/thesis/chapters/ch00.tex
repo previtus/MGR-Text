@@ -721,28 +721,79 @@ Function RunCheck() in \ref[code5_downloader_check] allows us to load previously
 \sec OSM Marker 
 %===================
 
-A
+Our code works with data downloaded from Open Street Maps to estimate what is the neighborhood of each segment. We have downloaded the .osm data file of corresponding location and exported it into a PostgreSQL database following commands represented in Code \ref[code6_convert_osm_to_db].
+
+\midinsert
+\clabel[code6_convert_osm_to_db]{Loading data into PostgreSQL database}
+\picw=13cm \cinspic pseudocodes/5.4._osm_db_import.pdf
+\caption/t Loading data into PostgreSQL database.
+\endinsert
+
+	Having a  PostgreSQL database is advantageous, because it allows us sending repeated queries to database of objects with geographical location while using PostgreSQL macros and functions for getting distance and intersections between areas. PostgreSQL database has hierarchical structure of data storage which is necessary for fast data access. Our python code can access this database with simple queries and then process its responses.
+
+\midinsert
+\clabel[code7_osm_marker]{Marking data with OSM vector}
+\picw=13cm \cinspic pseudocodes/5.4._osm_marker.pdf
+\caption/t Marking data with OSM vector.
+\endinsert
+
+The code \ref[code7_osm_marker] loads array of Segments and one by one accesses all the distinct locations stored in each Segment. This could be only two locations for segments too short to be broken down, or more if the original segment was split. Minimally these are the starting and the ending locations of the segment.
+
+We generate a SQL command, which targets particular columns which we chose to observe and also filters the data with “WHERE” clause for objects in distance smaller than chosen radius from segments location.
+
+OSM data we imported into PostgreSQL database takes structure of four tables representing “point”, “line”, “polyline” and “road” objects. We look into each of these tables and combine the results.
+
+Result of query gives us list of rows, each representing one object in vicinity of our location and columns containing attributes. We can produce a “attribute=value” pair from the values in each row alongside with the count of their occurrences.
+
+Final neighborhood vector counts all these occurrences in fixed positions as was discussed in \ref[ch3_osm_vector].
+
+Each segment stores multiple neighborhood vectors, one for each distinct location. Marked array of Segments is saved into pickled .dump file. We can store multiple versions of these files, each with different radius setting, while reusing all the downloaded images.
 
 \label[ch5_dataset_handler]
 \sec Datasets and DatasetHandler 
 %===================
 
-A
+DatasetObject is a structure shielding us from low level manipulation with the segments stored in .dump file, which can then remain unchanged and be reused for many experiments.
+	
+Figure \ref[33_dataset_object] shows us the structure of DatasetObject, with its most important functions and variables exposed.
 
-\secc Dataset statistics
-%------------------
+\midinsert
+\clabel[33_dataset_object]{Dataset object}
+\picw=12cm \cinspic figures/5.5._dataset_object.pdf 
+\caption/f Dataset object.
+\endinsert
 
-C
+Dataset is initialized by reading a SegmentsData.dump file, however it stores data in its own four internal arrays. These are: list of urls to images, labels marking the scores, OSM vectors if we have loaded a marked Segments file and unique IDs of original segments. Note that we are not directly loading all the images yet, rather we are keeping only their filenames. We can access the images when necessary, saving us from wasteful memory allocation.
 
-\secc DatasetHandler structure
-%------------------
+We also provide multiple getter functions which split data into training and validation datasets for the purpose of testing experiments. Each model type will require access to different data – image only model will for example omit all the OSM neighborhood vectors.
 
-D
+\midinsert
+\clabel[code8_dataset_handler]{DatasetHandler}
+\picw=13cm \cinspic pseudocodes/5.5._dataset_handler.pdf
+\caption/t DatasetHandler.
+\endinsert
+
+\midinsert
+\clabel[code9_dataset_visualization]{Data visualization}
+\picw=13cm \cinspic pseudocodes/5.5._dataset_statistics.pdf
+\caption/t Functions for data statistics visualization.
+\endinsert
+
+\midinsert
+\clabel[33_dataset_visualization]{Dataset visualization}
+\picw=6cm \cinspic figures/nullfig.pdf 
+\caption/f Example of dataset visualization.
+\endinsert
+
+%\secc Dataset statistics
+%\secc DatasetHandler structure
 
 \sec Models and ModelHandler 
 %===================
 
-A
+ModelHandler is composed of three functional sections. ModelOI provides the functions handling input and output – including interaction with DatasetHandler and reporting functions. ModelGenerator is responsible for building models in Keras syntax depending on settings we choose for current model. ModelTester provides functions controlling the training and testing capabilities of model.
+
+These individual blocks are controlled from ExperimentRunner, which ties them together and manages shared Settings information.
 
 
 \secc Model description in Keras
