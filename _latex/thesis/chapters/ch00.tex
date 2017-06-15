@@ -799,12 +799,123 @@ These individual blocks are controlled from ExperimentRunner, which ties them to
 \secc Model description in Keras
 %------------------
 
-C
+Generic code for building models in Keras works in two modes – Sequencial and Functional. We will use Functional in these particular examples as it is convenient both for writing and understanding.
 
-\secc ModelHandler structure
+We will mention some of the layers we can use to build Keras models.
+
+\begtt
+Out = Dense(256, activation=’relu’)(In)
+Out = Dense(1, activation=’sigmoid’)(In)
+\endtt
+	
+Dense layers stand for fully connected layers mentioned in \ref[ch4_fully_connected_layers]. Here we can see two possible uses for this type of layer. With width set to 1, this layer represents one neuron which can be used as the final output of our classifier.
+
+\begtt
+Out = Dropout(probability)(In)
+\endtt
+
+Dropout layer is used accompanying the Dense layers and follows the process mentioned in \ref[ch4_dropout_layers]. With selected probability the connection of neurons will be dropped during the training period.
+
+\midinsert
+\clabel[code10_build_generic_model]{Building generic model in Keras}
+\picw=13cm \cinspic pseudocodes/5.6._build_generic_model.pdf
+\caption/t Building generic model in Keras.
+\endinsert
+
+We are using these mentioned layers in our models, for more detailed survey check \ref[APPENDIX KERAS SYNTAX] APPENDIX KERAS SYNTAX.
+
+After building the model we need to compile it specifying settings which will be used for training such as the optimizer, loss function and additional measured metrics.
+
+\begtt
+Model.compile()
+\endtt
+
+
+For details about which settings we use for training, check \ref[ch4_model_training].
+
+Finally our model is trained on dataset with fit command.
+	
+\begtt
+model.fit(data, labels, ...)
+\endtt
+
+The full code to build and train a generic Keras model on a dataset can be seen in Figure \ref[code11_run_generic_experiment].
+
+\midinsert
+\clabel[code11_run_generic_experiment]{Fit generic model to data}
+\picw=13cm \cinspic pseudocodes/5.6._run_generic_experiment.pdf
+\caption/t Fit generic model to data in Keras.
+\endinsert
+
+
+
+\secc Model building
 %------------------
 
-D
+Particular models described in section \ref[ch4] are shown here with functions which generate them. We have stated that their structure can be parametrized, and that we can alter these parameters to change their shape and performance. We can change the depth and width of these models.
+	
+\seccc {OSM only model}1
+%------------------
+
+See Code sample \ref[code12_osm_model], which builds the model discussed in \ref[osm_model].
+
+\midinsert
+\clabel[code12_osm_model]{OSM only model code}
+\picw=13cm \cinspic pseudocodes/5.6._osm_model.pdf
+\caption/t Function producing a Keras model described in \ref[osm_model].
+\endinsert
+
+\seccc {Images only model}2
+%------------------
+
+When we are working with model described in \ref[img_model], we make use of the feature transfer method and as such the training process can be made easier as was discussed in \ref[ch4_feature_cooking].
+
+Also the Keras syntax will be correspondingly altered. We create two models instead of a single whole model. One represents the feature extractor section of model and is mostly created by the reused base of pretrained CNN model. We can load these as base of our models with weights initialized from model trained on ImageNet dataset, such as is done in \ref[code13_applications].
+
+\midinsert
+\clabel[code13_applications]{Applications}
+\picw=13cm \cinspic pseudocodes/5.6._applications.pdf
+\caption/t Applications
+\endinsert
+
+Our second model is then made of just our custom top architecture discussed in \ref[ch4_custom_top]. We will feed it with outputs of features from the first model. Note that for repeated experiments with the same dataset and model setting, we can save these features into files and spare a lot of valuable computation time. Code snippet in \ref[code14_feature_cooking_img_model] shows us an example of the use of two models.
+
+\midinsert
+\clabel[code14_feature_cooking_img_model]{Feature cooking}
+\picw=13cm \cinspic pseudocodes/5.6._feature_cooking_img_model.pdf
+\caption/t Feature cooking
+\endinsert
+
+\seccc {Mixed model}3
+%------------------
+
+Mixed model uses the same techniques of feature transfer and is fully described in \ref[mix_model].
+
+Code in \ref[code15_mix_model] shows how we build this model. Note that we can even reuse the saved feature files from image only model, as long as we maintain the same order in our dataset. DatasetHandler can shuffle data in deterministic manner which allows us to do so.
+
+\midinsert
+\clabel[code15_mix_model]{Building mixed model}
+\picw=13cm \cinspic pseudocodes/5.6._mix_model.pdf
+\caption/t Building mixed model.
+\endinsert
+
+\secc ModelHandler Structure
+%------------------
+
+Figure \ref[34_model_handler_structure] illustrates the various functions  which are part of the ModelHandler. In \ref[code16_model_handler_functions] we can see snippets of code dealing with building and testing of models. Note that in one run we are handling multiple instances of models and datasets, as is explained in \ref[ch5_experiment_runner].
+
+\midinsert
+\clabel[34_model_handler_structure]{ModelHandler Structure}
+\picw=13cm \cinspic figures/5.6.3._model_handler_struct.pdf 
+\caption/f ModelHandler Structure.
+\endinsert	
+	
+\midinsert
+\clabel[code16_model_handler_functions]{ModelHandler functions}
+\picw=13cm \cinspic pseudocodes/5.6._model_handler_functions.pdf
+\caption/t ModelHandler functions.
+\endinsert
+
 
 \label[ch5_settings]
 \sec Settings structure 
