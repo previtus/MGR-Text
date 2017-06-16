@@ -556,7 +556,7 @@ The difference between the error achieved on training data and on validation dat
 \secc Training setting 
 %------------------
 
-We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as ‘rmsprop’ and ‘adam’ (see ~\cite[adam_optimizer]). For greater parametric control we can also select the SGD optimizer.
+We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as ‘rmsprop’ ~\cite[rmsprop_tieleman2012lecture] and ‘adam’ (see ~\cite[adam_optimizer] where Adam has been tested as effective on CNN learning related tasks). For greater parametric control we can also select the SGD optimizer.
 
 Given the nature of our task, we are solving a regression problem, trying to minimize deviation from scored data. In most models mentioned in \ref[ch2_competition], the task revolves around selecting the correct category to classify objects.
 
