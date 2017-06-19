@@ -33,7 +33,7 @@ Introduction, which chapter contains what.
 % design of columns
 & \hskip2pt \vtop{\hsize=.27\hsize\noindent\strut #\strut \hfil}
 & \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
-& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=2em \crcr 
+& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
 % data
   parameter name & default value & description \cr
   \noalign{\hrule}
@@ -50,6 +50,77 @@ Introduction, which chapter contains what.
 \vskip5pt
 \startcenter
 \caption/t List of parameters shared throughout the whole experiment.
+\stopcenter
+\endinsert
+
+
+\midinsert{ 
+\clabel[ch5_settings_table_model]{Settings parameters for each individual model}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.23\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+  parameter name & default value & description \cr
+  \noalign{\hrule}
+  Dataset specific \cr
+  \noalign{\hrule}
+dataset\_pointer & -1 & If left at value ‘-1’ we instantiate a new dataset for this model. Otherwise we use the dataset of the indicated different model. For example if the first model has -1, then the second model can have dataset\_pointer set to 0 to reuse the same dataset. \cr
+  \noalign{\hrule}
+dataset\_name & ‘1200x\_markable \_299x299’ & States the name of folder we want to use for loading the dataset from (this folder has to contain SegmentsData.dump and a folder ‘images’ with Google Street View images). Downloader can prepare these folders for us. \cr
+  \noalign{\hrule}
+dump\_file\_override & ‘’ & Can be used to indicate usage of nonstandard segments file. For example we can keep multiple versions of OSM marked data in different files and access them via this setting (for example loading file ‘SegmentsData\_marked\_R100.dump’). \cr
+  \noalign{\hrule}
+pixels & 299 & Pixel dimension indicator of the loaded images (image files have dimension of pixels*pixels*3). \cr
+  \noalign{\hrule}
+number\_of\_images & None & Indicates if we want to use only a subset of the dataset. When left at None, whole dataset will be used, otherwise a uniform sampling will be used to give us indicated number of images. \cr
+  \noalign{\hrule}
+seed & 13 & Seed for maintaining deterministic nature of certain random sampling operations (such as the initial reordering of loaded dataset). This value is important as it guarantees our ability to reuse precomputed feature files. \cr
+  \noalign{\hrule}
+validation\_split & 0.25 & Under which fraction we split data in simple (those not guided by k-fold crossvalidation scheme) experiments. Ranges from 0 to 1. With 0.25 one quarter of data will designated as validation set and the remainder of three-quarters will be the training set. \cr
+  \noalign{\hrule}
+shuffle\_dataset & True & Indicator that we want to shuffle our dataset in deterministic manner (using the seed value). \cr
+  \noalign{\hrule}
+shuffle\_dataset \_method & 'default-same-segment' & Shuffling method which maintains the order of images from the same segment to be kept together, which is important not to bring in dualities into our data. \cr
+  \noalign{\hrule}
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/t List of parameters specific to individual models.
+\stopcenter
+\endinsert
+
+
+
+\midinsert{ 
+\clabel[ch5_settings_table_model_cont1]{Settings parameters for each individual model (continued)}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.23\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+  parameter name & default value & description \cr
+  \noalign{\hrule}
+  Dataset specific \cr
+  \noalign{\hrule}
+edit\_osm\_vec & ‘’ & Additional transformation of the OSM data, accepts 'booleans', which turns all quantitative entries into 0 or 1. Setting 'low-mid-high' turns all entries into three categorical system of low, mid and high depending on percentiles of data distribution in dataset. These three categories are encoded as one-hot vector producing variants: 001, 010 or 100. Note that this effectively triples the length OSM vector. \cr
+  \noalign{\hrule}
+  Model specific \cr
+  \noalign{\hrule}
+unique\_id & & Unique name for this model, will be used for plotting graphs and later for identification which plotted history belonged to which model.\cr
+  \noalign{\hrule}
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/t List of parameters specific to individual models (continued).
 \stopcenter
 \endinsert
 
