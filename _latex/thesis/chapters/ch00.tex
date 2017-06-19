@@ -115,6 +115,28 @@ edit\_osm\_vec & ‘’ & Additional transformation of the OSM data, accepts 'bo
   \noalign{\hrule}
 unique\_id & & Unique name for this model, will be used for plotting graphs and later for identification which plotted history belonged to which model.\cr
   \noalign{\hrule}
+model\_type & 'simple\_cnn\_ with\_top' & Specifies which model type will we use. Accepted values are: 'simple\_cnn\_with\_top', 'img\_osm\_mix', 'osm\_only'. \cr
+  \noalign{\hrule}
+cnn\_model & 'resnet50' & Which basic CNN model will we use in case of image\_only and mixed model. Allowed values are: vgg16, vgg16, resnet50, inception\_v3, xception. \cr
+  \noalign{\hrule}
+cooking\_method & 'generators' & Internally used flag to indicating which method will we use to generate feature files. 'generators' tends to be less memory demanding, but consumes longer time when compared with the other allowed value 'direct'. \cr
+  \noalign{\hrule}
+top\_repeat\_FC \_block & 3 & Specifies depth of classifier in image\_only and osm\_only models. \cr
+  \noalign{\hrule}
+osm\_manual\_width & 256 & Manually setting the width of osm\_only model. \cr
+  \noalign{\hrule}
+save\_visualization & True & Whether we want to plot graphs for this experiment. \cr
+  \noalign{\hrule}
+Training specific \cr
+  \noalign{\hrule}
+epochs & 150 & Indication of how many epochs we want to spend in training of this model. \cr
+  \noalign{\hrule}
+optimizer & 'rmsprop' & Choice for the Keras optimizer. Suggested values are 'rmsprop' or 'adam', however also accepts the object of Keras optimizer such as: optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True) with its custom settings. \cr
+  \noalign{\hrule}
+loss\_func & 'mean\_squared \_error' & Metric used as a loss function during training of this model. \cr
+  \noalign{\hrule}
+metrics & ['mean\_absolute \_error'] & List of other metrics which we want to also track into history. \cr
+  \noalign{\hrule}
 }
 \hrule
 }
@@ -123,7 +145,6 @@ unique\_id & & Unique name for this model, will be used for plotting graphs and 
 \caption/t List of parameters specific to individual models (continued).
 \stopcenter
 \endinsert
-
 
 
 
