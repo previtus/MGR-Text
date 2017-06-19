@@ -5,6 +5,60 @@
 
 Introduction, which chapter contains what.
 
+% Metacentrum scripts table
+\midinsert \clabel[ch5_metacentrum_scripts]{Metacentrum scripts}
+\ctable{ll}{
+"qsub task.sh" & basic specification to run bash program in "task.sh" \cr
+"-l walltime=$<$time$>$"   & memory requirements (for example "mem=32gb") \cr
+"-l ncpus=$<$n$>$"         & number of CPUs used (for example "ncpus=4") \crl \tskip4pt
+% -------------------------------------
+"qstat -u $<$user$>$"      & command to get list of tasks run by a specific user \cr
+"qstat $<$task\_id\_number$>$"      & get information about task specified by unique  "task\_id\_number"  \crl \tskip4pt
+% -------------------------------------
+"qsig -s SIGINT $<$task\_id\_number$>$"   & interruption of running task by the "SIGINT" signal \cr
+}
+\caption/t Metacentrum planner scripts
+\endinsert
+
+\def\tableto{\vbox\bgroup \catcode`\|=12 \tableAto}
+\def\tableAto#1#2#3{\offinterlineskip \def\tmpa{}%
+   \tabdata={\tabskip=0pt plus1fil minus1fil}\scantabdata#2\relax
+   \halign to#1\expandafter{\the\tabdata\tabskip=0pt\tabstrutA\cr#3\crcr}\egroup}
+
+
+\midinsert{ 
+\clabel[ch5_settings_table_whole]{Settings parameters for the whole experiment}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.27\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=2em \crcr 
+% data
+  parameter name & default value & description \cr
+  \noalign{\hrule}
+  experiment\_name & basic & Name of the experiment as well as name of the folder used to store the results in. \cr
+  \noalign{\hrule}
+  graph\_histories & [‘all’, ‘together’] & Accepts values of ‘all’, which produces one graph for each model, ‘together’, which draws graphs of all models into one shared graph. Also accepts lists of numbers, which specify which models we would like to have plotted together. For example [0,2] would plot histories of the first and third model together. \cr
+  \noalign{\hrule}
+  interrupt & False & Internal flag used to interrupt the whole experiment in case of error. \cr
+  \noalign{\hrule}
+  filename\_features\_train, filename\_features\_test & ‘’ & Internal string flags used to share file paths amongst different parts of code in ModelHandler. \cr
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/t List of parameters shared throughout the whole experiment.
+\stopcenter
+\endinsert
+
+
+
+
+
+
+
 \label[ch2]
 \chap Research
 %==============================================================

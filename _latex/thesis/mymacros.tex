@@ -26,3 +26,20 @@
 \def\realnumbers{${\rm I\!R}$}
 \def\degrees{$\,^{\circ}$\space}
 
+
+% ============================================================================================================
+% centrilize piece of text 
+
+\def\startcenter{%
+  \par
+  \begingroup
+  \leftskip=0pt plus 1fil
+  \rightskip=\leftskip
+  \parindent=0pt
+  \parfillskip=0pt
+}
+\def\stopcenter{%
+  \par
+  \endgroup
+}
+\long\def\centerpars#1{\startcenter#1\stopcenter}
