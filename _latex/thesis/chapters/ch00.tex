@@ -349,18 +349,18 @@ The fully-connected layer denoted as “Dense” in Keras stands for a structure
 \caption/f Shows the model of connections of neurons in fully connected layer.
 \endinsert
 
-The fully-connected layer suffers from a large amount of parameters it generates – weights in each connection between neurons and biases in individual neuron units. Fully-connected layers are usually present in the classification section of the model.
+The fully-connected layer suffers from a large amount of parameters it generates: weights in each connection between neurons and biases in individual neuron units. Fully-connected layers are usually present in the classification section of the model.
 
 \secc Convolutional layers
 %------------------
-
-Convolutional layers are trying to circumvent the large amount of parameters of fully-connected layers by localized connectivity. Each neuron looks only at certain area of the previous layer.
 
 \midinsert
 \clabel[14_conv]{Convolutional layer}
 \picw=10cm \cinspic figures/4.1.3_convolutional_layer.pdf 
 \caption/f Schematic illustration of connectivity of convolutional layer. Connections are limited to the scope of receptive field.
 \endinsert
+
+Convolutional layers are trying to circumvent the large amount of parameters of fully-connected layers by localized connectivity. Each neuron looks only at certain area of the previous layer.
 
 For their property to use considerably less parameters while at the same time to focus on features present in particular sections of image, they are often used as the main workforce in the feature extractor section of CNN models.
 
@@ -381,13 +381,14 @@ Pooling layers are put in between convolutional layers in order to decrease the 
 
 Dropout layer is special layer suggested by ~\cite[srivastava2014dropout] which has since been widely used on the design of CNN architectures as a tool to prevent model overfitting.
 
-The dropout layer placed between two fully-connected layers functions randomly drops connections between neurons with certain probability during the training period. Instead of fully-connected network of connections we are left with a thinned network with only some of the connections remaining. This thinned networks is used during training and prevents neurons to rely too much on co-adaptation. They are instead forced to develop more ways to fit the data as there is the effect of connection dropping. During test evaluation, the full model is used with its weights changed by the probability of dropout probability.
-
 \midinsert
 \clabel[16_drop]{Dropout layer}
 \picw=8cm \cinspic figures/4.1.5._dropout.pdf 
 \caption/f Illustration of dropout layers effect during the training period, which renders certain connection invalid with set probability. This prevents the network to depend too much on overly complicated formations of neurons.
 \endinsert
+
+The dropout layer placed between two fully-connected layers functions randomly drops connections between neurons with certain probability during the training period. Instead of fully-connected network of connections we are left with a thinned network with only some of the connections remaining. This thinned networks is used during training and prevents neurons to rely too much on co-adaptation. They are instead forced to develop more ways to fit the data as there is the effect of connection dropping. During test evaluation, the full model is used with its weights changed by the probability of dropout probability.
+
 
 \label[osm_model]
 \sec Open Street Map neighborhood vector model 
@@ -421,17 +422,17 @@ The image data can be augmented in order to achieve richer dataset, see \ref[ch4
 
 As discussed in \ref[ch2_history_of_cnn] we are using a CNN model which has been trained on ImageNet dataset. We reuse parts of the original model keeping its weights and attach a new custom classification segment architecture at the top of the model.
 
-We can generally divide even the more complicated CNN models into two abstract segments as mentioned in \ref[ch4_model_abstraction]. The beginning of the model, which usually comprises of repeated structure of convolutional layers, followed by a classification section usually made of fully-connected layers.
-
-The former works in extracting high dimensional features of incoming imagery data, whereas the classification section translates those features into a probability distribution over categories or score. In our case we are considering a regression problem model, which works with score instead of categories.
-
-As was mentioned in \ref[ch2_feature_transfer_research] we reuse the model trained on large dataset of ImageNet, separate it from its classificatory and instead provide our own custom made top model. See Figure \ref[19_base_top].
-
 \midinsert
 \clabel[19_base_top]{Reused base model with custom top model}
 \picw=12cm \cinspic figures/4.3._feature_transfer.pdf 
 \caption/f Reusing part of already trained CNN model as a base model and adding our custom top model.
 \endinsert
+
+We can generally divide even the more complicated CNN models into two abstract segments as mentioned in \ref[ch4_model_abstraction]. The beginning of the model, which usually comprises of repeated structure of convolutional layers, followed by a classification section usually made of fully-connected layers.
+
+The former works in extracting high dimensional features of incoming imagery data, whereas the classification section translates those features into a probability distribution over categories or score. In our case we are considering a regression problem model, which works with score instead of categories.
+
+As was mentioned in \ref[ch2_feature_transfer_research] we reuse the model trained on large dataset of ImageNet, separate it from its classificatory and instead provide our own custom made top model. See Figure \ref[19_base_top].
 
 We prevent the layers of base model from changing their weights and train only the newly attached top model for the new task. There are certain specifics connected with this approach which we will explore in \ref[ch4_feature_cooking] section.
 
@@ -469,6 +470,8 @@ The final layer of the classification section consists of fully-connected layer 
 \picw=14cm \cinspic figures/4.3.1.2_feature-score.pdf 
 \caption/f Top model structure which takes in the feature vector and follows with fully connected layers which are retrained on our own task.
 \endinsert
+
+\maybebreak 5pt
 
 \secc{The final architecture}
 %------------------
