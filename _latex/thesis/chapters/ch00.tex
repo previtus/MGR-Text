@@ -5,152 +5,6 @@
 
 Introduction, which chapter contains what.
 
-% Metacentrum scripts table
-\midinsert \clabel[ch5_metacentrum_scripts]{Metacentrum scripts}
-\ctable{ll}{
-"qsub task.sh" & basic specification to run bash program in "task.sh" \cr
-"-l walltime=$<$time$>$"   & memory requirements (for example "mem=32gb") \cr
-"-l ncpus=$<$n$>$"         & number of CPUs used (for example "ncpus=4") \crl \tskip4pt
-% -------------------------------------
-"qstat -u $<$user$>$"      & command to get list of tasks run by a specific user \cr
-"qstat $<$task\_id\_number$>$"      & get information about task specified by unique  "task\_id\_number"  \crl \tskip4pt
-% -------------------------------------
-"qsig -s SIGINT $<$task\_id\_number$>$"   & interruption of running task by the "SIGINT" signal \cr
-}
-\caption/t Metacentrum planner scripts
-\endinsert
-
-\def\tableto{\vbox\bgroup \catcode`\|=12 \tableAto}
-\def\tableAto#1#2#3{\offinterlineskip \def\tmpa{}%
-   \tabdata={\tabskip=0pt plus1fil minus1fil}\scantabdata#2\relax
-   \halign to#1\expandafter{\the\tabdata\tabskip=0pt\tabstrutA\cr#3\crcr}\egroup}
-
-
-\midinsert{ 
-\clabel[ch5_settings_table_whole]{Settings parameters for the whole experiment}
-\hrule
-\halign{
-% design of columns
-& \hskip2pt \vtop{\hsize=.27\hsize\noindent\strut #\strut \hfil}
-& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
-& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
-% data
-  parameter name & default value & description \cr
-  \noalign{\hrule}
-  experiment\_name & basic & Name of the experiment as well as name of the folder used to store the results in. \cr
-  \noalign{\hrule}
-  graph\_histories & [‘all’, ‘together’] & Accepts values of ‘all’, which produces one graph for each model, ‘together’, which draws graphs of all models into one shared graph. Also accepts lists of numbers, which specify which models we would like to have plotted together. For example [0,2] would plot histories of the first and third model together. \cr
-  \noalign{\hrule}
-  interrupt & False & Internal flag used to interrupt the whole experiment in case of error. \cr
-  \noalign{\hrule}
-  filename\_features\_train, filename\_features\_test & ‘’ & Internal string flags used to share file paths amongst different parts of code in ModelHandler. \cr
-}
-\hrule
-}
-\vskip5pt
-\startcenter
-\caption/t List of parameters shared throughout the whole experiment.
-\stopcenter
-\endinsert
-
-
-\midinsert{ 
-\clabel[ch5_settings_table_model]{Settings parameters for each individual model}
-\hrule
-\halign{
-% design of columns
-& \hskip2pt \vtop{\hsize=.23\hsize\noindent\strut #\strut \hfil}
-& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
-& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
-% data
-  parameter name & default value & description \cr
-  \noalign{\hrule}
-  Dataset specific \cr
-  \noalign{\hrule}
-dataset\_pointer & -1 & If left at value ‘-1’ we instantiate a new dataset for this model. Otherwise we use the dataset of the indicated different model. For example if the first model has -1, then the second model can have dataset\_pointer set to 0 to reuse the same dataset. \cr
-  \noalign{\hrule}
-dataset\_name & ‘1200x\_markable \_299x299’ & States the name of folder we want to use for loading the dataset from (this folder has to contain SegmentsData.dump and a folder ‘images’ with Google Street View images). Downloader can prepare these folders for us. \cr
-  \noalign{\hrule}
-dump\_file\_override & ‘’ & Can be used to indicate usage of nonstandard segments file. For example we can keep multiple versions of OSM marked data in different files and access them via this setting (for example loading file ‘SegmentsData\_marked\_R100.dump’). \cr
-  \noalign{\hrule}
-pixels & 299 & Pixel dimension indicator of the loaded images (image files have dimension of pixels*pixels*3). \cr
-  \noalign{\hrule}
-number\_of\_images & None & Indicates if we want to use only a subset of the dataset. When left at None, whole dataset will be used, otherwise a uniform sampling will be used to give us indicated number of images. \cr
-  \noalign{\hrule}
-seed & 13 & Seed for maintaining deterministic nature of certain random sampling operations (such as the initial reordering of loaded dataset). This value is important as it guarantees our ability to reuse precomputed feature files. \cr
-  \noalign{\hrule}
-validation\_split & 0.25 & Under which fraction we split data in simple (those not guided by k-fold crossvalidation scheme) experiments. Ranges from 0 to 1. With 0.25 one quarter of data will designated as validation set and the remainder of three-quarters will be the training set. \cr
-  \noalign{\hrule}
-shuffle\_dataset & True & Indicator that we want to shuffle our dataset in deterministic manner (using the seed value). \cr
-  \noalign{\hrule}
-shuffle\_dataset \_method & 'default-same-segment' & Shuffling method which maintains the order of images from the same segment to be kept together, which is important not to bring in dualities into our data. \cr
-  \noalign{\hrule}
-}
-\hrule
-}
-\vskip5pt
-\startcenter
-\caption/t List of parameters specific to individual models.
-\stopcenter
-\endinsert
-
-
-
-\midinsert{ 
-\clabel[ch5_settings_table_model_cont1]{Settings parameters for each individual model (continued)}
-\hrule
-\halign{
-% design of columns
-& \hskip2pt \vtop{\hsize=.23\hsize\noindent\strut #\strut \hfil}
-& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
-& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
-% data
-  parameter name & default value & description \cr
-  \noalign{\hrule}
-  Dataset specific \cr
-  \noalign{\hrule}
-edit\_osm\_vec & ‘’ & Additional transformation of the OSM data, accepts 'booleans', which turns all quantitative entries into 0 or 1. Setting 'low-mid-high' turns all entries into three categorical system of low, mid and high depending on percentiles of data distribution in dataset. These three categories are encoded as one-hot vector producing variants: 001, 010 or 100. Note that this effectively triples the length OSM vector. \cr
-  \noalign{\hrule}
-  Model specific \cr
-  \noalign{\hrule}
-unique\_id & & Unique name for this model, will be used for plotting graphs and later for identification which plotted history belonged to which model.\cr
-  \noalign{\hrule}
-model\_type & 'simple\_cnn\_ with\_top' & Specifies which model type will we use. Accepted values are: 'simple\_cnn\_with\_top', 'img\_osm\_mix', 'osm\_only'. \cr
-  \noalign{\hrule}
-cnn\_model & 'resnet50' & Which basic CNN model will we use in case of image\_only and mixed model. Allowed values are: vgg16, vgg16, resnet50, inception\_v3, xception. \cr
-  \noalign{\hrule}
-cooking\_method & 'generators' & Internally used flag to indicating which method will we use to generate feature files. 'generators' tends to be less memory demanding, but consumes longer time when compared with the other allowed value 'direct'. \cr
-  \noalign{\hrule}
-top\_repeat\_FC \_block & 3 & Specifies depth of classifier in image\_only and osm\_only models. \cr
-  \noalign{\hrule}
-osm\_manual\_width & 256 & Manually setting the width of osm\_only model. \cr
-  \noalign{\hrule}
-save\_visualization & True & Whether we want to plot graphs for this experiment. \cr
-  \noalign{\hrule}
-Training specific \cr
-  \noalign{\hrule}
-epochs & 150 & Indication of how many epochs we want to spend in training of this model. \cr
-  \noalign{\hrule}
-optimizer & 'rmsprop' & Choice for the Keras optimizer. Suggested values are 'rmsprop' or 'adam', however also accepts the object of Keras optimizer such as: optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True) with its custom settings. \cr
-  \noalign{\hrule}
-loss\_func & 'mean\_squared \_error' & Metric used as a loss function during training of this model. \cr
-  \noalign{\hrule}
-metrics & ['mean\_absolute \_error'] & List of other metrics which we want to also track into history. \cr
-  \noalign{\hrule}
-}
-\hrule
-}
-\vskip5pt
-\startcenter
-\caption/t List of parameters specific to individual models (continued).
-\stopcenter
-\endinsert
-
-
-
-
-
-
 \label[ch2]
 \chap Research
 %==============================================================
@@ -221,7 +75,7 @@ Effectively ImageNet became the huge qualitative dataset which was needed to pro
 
 The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) ~\cite[Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure of cucumbers ~\cite[japanese-cucumber].
 
-\seccc{AlexNet, CNN using huge datasets}1
+\secc AlexNet, CNN using huge datasets
 %------------------
 
 The task of object recognition has been waiting for larger databases with high quality of annotation to move from easier tasks done in relatively controlled environment, such as the MNIST task. In the work of ~\cite[krizhevsky2012imagenet] the ImageNet database was used to teach a Deep Convolutional Neural Network (CNN) in a model later referred to as AlexNet. At the time this method has achieved more than 10\% improvement over its competitors in an ILSVRC 2012 competition.
@@ -232,14 +86,14 @@ For the competition an architecture of five convolutional and three fully-connec
 
 The stochastic gradient descent was used for training the model for roughly 90 cycles through training set composed of 1.2 million of images, which took five to six days to train on two NVIDIA GTX 580 3GB GPUs.
 
-\seccc{VGG16, VGG19, going deeper}2
+\secc VGG16, VGG19, going deeper
 %------------------
 
 Following the successful use of CNNs in ILSVRC2012, the submissions of following years tried to tweak the parameters of CNN architecture. Approach chosen by ~\cite[vgg_simonyan2014very] stands out because of its success. It focused on increasing the depth of CNN while altering the structure of network.  In their convolutional layers they chose to use very small convolution filter (with 3x3 receptive field), which leads to large decrease of amount of parameters generated by each layer.
 
 This allowed them to build much deeper architectures and acquire second place in the classification task and first place in localization task of ILSVRC 2014.
 
-\seccc{ResNet, recurrent connections and residual learning}3
+\secc ResNet, recurrent connections and residual learning
 %------------------
 
 The work of ~\cite[resnet_He_2016_CVPR] introduced a new framework of deep residual learning which allowed them to go even deeper with their CNN models. They encountered the problem of degradation, where accuracy was in fact decreasing with deeper networks. This issue is not caused by overfitting as the error was increased both in the training and validation dataset.
@@ -248,7 +102,7 @@ Alternative architecture of model, where a identity shortcut  connection was int
 
 Their model ResNet 152 using 152 layers achieved a first place in the classification task of ILSVRC 2015.
 
-\seccc{Ensemble models}4
+\secc Ensemble models
 %------------------
 
 The state of the art models as of ILSVRC 2016 made use of the ensemble approach. Multiple models are used for the task and final ensemble model weights their contribution into an aggregated score.
@@ -307,7 +161,7 @@ As has been stated in \ref[ch2_data_collection] a cost function can be an explic
 
 We want to train a model on the small annotated map segment and later use it in areas where such detailed information is not available. We argue that Google Street View and Open Street Map data are more readily obtainable, than supply of highly qualitative measurements.
 
-\sec Available data and collection 
+\sec Available imagery data 
 %===================
 
 \label[ch3_initial_dataset]
@@ -331,7 +185,7 @@ As each edge segment connecting two nodes is representing a real world street co
 
 We are using a Google Street View API which allows us to generate links of images at specific locations and facing specific ways.
 
-\seccc{Downloading Street View images}1
+\secc Downloading Street View images
 %------------------
 
 Google Street View API uses the parameters of location which is the latitude and longitude and heading, which is the deviation angle from the North Pole in degrees. See Figure \ref[6_google_api]. In calculation of heading we are making a simplification of Earth being spherical using formula for initial bearing in Figure \ref[6_bearing].
@@ -361,16 +215,13 @@ Also note that we are limited to downloading images of maximal size 640x640 pixe
 \caption/f Splitting of initial possibly large edge segments into sections not smaller than the minimal length limit for edge segment. Each of these generates six images, which are usually not overlapping even with neighboring edges.  
 \endinsert
 
-\seccc{Data augmentation introduction}2
-%------------------
-
 In CNNs we often use the method of data augmentation to extend datasets by simple image transformations to overcome limitations of small datasets. We can generate crops of the original images, flip and rotate them or alter their colors.
 
 We will return to the issue of dataset augmentation in \ref[ch4_data_augmentation].
 
 \label[ch3_neighborhood_in_osm]
-\secc Neighborhood in Open Street Map data
-%------------------
+\sec Neighborhood data from Open Street Map
+%===================
 
 We are looking for another source of information about an edge segment in the neighborhood surrounding its location in Open Street Map data.
 
@@ -385,7 +236,7 @@ Open Street Map data is structured as vector objects placed with location parame
 From implementation standpoint, we have downloaded the OSM data covering map of our location and loaded it into a PostgreSQL database. In this way we can send queries for lists of objects in the vicinity of queried location. We will get into more detail about implementation in \ref[ch5_osm_marker].
 
 \label[ch3_osm_vector]
-\seccc{OSM neighborhood vector}1
+\secc OSM neighborhood vector
 %------------------
 
 The structure of OSM data consists of geometrical objects with attributes describing their properties. In the PostgreSQL database each row represents object and attributes are kept as table columns.
@@ -434,14 +285,14 @@ Each distinct location of each edge will end up with same sized OSM vector marki
 
 One further undivided edge segment contains 6 images which share the same score, and some of which will share location and therefore also their OSM vectors. For illustration see Figure \ref[10b_six_imgs].
 
-\seccc{Radius choice}2
+\secc Radius choice
 %------------------
 
 Depending on the radius we choose different area will be considered as neighborhood. If we were to choose too small radius, the occurrences would mostly result in zero OSM vector. On the other hand selecting too high radius would lead many OSM vectors to be indistinguishable from each other as they would share the exact same values.
 
 Our final choice for radius was value of 100 meters, which was empirically tested in \ref[ch6] Results.
 
-\seccc{Data transformation}3
+\secc Data transformation
 %------------------
 
 Similar to the spirit of data augmentation for images, we can try editing the OSM vectors in order that they will be more easily used by CNN models.
@@ -767,13 +618,19 @@ This approach obviously increases the computational requirements, because it rep
 The existence of this thesis depends on couple of frameworks which helped it greatly. Framework called “Keras” allowed for fast prototyping of Deep CNN models as well as efficient training environment. Thanks to the Metacentrum project we had access to machines with high enough computational power needed to teach these models.
 
 \label[ch4_keras]
-%\secc Keras
+\secc Keras
 %------------------
-%A
 
-%\secc Metacentrum project
+Keras is a framework which supports fast prototyping of models with easy API to underlaying backend using low level Theano and TensorFlow. We can build entire CNN or Machine Learning models by listing individual layers of the model from prebuilt list of commands. For most of models mentioned in \ref[ch2_history_of_cnn] which performed well in the ILSVRC competition there exists a model description in Keras. Models, which we will show how to load in Keras syntax in Code \ref[code13_applications], have weights available from learning on the large ImageNet dataset. This makes Keras perfect for our task, even for the feature transfer design we intend to use for our models.
+
+Keras also has a training and testing API prepared to use models efficiently with good hardware support including computation on GPUs.
+
+\secc Metacentrum project
 %------------------
-%A
+
+Metacentrum is a project supporting research groups including the academic research groups at our university. They provide a server cluster capable of running our experiments on wide array of machines with powerful hardware. We control the individual runs of experiments by special tasking and job queuing system, PBS Professional. We also make use of its storage units with image datasets containing many items and large feature files.
+
+See \ref[ch5_metacentrum] and Code \ref[code18_metacentrum_bash_task] for examples of scripts we use to queue jobs and experiments.
 
 \label[ch5]
 \chap The Implementation
@@ -1067,7 +924,158 @@ Figure \ref[34_model_handler_structure] illustrates the various functions  which
 \sec Settings structure 
 %===================
 
-A
+Throughout the whole run of experiments, we keep a shared Setting structure in form of python dictionary. Each experiment we run first loads default settings values and then is altered depending on the experiment description file. This allows us to reuse a lot of code and also prevents us from human error in terms of typos.
+
+Each experiment has Settings defined for the whole run and also a list in Settings[“models”] further specifying multiple models per experiment. Each of these can be using different dataset, or it can reuse already loaded one without wasting resources.
+
+Finally the reasoning behind experiments is to join these individual model runs and have an easy method of linking their results together while maintaining order in what are we testing. We can graph the learning progress of defined models into same plot for easier visualization.
+
+\midinsert
+\clabel[code16_default_settings]{Default Settings initialization}
+\picw=13cm \cinspic pseudocodes/5.7._default_settings.pdf
+\caption/t Default Settings initialization.
+\endinsert
+
+Settings is initialized from default values, build as a python object dictionary as seen in Code \ref[code16_default_settings]. Then a custom Setup function is called which specifies differences from the default settings. This allows for descriptions of new experiments to be relatively small and to reuse already written code. This also allows for very small settings description files specifying either simple problems, while also being able to design complex experiments going into great detail. See Code \ref[code16_minimal_settings_file] for example of a minimal experiment specification.
+
+\midinsert
+\clabel[code16_minimal_settings_file]{Minimal Settings description file}
+\picw=13cm \cinspic pseudocodes/5.7._minimal_settings_file.pdf
+\caption/t Minimal settings experiment definition file specifying a simple experiment with custom dataset and number of epochs.
+\endinsert
+
+\midinsert
+\clabel[34_settings_syntax]{Settings syntax}
+\picw=12cm \cinspic figures/5.7._settings_syntax.pdf 
+\caption/f Settings syntax.
+\endinsert
+
+Following are tables of important values of Settings syntax. Note that we write these following syntax shown in Figure \ref[34_settings_syntax]. Figure \ref[ch5_settings_table_whole] contains table of parameters which are applied over the whole experiment run. All other parameters are model specific and are listed in tables of Figures \ref[ch5_settings_table_model] and \ref[ch5_settings_table_model_cont1].
+
+
+
+\midinsert{ 
+\clabel[ch5_settings_table_whole]{Settings parameters for the whole experiment}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.27\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+  parameter name & default value & description \cr
+  \noalign{\hrule}
+  experiment\_name & basic & Name of the experiment as well as name of the folder used to store the results in. \cr
+  \noalign{\hrule}
+  graph\_histories & [‘all’, ‘together’] & Accepts values of ‘all’, which produces one graph for each model, ‘together’, which draws graphs of all models into one shared graph. Also accepts lists of numbers, which specify which models we would like to have plotted together. For example [0,2] would plot histories of the first and third model together. \cr
+  \noalign{\hrule}
+  interrupt & False & Internal flag used to interrupt the whole experiment in case of error. \cr
+  \noalign{\hrule}
+  filename\_features\_train, filename\_features\_test & ‘’ & Internal string flags used to share file paths amongst different parts of code in ModelHandler. \cr
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/t List of parameters shared throughout the whole experiment.
+\stopcenter
+\endinsert
+
+
+\midinsert{ 
+\clabel[ch5_settings_table_model]{Settings parameters for each individual model}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.23\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+  parameter name & default value & description \cr
+  \noalign{\hrule}
+  Dataset specific \cr
+  \noalign{\hrule}
+dataset\_pointer & -1 & If left at value ‘-1’ we instantiate a new dataset for this model. Otherwise we use the dataset of the indicated different model. For example if the first model has -1, then the second model can have dataset\_pointer set to 0 to reuse the same dataset. \cr
+  \noalign{\hrule}
+dataset\_name & ‘1200x\_markable \_299x299’ & States the name of folder we want to use for loading the dataset from (this folder has to contain SegmentsData.dump and a folder ‘images’ with Google Street View images). Downloader can prepare these folders for us. \cr
+  \noalign{\hrule}
+dump\_file\_override & ‘’ & Can be used to indicate usage of nonstandard segments file. For example we can keep multiple versions of OSM marked data in different files and access them via this setting (for example loading file ‘SegmentsData\_marked\_R100.dump’). \cr
+  \noalign{\hrule}
+pixels & 299 & Pixel dimension indicator of the loaded images (image files have dimension of pixels*pixels*3). \cr
+  \noalign{\hrule}
+number\_of\_images & None & Indicates if we want to use only a subset of the dataset. When left at None, whole dataset will be used, otherwise a uniform sampling will be used to give us indicated number of images. \cr
+  \noalign{\hrule}
+seed & 13 & Seed for maintaining deterministic nature of certain random sampling operations (such as the initial reordering of loaded dataset). This value is important as it guarantees our ability to reuse precomputed feature files. \cr
+  \noalign{\hrule}
+validation\_split & 0.25 & Under which fraction we split data in simple (those not guided by k-fold cross-validation scheme) experiments. Ranges from 0 to 1. With 0.25 one quarter of data will designated as validation set and the remainder of three-quarters will be the training set. \cr
+  \noalign{\hrule}
+shuffle\_dataset & True & Indicator that we want to shuffle our dataset in deterministic manner (using the seed value). \cr
+  \noalign{\hrule}
+shuffle\_dataset \_method & 'default-same-segment' & Shuffling method which maintains the order of images from the same segment to be kept together, which is important not to bring in dualities into our data. \cr
+  \noalign{\hrule}
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/t List of parameters specific to individual models.
+\stopcenter
+\endinsert
+
+
+
+\midinsert{ 
+\clabel[ch5_settings_table_model_cont1]{Settings parameters for each individual model (continued)}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.22\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.19\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.54\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+  parameter name & default value & description \cr
+  \noalign{\hrule}
+  Dataset specific \cr
+  \noalign{\hrule}
+edit\_osm\_vec & ‘’ & Additional transformation of the OSM data, accepts 'booleans', which turns all quantitative entries into 0 or 1. Setting 'low-mid-high' turns all entries into three categorical system of low, mid and high depending on percentiles of data distribution in dataset. These three categories are encoded as one-hot vector producing variants: 001, 010 or 100. Note that this effectively triples the length OSM vector. \cr
+  \noalign{\hrule}
+  Model specific \cr
+  \noalign{\hrule}
+unique\_id & & Unique name for this model, will be used for plotting graphs and later for identification which plotted history belonged to which model.\cr
+  \noalign{\hrule}
+model\_type & 'simple\_cnn\_ with\_top' & Specifies which model type will we use. Accepted values are: 'simple\_cnn\_with\_top', 'img\_osm\_mix', 'osm\_only'. \cr
+  \noalign{\hrule}
+cnn\_model & 'resnet50' & Which basic CNN model will we use in case of image\_only and mixed model. Allowed values are: 'vgg16', 'vgg16', 'resnet50', 'inception\_v3', 'xception'. \cr
+  \noalign{\hrule}
+cooking\_method & 'generators' & Internally used flag to indicating which method will we use to generate feature files. 'generators' tends to be less memory demanding, but consumes longer time when compared with the other allowed value 'direct'. \cr
+  \noalign{\hrule}
+top\_repeat\_FC \_block & 3 & Specifies depth of classifier in image\_only and osm\_only models. \cr
+  \noalign{\hrule}
+osm\_manual\_width & 256 & Manually setting the width of osm\_only model. \cr
+  \noalign{\hrule}
+save\_visualization & True & Whether we want to plot graphs for this experiment. \cr
+  \noalign{\hrule}
+Training specific \cr
+  \noalign{\hrule}
+epochs & 150 & Indication of how many epochs we want to spend in training of this model. \cr
+  \noalign{\hrule}
+optimizer & 'rmsprop' & Choice for the Keras optimizer. Suggested values are 'rmsprop' or 'adam', however also accepts the object of Keras optimizer such as customizable  optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9) \cr
+  \noalign{\hrule}
+loss\_func & 'mean\_squared \_error' & Metric used as a loss function during training of this model. \cr
+  \noalign{\hrule}
+metrics & ['mean\_absolute \_error'] & List of other metrics which we want to also track into history. \cr
+  \noalign{\hrule}
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/t List of parameters specific to individual models (continued).
+\stopcenter
+\endinsert
+
+
+
 
 \label[ch5_experiment_runner]
 \sec Experiment running 
@@ -1075,25 +1083,69 @@ A
 
 A
 
+\label[ch5_training]
 \sec Training 
 %===================
 
-A
+Basic model functionality is supported by Keras with commands in Code \ref[code17_training]. We specify settings of the training procedure by choosing parameters of optimizer, loss function and additional metrics. We chose optimizers “adam” and “rmsprop”, which work well with their default settings, as is discussed in \ref[ch4_model_training].
+
+As a loss function we have selected “mean squared error” with formula in Figure \ref[27_mse_formula]. Keras allows us to specify additional metrics, which can be used to simply track progress, but don’t actually influence the training process.
+
+Finally we are given a history stored in dictionary of arrays with tracked values (both of the loss function and measured metrics). We make use if these histories to plot the progress of training into graphs.
+	
+\midinsert
+\clabel[code17_training]{Model training syntax}
+\picw=13cm \cinspic pseudocodes/5.8._training.pdf
+\caption/t Model training syntax.
+\endinsert
 
 \sec Testing 
 %===================
 
-A
+For more relevant results we use the advanced method of k-fold cross-validation. In code we actually use the same syntax as the one of \ref[ch5_training], however with data generation scheme described in \ref[ch4_model_evaluation].
 
-\sec Reporting and folder structure 
+Note that we can use the results of graphed histories even without using the k-fold cross-validation, however this gives us more in depth view.
+
+\sec Reporting and ModelOI 
 %===================
 
-A
+ModelOI is a programmatic unit responsible for inputs and outputs of the larger experiment runs. We use it to communicate with DatasetHandler while loading datasets at the beginning of experiments. We also use methods of ModelOI for reporting after the training has ended.
 
+Histories produced during training in ModelTester are processed and plotted into graphs via the "Matplotlib" library.
+
+For convenience we also chose to send interesting results via email after the often lengthy computations have finished.
+
+\label[ch5_metacentrum]
 \sec Metacentrum scripting 
 %===================
 
-A
+Scripts controlling the job queuing on Metacentrum servers are using the PBS Professional job scheduler with couple of commands described in Figure \ref[ch5_metacentrum_scripts].
+
+Note that further customization of commands is available, however these commands were all we needed for our experiments.
+	
+% Metacentrum scripts table
+\midinsert \clabel[ch5_metacentrum_scripts]{Metacentrum scripts}
+\ctable{ll}{
+"qsub task.sh" & basic specification to run bash program in "task.sh" \cr
+"-l walltime=$<$time$>$"   & memory requirements (for example "mem=32gb") \cr
+"-l ncpus=$<$n$>$"         & number of CPUs used (for example "ncpus=4") \crl \tskip4pt
+% -------------------------------------
+"qstat -u $<$user$>$"      & command to get list of tasks run by a specific user \cr
+"qstat $<$task\_id$>$"      & get information about task specified by unique  "task\_id"  \crl \tskip4pt
+% -------------------------------------
+"qsig -s SIGINT $<$task\_id$>$"   & interruption of running task by the "SIGINT" signal \cr
+}
+\caption/t Metacentrum planner scripts
+\endinsert
+
+Contents of task.sh written in bash are in Code \ref[code18_metacentrum_bash_task]. We first load Anaconda environment and step into the correct directory. Then we run python code which is supplied with path to Settings file and an unique job id. Settings files are described in \ref[ch5_settings] and allow us to customize runs of experiments relatively freely.
+
+\midinsert
+\clabel[code18_metacentrum_bash_task]{Metacentrum task code}
+\picw=16cm \cinspic pseudocodes/5.11._metacentrum_bash_task.pdf
+\caption/t Bash code to run python file with custom targeted Settings file. Note that "$PBS_JOBID" is a unique job id given by the tasking and scheduling software.
+\endinsert
+%$$
 
 \label[ch6]
 \chap Results
