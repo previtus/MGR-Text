@@ -43,3 +43,14 @@
   \endgroup
 }
 \long\def\centerpars#1{\startcenter#1\stopcenter}
+
+% ============================================================================================================
+% attempting to controll positioning of images better 
+
+\def\maybebreak #1 {\vskip0pt plus #1\penalty-120 \vskip0pt plus-#1\relax}
+
+%\filbreak
+%\maybebreak{50cm}
+%\filbreak
+%\supereject %SKIP TO NEXT PAGE - if needed
+%\filbreak
