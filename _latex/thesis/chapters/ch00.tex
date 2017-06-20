@@ -559,7 +559,7 @@ The difference between the error achieved on training data and on validation dat
 \secc Training setting 
 %------------------
 
-We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as ‘rmsprop’ ~\cite[rmsprop_tieleman2012lecture] and ‘adam’ (see ~\cite[adam_optimizer] where Adam has been tested as effective on CNN learning related tasks). For greater parametric control we can also select the SGD optimizer.
+We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as "rmsprop" ~\cite[rmsprop_tieleman2012lecture] and "adam" (see ~\cite[adam_optimizer] where Adam has been tested as effective on CNN learning related tasks). For greater parametric control we can also select the SGD optimizer.
 
 Given the nature of our task, we are solving a regression problem, trying to minimize deviation from scored data. In most models mentioned in \ref[ch2_competition], the task revolves around selecting the correct category to classify objects.
 
@@ -769,7 +769,7 @@ Figure \ref[33_dataset_object] shows us the structure of "DatasetObject", with i
 \midinsert
 \clabel[33_dataset_object]{Dataset object}
 \picw=12cm \cinspic figures/5.5._dataset_object.pdf 
-\caption/f Dataset object.
+\caption/f Dataset object with important functions highlighted.
 \endinsert
 
 Dataset is initialized by reading a "SegmentsData.dump" file, however it stores data in its own four internal arrays. These are: list of urls to images, labels marking the scores, OSM vectors if we have loaded a marked Segments file and unique IDs of original segments. Note that we are not directly loading all the images yet, rather we are keeping only their filenames. We can access the images when necessary, saving us from wasteful memory allocation.
@@ -779,7 +779,7 @@ We also provide multiple getter functions which split data into training and val
 \midinsert
 \clabel[code8_dataset_handler]{DatasetHandler}
 \picw=13cm \cinspic pseudocodes/5.5._dataset_handler.pdf
-\caption/t DatasetHandler.
+\caption/t Initialization of Dataset in DatasetHandler from saved segments file.
 \endinsert
 
 \midinsert
@@ -797,7 +797,7 @@ We also provide multiple getter functions which split data into training and val
 %\secc Dataset statistics
 %\secc DatasetHandler structure
 
-\sec Models and ModelHandler 
+\sec ModelHandler 
 %===================
 
 "ModelHandler" is composed of three functional sections. "ModelOI" provides the functions handling input and output – including interaction with "DatasetHandler" and reporting functions. "ModelGenerator" is responsible for building models in Keras syntax depending on settings we choose for current model. "ModelTester" provides functions controlling the training and testing capabilities of model.
@@ -856,17 +856,33 @@ The full code to build and train a generic Keras model on a dataset can be seen 
 \caption/t Fit generic model to data in Keras.
 \endinsert
 
-
-
-\secc Model building
+\secc ModelHandler Structure
 %------------------
+
+Figure \ref[34_model_handler_structure] illustrates the various functions  which are part of the "ModelHandler". In \ref[code16_model_handler_functions] we can see snippets of code dealing with building and testing of models. Note that in one run we are handling multiple instances of models and datasets, as is explained in \ref[ch5_experiment_runner].
+
+\midinsert
+\clabel[34_model_handler_structure]{ModelHandler Structure}
+\picw=13cm \cinspic figures/5.6.3._model_handler_struct.pdf 
+\caption/f Illustration of "ModelHandler" structure using its three functional parts - "ModelOI", "ModelGenerator" and "ModelTester".
+\endinsert	
+	
+\midinsert
+\clabel[code16_model_handler_functions]{ModelHandler functions}
+\picw=13cm \cinspic pseudocodes/5.6._model_handler_functions.pdf
+\caption/t "ModelHandler" functions. One experiment run interacts with multiple models each with their individual settings and dataset. Here we can see the pseudocode of model generation and training - we process one by one.
+\endinsert
+
+
+\sec Models
+%===================
 
 Particular models described in section \ref[ch4] are shown here with functions which generate them. We have stated that their structure can be parametrized, and that we can alter these parameters to change their shape and performance. We can change the depth and width of these models.
 	
-\seccc {OSM only model}1
+\secc OSM only model
 %------------------
 
-See Code sample \ref[code12_osm_model], which builds the model discussed in \ref[osm_model].
+See Code sample \ref[code12_osm_model], which builds the model discussed in \ref[osm_model]. As input we are using the OSM neighborhood data. Number of fully-connected Dense layers as well as their width is variable.
 
 \midinsert
 \clabel[code12_osm_model]{OSM only model code}
@@ -874,7 +890,7 @@ See Code sample \ref[code12_osm_model], which builds the model discussed in \ref
 \caption/t Function producing a Keras model described in \ref[osm_model].
 \endinsert
 
-\seccc {Images only model}2
+\secc Images only model
 %------------------
 
 When we are working with model described in \ref[img_model], we make use of the feature transfer method and as such the training process can be made easier as was discussed in \ref[ch4_feature_cooking].
@@ -882,9 +898,9 @@ When we are working with model described in \ref[img_model], we make use of the 
 Also the Keras syntax will be correspondingly altered. We create two models instead of a single whole model. One represents the feature extractor section of model and is mostly created by the reused base of pretrained CNN model. We can load these as base of our models with weights initialized from model trained on ImageNet dataset, such as is done in \ref[code13_applications].
 
 \midinsert
-\clabel[code13_applications]{Applications}
+\clabel[code13_applications]{Keras base models}
 \picw=13cm \cinspic pseudocodes/5.6._applications.pdf
-\caption/t Applications
+\caption/t Available CNN models in Keras for loading as base models.
 \endinsert
 
 Our second model is then made of just our custom top architecture discussed in \ref[ch4_custom_top]. We will feed it with outputs of features from the first model. Note that for repeated experiments with the same dataset and model setting, we can save these features into files and spare a lot of valuable computation time. Code snippet in \ref[code14_feature_cooking_img_model] shows us an example of the use of two models.
@@ -892,15 +908,15 @@ Our second model is then made of just our custom top architecture discussed in \
 \midinsert
 \clabel[code14_feature_cooking_img_model]{Feature cooking}
 \picw=13cm \cinspic pseudocodes/5.6._feature_cooking_img_model.pdf
-\caption/t Feature cooking
+\caption/t Images only model using the feature cooking method.
 \endinsert
 
-\seccc {Mixed model}3
+\secc Mixed model
 %------------------
 
 Mixed model uses the same techniques of feature transfer and is fully described in \ref[mix_model].
 
-Code in \ref[code15_mix_model] shows how we build this model. Note that we can even reuse the saved feature files from image only model, as long as we maintain the same order in our dataset. DatasetHandler can shuffle data in deterministic manner which allows us to do so.
+Code in \ref[code15_mix_model] shows how we build this model. Note that we can even reuse the saved feature files from image only model, as long as we maintain the same order in our dataset. "DatasetHandler" can shuffle data in deterministic manner which allows us to do so.
 
 \midinsert
 \clabel[code15_mix_model]{Building mixed model}
@@ -908,31 +924,15 @@ Code in \ref[code15_mix_model] shows how we build this model. Note that we can e
 \caption/t Building mixed model.
 \endinsert
 
-\secc ModelHandler Structure
-%------------------
-
-Figure \ref[34_model_handler_structure] illustrates the various functions  which are part of the ModelHandler. In \ref[code16_model_handler_functions] we can see snippets of code dealing with building and testing of models. Note that in one run we are handling multiple instances of models and datasets, as is explained in \ref[ch5_experiment_runner].
-
-\midinsert
-\clabel[34_model_handler_structure]{ModelHandler Structure}
-\picw=13cm \cinspic figures/5.6.3._model_handler_struct.pdf 
-\caption/f ModelHandler Structure.
-\endinsert	
-	
-\midinsert
-\clabel[code16_model_handler_functions]{ModelHandler functions}
-\picw=13cm \cinspic pseudocodes/5.6._model_handler_functions.pdf
-\caption/t ModelHandler functions.
-\endinsert
 
 
 \label[ch5_settings]
 \sec Settings structure 
 %===================
 
-Throughout the whole run of experiments, we keep a shared Setting structure in form of python dictionary. Each experiment we run first loads default settings values and then is altered depending on the experiment description file. This allows us to reuse a lot of code and also prevents us from human error in terms of typos.
+Throughout the whole run of experiments, we keep a shared Setting structure in form of python dictionary. Each experiment we run first loads default settings values and then it alters them depending on the experiment description file.
 
-Each experiment has Settings defined for the whole run and also a list in Settings[“models”] further specifying multiple models per experiment. Each of these can be using different dataset, or it can reuse already loaded one without wasting resources.
+Each experiment has Settings defined for the whole run and also a list in "Settings[“models”]" further specifying multiple models per experiment. Each of these can be using different dataset, or it can reuse already loaded one without wasting resources.
 
 Finally the reasoning behind experiments is to join these individual model runs and have an easy method of linking their results together while maintaining order in what are we testing. We can graph the learning progress of defined models into same plot for easier visualization.
 
@@ -983,7 +983,7 @@ Following are tables of important values of Settings syntax. Note that we write 
 }
 \vskip5pt
 \startcenter
-\caption/t List of parameters shared throughout the whole experiment.
+\caption/f List of parameters shared throughout the whole experiment.
 \stopcenter
 \endinsert
 
@@ -1024,7 +1024,7 @@ shuffle\_dataset \_method & 'default-same-segment' & Shuffling method which main
 }
 \vskip5pt
 \startcenter
-\caption/t List of parameters specific to individual models.
+\caption/f List of parameters specific to individual models.
 \stopcenter
 \endinsert
 
@@ -1076,11 +1076,9 @@ metrics & ['mean\_absolute \_error'] & List of other metrics which we want to al
 }
 \vskip5pt
 \startcenter
-\caption/t List of parameters specific to individual models (continued).
+\caption/f List of parameters specific to individual models (continued).
 \stopcenter
 \endinsert
-
-
 
 
 \label[ch5_experiment_runner]
@@ -1093,7 +1091,7 @@ A
 \sec Training 
 %===================
 
-Basic model functionality is supported by Keras with commands in Code \ref[code17_training]. We specify settings of the training procedure by choosing parameters of optimizer, loss function and additional metrics. We chose optimizers “adam” and “rmsprop”, which work well with their default settings, as is discussed in \ref[ch4_model_training].
+Basic model functionality is supported by Keras with commands in Code \ref[code17_training]. We specify settings of the training procedure by choosing parameters of optimizer, loss function and additional metrics. We chose optimizers "adam" and "rmsprop", which work well with their default settings, as is discussed in \ref[ch4_model_training].
 
 As a loss function we have selected “mean squared error” with formula in Figure \ref[27_mse_formula]. Keras allows us to specify additional metrics, which can be used to simply track progress, but don’t actually influence the training process.
 
@@ -1115,9 +1113,9 @@ Note that we can use the results of graphed histories even without using the k-f
 \sec Reporting and ModelOI 
 %===================
 
-ModelOI is a programmatic unit responsible for inputs and outputs of the larger experiment runs. We use it to communicate with DatasetHandler while loading datasets at the beginning of experiments. We also use methods of ModelOI for reporting after the training has ended.
+"ModelOI" is a programmatic unit responsible for inputs and outputs of the larger experiment runs. We use it to communicate with "DatasetHandler" while loading datasets at the beginning of experiments. We also use methods of "ModelOI" for reporting after the training has ended.
 
-Histories produced during training in ModelTester are processed and plotted into graphs via the "Matplotlib" library.
+Histories produced during training in "ModelTester" are processed and plotted into graphs via the "Matplotlib" library.
 
 For convenience we also chose to send interesting results via email after the often lengthy computations have finished.
 
