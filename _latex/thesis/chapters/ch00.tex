@@ -119,6 +119,12 @@ Article ~\cite[Oquab_2014_CVPR] talks about this issue and proposes a strategy c
 
 They offer a solution, where similar architecture of CNNs can be taught upon one task and then several of its layers can be reused, effectively transferring the mid-level feature representations to different tasks.
 
+\midinsert
+\clabel[3_feature_transfer]{Feature transfer illustrated}
+\picw=13cm \cinspic figures/2.2.3._feature_transform.pdf 
+\caption/f Illustration of the basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
+\endinsert
+
 This can be used, when the source task has a rich annotated dataset available (for example ImageNet), whereas the target one doesn’t. When talking about two tasks, the source and target classes might differ, when for example the labeling is different. Furthermore the whole domain of class labels can be also different – for example two datasets of images, where first mostly exhibits single objects and the second one rather contains more objects composed into scenes. This issue is referred to as a “dataset capture bias”.
 
 The issue of different class labels is combated by adding two new adaptation layers which are retrained on the new set of classes. The problems of different positions and distributions of objects in image is addressed by employing a strategy of sliding window decomposition of the original image, continuing with sensible subsamples and finally having the result classifying all objects in the source image separately.
@@ -129,11 +135,7 @@ This article gives us hope, that we can similarly transfer layers of Deep CNN tr
 
 Articles being submitted to the ILSVRC competition often include a section dedicated on using their designed models on different tasks then what they were trained upon. Effectively they should the models suitability for feature transfering.
 
-\midinsert
-\clabel[3_feature_transfer]{Feature transfer illustrated}
-\picw=13cm \cinspic figures/2.2.3._feature_transform.pdf 
-\caption/f Illustration of the basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
-\endinsert
+\maybebreak 5pt
 
 \secc Common structures
 %------------------
@@ -170,13 +172,15 @@ We want to train a model on the small annotated map segment and later use it in 
 
 We are given a dataset from the ATG research group of nodes and edges with score ranking ranging from 0 to 1. Score of 0 denotes, that in simulation this route segment was not used and value 1 means that it was a highly attractive road to take.
 
-Each node in supplied with longitude, latitude location, which gives us the option to enrich them with additional real world information. Figure \ref[5_geojson]. shows the structure of initial data source.
-	
 \midinsert
 \clabel[5_geojson]{Sample of the initial dataset}
 \picw=11cm \cinspic figures/3_example_geojson_data.pdf
 \caption/f Sample of the structure of initial dataset.
 \endinsert
+
+
+Each node in supplied with longitude, latitude location, which gives us the option to enrich them with additional real world information. Figure \ref[5_geojson]. shows the structure of initial data source.
+	
 
 \secc Google Street View
 %------------------
@@ -195,7 +199,6 @@ Google Street View API uses the parameters of location which is the latitude and
 \picw=10cm \cinspic figures/3.2.2.1._formula_bearing.pdf 
 \caption/f Formula for calculation of initial bearing when looking from one location (lon$_{1}$, lat$_{1}$) to another (lon$_{2}$, lat$_{2}$).
 \endinsert
-
 
 \midinsert
 \clabel[6_google_api]{Google Street View API url generation}
@@ -249,25 +252,25 @@ Depending on the object type, different attributes will have sensible values whi
 \caption/f Sample of interesting attributes and their possible values in OSM dataset.
 \endinsert
 
+For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
+
 \midinsert
 \clabel[8_osm_objects]{Sample of OSM objects}
 \picw=9cm \cinspic figures/3.2.3.1_(semi)_table_objects_with_values.pdf 
 \caption/f Example of values given to a selection of objects from OSM dataset.
 \endinsert
 
-For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
-
 Out of these pairs, we can build a vector of their occurrences. The only remaining issue is to determine which attribute-value pairs we select into our vector. If we used every pair possible, the vector would be rather large and more importantly mostly filled with zeros.
 
 In order to select which pairs are important, we chose to look at OSM data statistics available at webpage taginfo.openstreetmap.org. From an ordered list of most commonly used attribute-value pairs, we have selected relevant pairs and generated our own list of pairs which we consider important.
-
-Then for each distinct location of edge segment, we look into its neighborhood and count the number of occurrences of each pair from the list.
 
 \midinsert
 \clabel[9_ex_loc]{Unique locations with neighborhood vectors}
 \picw=15cm \cinspic figures/3.2.3.1_locations_with_table.pdf 
 \caption/f Four unique locations with their corresponding neighborhood vectors. Note that these can be very similar for close enough locations.
 \endinsert
+
+Then for each distinct location of edge segment, we look into its neighborhood and count the number of occurrences of each pair from the list. See Figure \ref[10_vec_count].
 
 \midinsert
 \clabel[10_vec_count]{Construction of neighborhood vector}
@@ -453,7 +456,7 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 
 \midinsert
 \clabel[20_diff_in_diff_out]{Dimensionality of feature vectors}
-\picw=13cm \cinspic figures/4.3.1.1_different_sized_imgs.pdf 
+\picw=14cm \cinspic figures/4.3.1.1_different_sized_imgs.pdf 
 \caption/f Example of differently sized images on the input which result in different feature vector size.
 \endinsert
 
@@ -485,14 +488,12 @@ The final architecture composes of base CNN model with its weights trained on th
 \endinsert
 
 \label[mix_model]
-\sec Mixed model 
+\sec Mixed model
 %===================
 
 After discussing the architecture of two models making only a partial use of the data collected in our dataset, we would like to propose a model combining the two previous ones.
 
 In this case one segment again generates multiple images, which share the same score and depending on how they are created they could also share the same neighborhood OSM vector representing the occurrences of interesting structures in its proximity. Different edges will generate not only different images, but also different scores and OSM vectors.
-
-As a single unit of data we can consider the triplet of image, OSM vector and score. It’s useful to note that later in designing the evaluation method of models, we should take into account, that the neighborhood vector and score can be repeated across data. When splitting the dataset into training and validation sets, we should be careful and place images from one edge into only one of these sets. Otherwise data with distinct images, but possibly the same neighborhood vector and score could end up in both of these sets. Figure \ref[23_single_data_unit_for_mix] illustrates how single data units are generated from one edge.
 
 \midinsert
 \clabel[23_single_data_unit_for_mix]{Structure of mixed model input data}
@@ -500,11 +501,13 @@ As a single unit of data we can consider the triplet of image, OSM vector and sc
 \caption/f Example of possible decomposition of original edge into rows of data accepted by the mixed model. We use both the image data and the OSM neighborhood vectors.
 \endinsert
 
+As a single unit of data we can consider the triplet of image, OSM vector and score. It’s useful to note that later in designing the evaluation method of models, we should take into account, that the neighborhood vector and score can be repeated across data. When splitting the dataset into training and validation sets, we should be careful and place images from one edge into only one of these sets. Otherwise data with distinct images, but possibly the same neighborhood vector and score could end up in both of these sets. Figure \ref[23_single_data_unit_for_mix] illustrates how single data units are generated from one edge.
+
 We can join the architectures designed in previous steps, or we can design a new model. We chose to join the models in their classification segment. We propose a basic idea for a simple model architecture, which concatenates feature vectors obtained in previous models and follows with structure of repeated fully-connected layers with dropout layers in between. Concatenation joins the two differently sized one dimensional vectors into one. As is observable on Figure \ref[24_mix_model] we use several parameters to describe the models width and depth.
 
 \midinsert
 \clabel[24_mix_model]{Mixed model structure}
-\picw=15cm \cinspic figures/4.4._mixed_model.pdf 
+\picw=15cm \cinspic figures/4.4._mixed_model_v2.pdf 
 \caption/f Final architecture of the mixed model, which uses both OSM vector and the image data.
 \endinsert
 
@@ -529,7 +532,7 @@ We face similar issue when choosing a radius for obtaining OSM neighborhood vect
 
 \midinsert
 \clabel[25_osm_multiple_radius_aug]{Multiple OSM vector use}
-\picw=13cm \cinspic figures/4.5._data_augmentation_osm.pdf 
+\picw=14cm \cinspic figures/4.5._data_augmentation_osm.pdf 
 \caption/f Illustration of the construction of combined OSM vector and the expected result of more specific area targetting by the model.
 \endinsert
 
@@ -538,7 +541,7 @@ We face similar issue when choosing a radius for obtaining OSM neighborhood vect
 
 \midinsert
 \clabel[26_image_augmentation_flips]{Image data augmentation}
-\picw=12cm \cinspic figures/nullfig.pdf 
+\picw=10cm \cinspic figures/4.5._data_augmentation_folder.jpg
 \caption/f Data augmentation example.
 \endinsert
 
@@ -662,7 +665,7 @@ To run more instances of models and later evaluate them, we have chosen to build
 
 The Downloader is the main method of acquiring imagery data and preparation of dataset. It first creates necessary folders according to the directory path and custom name we provide it with.
 
-Defaults.py contains default settings for the downloader, such as default number of times the code should try downloading each image and internal codes with which to mark unsuccessfully downloaded segments. Besides these internal representation settings, it also controls the pixel size of downloaded images.
+"Defaults.py" contains default settings for the downloader, such as default number of times the code should try downloading each image and internal codes with which to mark unsuccessfully downloaded segments. Besides these internal representation settings, it also controls the pixel size of downloaded images.
 
 \midinsert
 \clabel[code1_downloader]{RunDownload}
@@ -670,9 +673,9 @@ Defaults.py contains default settings for the downloader, such as default number
 \caption/t RunDownload code sample.
 \endinsert
 
-Downloading procedure is initiated in RunDownload() method (see Code \ref[code1_downloader]), which parses node and edge data in provided GeoJSON files and build an array of Segments.
+Downloading procedure is initiated in "RunDownload()" method (see Code \ref[code1_downloader]), which parses node and edge data in provided GeoJSON files and build an array of Segments.
 
-For each segment in this array, we generate list of images to download. Long segments will be split by interpolating the start and end location to create smaller edge sections (see Code \ref[code3_longedges]). We generate a url link an shape corresponding to Google Street View API discussed in Code \ref[code2_googleapi] alongside with unique  file name.
+For each segment in this array, we generate list of images to download. Long segments will be split by interpolating the start and end location to create smaller edge sections (see Code \ref[code3_longedges]). We generate a url link in format corresponding to Google Street View API discussed in Code \ref[code2_googleapi] alongside with unique  file name.
 
 \midinsert
 \clabel[code2_googleapi]{Google Street View API url}
@@ -715,13 +718,13 @@ images/5546_5.jpg
 \caption/t Folder structure of dataset.
 \endinsert
 
+Function "RunCheck()" in \ref[code5_downloader_check] allows us to load previously downloaded Segments file and check for erroneous data - for example in case of sudden network failure we can download only the missing files and then save the fixed Segments file.
+
 \midinsert
 \clabel[code5_downloader_check]{Check downloaded dataset}
 \picw=13cm \cinspic pseudocodes/5.3._downloader_check.pdf
 \caption/t RunCheck code sample checks the downloaded dataset and redownloads missing images.
 \endinsert
-
-Function RunCheck() in \ref[code5_downloader_check] allows us to load previously downloaded Segments file and check for erroneous data – for example in case of sudden network failure we can download only the missing files and then save the fixed Segments file.
 
 \label[ch5_osm_marker]
 \sec OSM Marker 
@@ -745,23 +748,23 @@ Our code works with data downloaded from Open Street Maps to estimate what is th
 
 The code \ref[code7_osm_marker] loads array of Segments and one by one accesses all the distinct locations stored in each Segment. This could be only two locations for segments too short to be broken down, or more if the original segment was split. Minimally these are the starting and the ending locations of the segment.
 
-We generate a SQL command, which targets particular columns which we chose to observe and also filters the data with “WHERE” clause for objects in distance smaller than chosen radius from segments location.
+We generate a SQL command, which targets particular columns which we chose to observe and also filters the data with "WHERE" clause for objects in distance smaller than chosen radius from segments location.
 
-OSM data we imported into PostgreSQL database takes structure of four tables representing “point”, “line”, “polyline” and “road” objects. We look into each of these tables and combine the results.
+OSM data we imported into PostgreSQL database takes structure of four tables representing "point", "line", "polyline" and "road" objects. We look into each of these tables and combine the results.
 
-Result of query gives us list of rows, each representing one object in vicinity of our location and columns containing attributes. We can produce a “attribute=value” pair from the values in each row alongside with the count of their occurrences.
+Result of query gives us list of rows, each representing one object in vicinity of our location and columns containing attributes. We can produce a “"attribute=value"” pair from the values in each row alongside with the count of their occurrences.
 
 Final neighborhood vector counts all these occurrences in fixed positions as was discussed in \ref[ch3_osm_vector].
 
-Each segment stores multiple neighborhood vectors, one for each distinct location. Marked array of Segments is saved into pickled .dump file. We can store multiple versions of these files, each with different radius setting, while reusing all the downloaded images.
+Each segment stores multiple neighborhood vectors, one for each distinct location. Marked array of Segments is saved into pickled ".dump" file. We can store multiple versions of these files, each with different radius setting, while reusing all the downloaded images.
 
 \label[ch5_dataset_handler]
 \sec Datasets and DatasetHandler 
 %===================
 
-DatasetObject is a structure shielding us from low level manipulation with the segments stored in .dump file, which can then remain unchanged and be reused for many experiments.
+"DatasetObject" is a structure shielding us from low level manipulation with the segments stored in ".dump" file, which can then remain unchanged and be reused for many experiments.
 	
-Figure \ref[33_dataset_object] shows us the structure of DatasetObject, with its most important functions and variables exposed.
+Figure \ref[33_dataset_object] shows us the structure of "DatasetObject", with its most important functions and variables exposed.
 
 \midinsert
 \clabel[33_dataset_object]{Dataset object}
@@ -769,7 +772,7 @@ Figure \ref[33_dataset_object] shows us the structure of DatasetObject, with its
 \caption/f Dataset object.
 \endinsert
 
-Dataset is initialized by reading a SegmentsData.dump file, however it stores data in its own four internal arrays. These are: list of urls to images, labels marking the scores, OSM vectors if we have loaded a marked Segments file and unique IDs of original segments. Note that we are not directly loading all the images yet, rather we are keeping only their filenames. We can access the images when necessary, saving us from wasteful memory allocation.
+Dataset is initialized by reading a "SegmentsData.dump" file, however it stores data in its own four internal arrays. These are: list of urls to images, labels marking the scores, OSM vectors if we have loaded a marked Segments file and unique IDs of original segments. Note that we are not directly loading all the images yet, rather we are keeping only their filenames. We can access the images when necessary, saving us from wasteful memory allocation.
 
 We also provide multiple getter functions which split data into training and validation datasets for the purpose of testing experiments. Each model type will require access to different data – image only model will for example omit all the OSM neighborhood vectors.
 
@@ -785,11 +788,11 @@ We also provide multiple getter functions which split data into training and val
 \caption/t Functions for data statistics visualization.
 \endinsert
 
-\midinsert
-\clabel[33_dataset_visualization]{Dataset visualization}
-\picw=6cm \cinspic figures/nullfig.pdf 
-\caption/f Example of dataset visualization.
-\endinsert
+%\midinsert
+%\clabel[33_dataset_visualization]{Dataset visualization}
+%\picw=6cm \cinspic figures/nullfig.pdf 
+%\caption/f Example of dataset visualization.
+%\endinsert
 
 %\secc Dataset statistics
 %\secc DatasetHandler structure
@@ -797,9 +800,9 @@ We also provide multiple getter functions which split data into training and val
 \sec Models and ModelHandler 
 %===================
 
-ModelHandler is composed of three functional sections. ModelOI provides the functions handling input and output – including interaction with DatasetHandler and reporting functions. ModelGenerator is responsible for building models in Keras syntax depending on settings we choose for current model. ModelTester provides functions controlling the training and testing capabilities of model.
+"ModelHandler" is composed of three functional sections. "ModelOI" provides the functions handling input and output – including interaction with "DatasetHandler" and reporting functions. "ModelGenerator" is responsible for building models in Keras syntax depending on settings we choose for current model. "ModelTester" provides functions controlling the training and testing capabilities of model.
 
-These individual blocks are controlled from ExperimentRunner, which ties them together and manages shared Settings information.
+These individual blocks are controlled from "ExperimentRunner", which ties them together and manages shared Settings information.
 
 
 \secc Model description in Keras
@@ -814,7 +817,7 @@ Out = Dense(256, activation=’relu’)(In)
 Out = Dense(1, activation=’sigmoid’)(In)
 \endtt
 	
-Dense layers stand for fully connected layers mentioned in \ref[ch4_fully_connected_layers]. Here we can see two possible uses for this type of layer. With width set to 1, this layer represents one neuron which can be used as the final output of our classifier.
+Dense layers stand for fully connected layers mentioned in \ref[ch4_fully_connected_layers]. Here we can see two possible uses for this type of layer. With width set to "1", this layer represents one neuron which can be used as the final output of our classifier.
 
 \begtt
 Out = Dropout(probability)(In)
@@ -828,7 +831,7 @@ Dropout layer is used accompanying the Dense layers and follows the process ment
 \caption/t Building generic model in Keras.
 \endinsert
 
-We are using these mentioned layers in our models, for more detailed survey check \ref[APPENDIX KERAS SYNTAX] APPENDIX KERAS SYNTAX.
+%We are using these mentioned layers in our models, for more detailed survey check \ref[APPENDIX KERAS SYNTAX] APPENDIX KERAS SYNTAX.
 
 After building the model we need to compile it specifying settings which will be used for training such as the optimizer, loss function and additional measured metrics.
 
