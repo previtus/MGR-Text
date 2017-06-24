@@ -175,6 +175,7 @@ As has been stated in \ref[ch2_data_collection] a cost function can be an explic
 
 We want to train a model on the small annotated map segment and later use it in areas where such detailed information is not available. We argue that Google Street View and Open Street Map data are more readily obtainable, than supply of highly qualitative measurements.
 
+\label[ch3_available_data]
 \sec Available imagery data 
 %===================
 
@@ -201,6 +202,7 @@ As each edge segment connecting two nodes is representing a real world street co
 
 We are using a Google Street View API which allows us to generate links of images at specific locations and facing specific ways.
 
+\label[ch3_downloading_street_view_images]
 \secc Downloading Street View images
 %------------------
 
@@ -1167,7 +1169,62 @@ Contents of task.sh written in bash are in Code \ref[code18_metacentrum_bash_tas
 \chap Results
 %==============================================================
 
-C
+This chapter is divided into several sections. First we will look at the efficiency of various strategies used when generating the dataset in \ref[ch6_dataset] and then when building models in \ref[ch6_model]. %In section \ref[ch6_overall] we will explore the overall performance of our best models on the task.
+
+\sec How to read graphs in this section
+
+We have implemented a k-fold cross-validation discussed in \ref[ch4_model_evaluation] and used it to evaluate performance of the tested model and dataset combination. We will present a higher level view of the experiment by plotting the evolution of error over training epochs. Note that we can follow both the training and validation error to see how much is our model overfitting.
+
+We also provide a more detailed view into the situation after the training was finished. We look at the box plot graphs of errors in the last epoch of training.
+
+Note that in some cases we may want to hold the model with the best achieved validation error, instead of the one from last iteration. This applies in the case when with further training iterations the model overfits. For this view we may plot box plot graphs of the epoch where each model fared the best.
+
+\label[ch6_dataset]
+\sec Strategies employed in dataset generation
+
+In this section we will focus on the results of various attempts to alter the dataset generation scheme. For in-depth explanation of the reasoning why we chose these approaches consult the discussion section \ref[ch7_dataset].
+
+As we described in \ref[ch3_available_data] we have multiple ways to construct our dataset. We have tried varying the size of downloaded images in \ref[ch6_dataset_pixelsize].
+
+We also explore two types of increasing the images available for our models. In \ref[ch6_dataset_longedgesplit] we try splitting long edges to smaller segments, while maintaining a limit of how small can resulting segment be. The smaller the minimal segment length, the higher the number of segments ans consequentially the number of images. See \ref[ch3_downloading_street_view_images] and Code \ref[code3_longedges] for details.
+
+In \ref[ch6_dataset_augmentation] we try alternative approach to dataset augmentation from data already obtained by applying additional transformations such as flipping the image, shifting or scaling. In this way we create new images from already existing set.
+
+\label[ch6_dataset_pixelsize]
+\secc Dimensions of downloaded images
+
+We chose to try two settings to illustrate the effect of our choice in the matter of image dimensions. Following the original article of ~\cite[inception], we chose our first image size to be 299x299 pixels. Our second dataset is made of images sized 640x640 pixels, which was the limitation of Google Street View as the most detailed image resolution available freely via their API.
+
+Note that the 640x640 dataset is bigger in its size and it also takes more time for the models to be trained on it. Also the consequent feature files which we store in between experiments to allow their reuse are bigger.
+
+\midinsert
+\clabel[35_]{Experiment with pixel size}
+\picw=12cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val.pdf
+\caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Image only model was used.
+\endinsert
+
+TODOOOOOOO
+
+\label[ch6_dataset_longedgesplit]
+\secc Splitting long edges
+
+\label[ch6_dataset_augmentation]
+\secc Dataset augmentation
+
+\label[ch6_model]
+\sec Strategies employed in model architecture
+
+\label[ch6_model_base]
+\secc Different CNN base model for feature transfer
+
+\label[ch6_model_versus] 
+\secc Model competition – image vs. OSM vs. mixed
+
+\label[ch6_model_osm_wd]
+\secc OSM specific – width and depth
+
+%\label[ch6_overall]
+%\sec Detailed results of one model and dataset combination
 
 \midinsert
 \clabel[TemporaryGraph]{TemporaryGraph}
