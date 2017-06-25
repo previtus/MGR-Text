@@ -1266,7 +1266,7 @@ We can see both the validation error as well as training error evolution over ti
 
 
 \midinsert{ 
-\clabel[ch6_longedge_table]{TEMP}
+\clabel[ch6_longedge_table]{Dataset overview in experiment with splitting long edges}
 \hrule
 \halign{
 % design of columns
@@ -1325,31 +1325,161 @@ Note that we also tested the image only model with the same experiment and the r
 \secc Dataset augmentation
 %------------------
 
+\midinsert{ 
+\clabel[ch6_augmentation_table]{Datasets used for augmentation}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.4\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+Dataset & \# of images \cr
+  \noalign{\hrule}
+Original "5556x_markable_640x640" & a \cr
+Expanded & a \cr
+Aggresively expanded & a \cr
+  \noalign{\hrule}
+Original "5556x_minlen30_640px" & a \cr
+Expanded & a \cr
+Aggresively expanded & a \cr
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/f List of datasets used for the experiment of data augmentation with the number of valid images they contain.
+\stopcenter
+\endinsert
+
+As was explained in \ref[code7b_data_aug] we chose two schemes for data augmentation which gives us three datasets to work with as listed by Figure \ref[ch6_augmentation_table].
+
+\midinsert
+\clabel[37_augmentation]{TTTTT}
+\line{\hsize=.5\hsize \vtop{%
+      %\clabel[37_augmentation_boxplots_last]{Dataset augmentation last epoch}
+      \picw=4.2cm \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_.pdf
+      %\caption/f Last epoch validation error
+   \par}\vtop{%
+      %\clabel[37_augmentation_evol]{Dataset augmentation evolution over epochs}
+      \picw=9cm \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figRight_.pdf
+      %\caption/f Evolution over epochs
+   \par}}
+%\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
+\caption/f Comparison of the two augmented datasets with the original referential one. Expanded dataset used the transformations of image flipping and shifting. Aggressively expanded dataset used additional transformations of shear, scale and rotation.}
+\endinsert
+
+Figure \ref[37_augmentation] shows the evolution of validation error over the epochs, as well as the validation and training error distribution from k-fold cross-validation in its last epoch.
+
 \label[ch6_model]
 \sec Strategies employed in model architecture
 %===================
+
+We already could see changing behavior of different model types interacting with differently generated datasets in \ref[ch6_dataset], but here we will focus directly on the changes of model architectures and their influence on performance.
+
+Note that we will mostly use the datasets which showed promising results in \ref[ch6_dataset] ignoring those which lead to decrease of performance.
+
+When using the mixed and image models, we are using an already existing base CNN model for feature transfer (see \ref[img_model] and Figure \ref[19_base_top]), so in the our first experiment in \ref[ch6_model_base] we will explore the possible types of used CNN models.
+
+In \ref[ch6_model_versus] we will look into the comparison of performances of the three designed models – image only, OSM only and mixed model.
+
+In \ref[ch6_model_osm_wd] we will look at a OSM model specific setting of depth and width of the CNN design.
 
 \label[ch6_model_base]
 \secc Different CNN base model for feature transfer
 %------------------
 
+As was mentioned in Code \ref[code13_applications], Keras allows to use multiple pretrained models alongside with weights initiated from the ImageNet dataset.
+
+FIGURE: Illustration of five models in one graph. For better clarity we chose to show only the average validation error evolution over epochs. These were <mixed> models using different CNNs as their base.
+
+Note that these models have different number of parameters in their structure and therefore the whole evaluation of experiment can take different amount of time and exhibit different memory requirements.
+
+\midinsert{ 
+\clabel[ch6_cnns_table]{Comparison of alternate base CNNs}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.4\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+Mixed model with ... & \# Number of parameters \cr
+  \noalign{\hrule}
+resnet50 & a \cr
+vgg16 & a \cr
+vgg19 & a \cr
+inception v3 & a \cr
+xception & a \cr}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/f List of models available in Keras framework with the number of parameters the mixed model using it as its base CNN model will have.
+\stopcenter
+\endinsert
+
+
 \label[ch6_model_versus] 
 \secc Model competition – image vs. OSM vs. mixed
 %------------------
+
+We have proposed three major CNN architecture schemes to build models – OSM only described in \ref[osm_model] and build with Keras by Code \ref[code12_osm_model], image only described in \ref[img_model] and in Code \ref[code14_feature_cooking_img_model] and finally the mixed model described in \ref[mix_model] and build by Code \ref[code15_mix_model].
+
+We chose one dataset to compare these three models on. We use the default setting for building these models.
+
+\midinsert
+\clabel[38_modelversus_evol]{Model competition, evolution over epochs}
+\picw=13cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig1_evolution.pdf
+\caption/f Model competition, evolution over epochs.
+\endinsert
+
+\midinsert
+\line{\hsize=.5\hsize \vtop{%
+      \clabel[38_modelversus_last]{Model competition, last epoch}
+      \picw=6cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig2_last_epoch.pdf
+      \caption/f Model competition, last epoch
+   \par}\vtop{%
+      \clabel[38_modelversus_best]{Model competition, best epoch}
+      \picw=6cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig3_best_epoch.pdf
+      \caption/f Model competition, best epoch
+   \par}}
+%\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
+\endinsert
+
+See Figure \ref[38_modelversus_evol] for high level view of evolution of each models performance over time of epochs. For detailed view of models state in the final epoch see \ref[38_modelversus_last]. To be fair for evaluating the models, we also look at Figure \ref[38_modelversus_best] comparing the best performance of each model when just looking at its validation error. Note that the exact epoch when the model performed the best can be different for these three models.
 
 \label[ch6_model_osm_wd]
 \secc OSM specific – width and depth
 %------------------
 
+This experiment focuses on the performance of OSM model (see \ref[osm_model]) in different settings of its width and depth. See Figure \ref[18_osm_model], where we can see what these two parameters influence. Note that by increasing width, we are setting the same width for all layers and that there are possible unexplored architectures of models with variable width in different depths (imagine for example a model with first layer wide 128 neurons and second and third layer 32 neurons wide).
+
+We are trying values of (1, 2, 3, 4) for depth and (32, 64, 128, 256) for width. We have a grid of 4x4 possible combinations plotted in Figure \ref[39_osm_wd_4x4] with just their validation error in last epoch shown.
+
+\midinsert
+\clabel[39_osm_wd_4x4]{OSM model alterations in depth and width}
+\picw=10cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig1_4x4madness.pdf
+\caption/f OSM model alterations in depth and width.
+\endinsert
+
+We chose to display a cut of this table with fixed value of depth to 2 and variable width in Figure \ref[40_osm_wd_d2cut] which follows also their performance over epochs.
+
+\midinsert
+\clabel[40_osm_wd_d2cut]{OSM model depth 2 and altering width}
+\picw=12cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig2_cutOfD2fixed.pdf
+\caption/f OSM model with depth fixed at value 2 and variable width.
+\endinsert
+
+For more combinations see section \ref[APPENDIXresultsoverflow_modelosmvariable_wd] in Appendix, where are other cuts (with one attribute fixed while the other one variable) available.
+
 %\label[ch6_overall]
 %\sec Detailed results of one model and dataset combination
 %===================
 
-\midinsert
-\clabel[TemporaryGraph]{TemporaryGraph}
-\picw=15cm \cinspic graphs/00temporary__handmade_design_test.pdf 
-\caption/f TemporaryGraph.
-\endinsert	
+%\midinsert
+%\clabel[TemporaryGraph]{TemporaryGraph}
+%\picw=15cm \cinspic graphs/00temporary__handmade_design_test.pdf 
+%\caption/f TemporaryGraph.
+%\endinsert	
 
 \label[ch7]
 \chap Discussion
