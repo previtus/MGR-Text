@@ -1176,6 +1176,7 @@ Note that further customization of commands is available, however these commands
 "qstat -u $<$user$>$"      & command to get list of tasks run by a specific user \cr
 "qstat $<$task\_id$>$"      & get information about task specified by unique  "task\_id"  \crl \tskip4pt
 % -------------------------------------
+"qdel $<$task\_id$>$" & delete planned job \cr
 "qsig -s SIGINT $<$task\_id$>$"   & interruption of running task by the "SIGINT" signal \cr
 }
 \caption/t Metacentrum planner scripts
@@ -1297,20 +1298,20 @@ For this experiment it again makes sense to test on the image only and mixed mod
 
 \midinsert
 \clabel[36_splitedge_2x2]{Split long edges, overall comparison}
-\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig3_2x2comparison.pdf
-\caption/f Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference.
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig3_2x2comparison_mix.pdf
+\caption/f Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference. Mixed model.
 \endinsert
 
 \midinsert
 \clabel[36_splitedge_valerr]{Split long edges, validation error over iterations}
-\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr.pdf
-\caption/f For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10.
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_mix.pdf
+\caption/f For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10. Mixed model.
 \endinsert
 
 \midinsert
 \clabel[36_splitedge_boxplot]{Split long edges, comparison of last epoch between datasets}
-\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last.pdf
-\caption/f Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison.
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last_mix.pdf
+\caption/f Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison. Mixed model.
 \endinsert
 
 We chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error.
@@ -1357,15 +1358,15 @@ As was explained in \ref[code7b_data_aug] we chose two schemes for data augmenta
 \clabel[37_augmentation]{TTTTT}
 \line{\hsize=.5\hsize \vtop{%
       %\clabel[37_augmentation_boxplots_last]{Dataset augmentation last epoch}
-      \picw=4.2cm \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_.pdf
+      \picw=4.2cm \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_markable.pdf
       %\caption/f Last epoch validation error
    \par}\vtop{%
       %\clabel[37_augmentation_evol]{Dataset augmentation evolution over epochs}
-      \picw=9cm \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figRight_.pdf
+      \picw=9cm \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figRight_markable.pdf
       %\caption/f Evolution over epochs
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\caption/f Comparison of the two augmented datasets with the original referential one. Expanded dataset used the transformations of image flipping and shifting. Aggressively expanded dataset used additional transformations of shear, scale and rotation.}
+\caption/f Comparison of the two augmented datasets with the original referential one. Expanded dataset used the transformations of image flipping and shifting. Aggressively expanded dataset used additional transformations of shear, scale and rotation. Original dataset was "5556x_markable_640x640". 
 \endinsert
 
 Figure \ref[37_augmentation] shows the evolution of validation error over the epochs, as well as the validation and training error distribution from k-fold cross-validation in its last epoch.
@@ -1428,19 +1429,19 @@ We chose one dataset to compare these three models on. We use the default settin
 
 \midinsert
 \clabel[38_modelversus_evol]{Model competition, evolution over epochs}
-\picw=13cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig1_evolution.pdf
-\caption/f Model competition, evolution over epochs.
+\picw=13cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig1_evolution_markable.pdf
+\caption/f Model competition, evolution over epochs. Dataset "5556x_markable_640x640".
 \endinsert
 
 \midinsert
 \line{\hsize=.5\hsize \vtop{%
       \clabel[38_modelversus_last]{Model competition, last epoch}
-      \picw=6cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig2_last_epoch.pdf
-      \caption/f Model competition, last epoch
+      \picw=6cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig2_last_epoch_markable.pdf
+      \caption/f Model competition, last epoch. Dataset "5556x_markable_640x640".
    \par}\vtop{%
       \clabel[38_modelversus_best]{Model competition, best epoch}
-      \picw=6cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig3_best_epoch.pdf
-      \caption/f Model competition, best epoch
+      \picw=6cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig3_best_epoch_markable.pdf
+      \caption/f Model competition, best epoch. Dataset "5556x_markable_640x640".
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
 \endinsert
