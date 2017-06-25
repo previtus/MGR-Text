@@ -772,6 +772,31 @@ Final neighborhood vector counts all these occurrences in fixed positions as was
 
 Each segment stores multiple neighborhood vectors, one for each distinct location. Marked array of Segments is saved into pickled ".dump" file. We can store multiple versions of these files, each with different radius setting, while reusing all the downloaded images.
 
+\label[ch5_dataset_augmentation]
+\sec Dataset Augmentation
+%===================
+
+\midinsert
+\clabel[code7b_data_aug]{Data augmentation with ImageDataGenerator}
+\line{\hsize=.5\hsize \vtop{%
+      %\clabel[bbb]{aaa}
+      \picw=7cm \cinspic pseudocodes/5.x._augmentation_expand.pdf
+      %\caption/f aaaa
+   \par}\vtop{%
+      %\clabel[ccc]{ddd}
+      \picw=7cm \cinspic pseudocodes/5.x._augmentation_aggresive.pdf 
+      %\caption/f bbbb
+   \par}}
+\centerline {Expansion scheme\hfil\hfil Aggresive Expansion scheme}\nobreak\medskip
+\caption/f Data augmentation with the Keras ImageDataGenerator syntax.
+\endinsert
+
+We made use of Keras inbuilt ability of ImageDataGenerator which can be controlled with syntax visible \ref[code7b_data_aug]. We present two schemes of data augmentation first where we allow for flipping and image shifting in limited amount of 10\% of the whole image. 
+
+A more aggressive augmentation scheme is suggested for the second case, where we allow for flipping, shifting up to 20\%, rescale of 10\% and even shear and rotation of the image by 10\degrees degrees.
+
+For each image in our original dataset we create a fixed amount of images with random transformations allowed from this augmentation scheme. For practical reasons of limiting the size of our dataset we chose to generate 2 new images (effectively tripling the size of original dataset). For reproducibility of the results we stored the expanded dataset into their own folders reusing the same randomly generated data.
+
 \label[ch5_dataset_handler]
 \sec Datasets and DatasetHandler 
 %===================
@@ -1181,6 +1206,7 @@ Note that in some cases we may want to hold the model with the best achieved val
 
 \label[ch6_dataset]
 \sec Strategies employed in dataset generation
+%===================
 
 In this section we will focus on the results of various attempts to alter the dataset generation scheme. For in-depth explanation of the reasoning why we chose these approaches consult the discussion section \ref[ch7_dataset].
 
@@ -1192,48 +1218,132 @@ In \ref[ch6_dataset_augmentation] we try alternative approach to dataset augment
 
 \label[ch6_dataset_pixelsize]
 \secc Dimensions of downloaded images
+%------------------
 
 We chose to try two settings to illustrate the effect of our choice in the matter of image dimensions. Following the original article of ~\cite[inception], we chose our first image size to be 299x299 pixels. Our second dataset is made of images sized 640x640 pixels, which was the limitation of Google Street View as the most detailed image resolution available freely via their API.
 
 Note that the 640x640 dataset is bigger in its size and it also takes more time for the models to be trained on it. Also the consequent feature files which we store in between experiments to allow their reuse are bigger.
 
 \midinsert
-\clabel[35_pixel_size]{Experiment with pixel size}
+\clabel[35_pixel_size_mixed]{Experiment with pixel size, mixed model}
 \line{\hsize=.5\hsize \vtop{%
-      %\clabel[ch3-sampleVC-geno]{Sample f0 virtual creature genotype}
-      \picw=4.2cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val.pdf
-      %\caption/f genotype
+      %\clabel[bbb]{aaa}
+      \picw=4.2cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val_mix.pdf
+      %\caption/f aaaa
    \par}\vtop{%
-      %\clabel[ch3-sampleVC-pheno]{Sample f0 virtual creature phenotype}
-      \picw=9cm \cinspic graphs/6.1.1._pixel_size/figRight_graphcomp_evol.pdf 
-      %\caption/f phenotype
+      %\clabel[ccc]{ddd}
+      \picw=9cm \cinspic graphs/6.1.1._pixel_size/figRight_graphcomp_evol_mix.pdf 
+      %\caption/f bbbb
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Image only model was used.
+\caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Mixed model was used.
 \endinsert
 
-TODOOOOOOO
+We have used datasets internally marked as "5556x_mark_res_299x299" for 299x299 dataset and "5556x_markable_640x640" for the 640x640 dataset. Their only difference is in the image pixel dimensions.
+
+As for the choice of models we don’t include the OSM only model as it is not affected by image pixel size. Figure \ref[35_pixel_size_mixed] shows the results when choosing mixed model (see \ref[mix_model]). Figure \ref[35_pixel_size_image] shows the results when using image only model (see \ref[img_model]).
+
+\midinsert
+\clabel[35_pixel_size_image]{Experiment with pixel size, image model}
+\line{\hsize=.5\hsize \vtop{%
+      %\clabel[bbb]{aaa}
+      \picw=4.2cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val_img.pdf
+      %\caption/f aaaa
+   \par}\vtop{%
+      %\clabel[ccc]{ddd}
+      \picw=9cm \cinspic graphs/6.1.1._pixel_size/figRight_graphcomp_evol_img.pdf 
+      %\caption/f bbbb
+   \par}}
+%\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
+\caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Image model was used.
+\endinsert
+
+We can see both the validation error as well as training error evolution over time of epochs as well as box plot with more detailed view of last epoch.
 
 \label[ch6_dataset_longedgesplit]
 \secc Splitting long edges
+%------------------
+
+
+\midinsert{ 
+\clabel[ch6_longedge_table]{TEMP}
+\hrule
+\halign{
+% design of columns
+& \hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil}
+& \vrule\hskip2pt \vtop{\hsize=.3\hsize\noindent\strut #\strut \hfil} 
+& \vrule\hskip2pt \vtop{\hsize=.2\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+% data
+Dataset & \# of valid segments & \# of images \cr
+  \noalign{\hrule}
+Original "5556x_markable_640x640" & a & b \cr
+min length 10m "5556x_minlen10_640px" & a & b \cr
+min length 20m "5556x_minlen20_640px" & a & b \cr
+min length 30m "5556x_minlen30_640px" & a & b \cr
+}
+\hrule
+}
+\vskip5pt
+\startcenter
+\caption/f Dataset overview for the experiment of splitting long edges into smaller segments. Note that the number of images corresponds with the size of inputs for models.
+\stopcenter
+\endinsert
+
+See table of Figure \ref[ch6_longedge_table] with a list of tested datasets. When we choose to split long edges, we generate more smaller segments and from each of these segments even more images. Note that we count only valid segments, where there is imagery data available and where we had a label in the initial dataset.
+
+We chose to run the experiment with dataset "5556x_markable_640x640" as comparison of how models fared without long edge splitting.
+
+For this experiment it again makes sense to test on the image only and mixed models as those are the ones affected by imagery data input.
+
+\midinsert
+\clabel[36_splitedge_2x2]{Split long edges, overall comparison}
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig3_2x2comparison.pdf
+\caption/f Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference.
+\endinsert
+
+\midinsert
+\clabel[36_splitedge_valerr]{Split long edges, validation error over iterations}
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr.pdf
+\caption/f For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10.
+\endinsert
+
+\midinsert
+\clabel[36_splitedge_boxplot]{Split long edges, comparison of last epoch between datasets}
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last.pdf
+\caption/f Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison.
+\endinsert
+
+We chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error.
+
+In Figure \ref[36_splitedge_valerr] we see the average validation errors plotted together in order to better compare their performances.
+
+Lastly in \ref[36_splitedge_boxplot] we can see comparison of all four datasets in their last epoch.
+
+Note that we also tested the image only model with the same experiment and the results are placed in \ref[APPENDIXresultsoverflow_splittinglongedges_image model].
 
 \label[ch6_dataset_augmentation]
 \secc Dataset augmentation
+%------------------
 
 \label[ch6_model]
 \sec Strategies employed in model architecture
+%===================
 
 \label[ch6_model_base]
 \secc Different CNN base model for feature transfer
+%------------------
 
 \label[ch6_model_versus] 
 \secc Model competition – image vs. OSM vs. mixed
+%------------------
 
 \label[ch6_model_osm_wd]
 \secc OSM specific – width and depth
+%------------------
 
 %\label[ch6_overall]
 %\sec Detailed results of one model and dataset combination
+%===================
 
 \midinsert
 \clabel[TemporaryGraph]{TemporaryGraph}
