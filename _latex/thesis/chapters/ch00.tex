@@ -1198,8 +1198,17 @@ We chose to try two settings to illustrate the effect of our choice in the matte
 Note that the 640x640 dataset is bigger in its size and it also takes more time for the models to be trained on it. Also the consequent feature files which we store in between experiments to allow their reuse are bigger.
 
 \midinsert
-\clabel[35_]{Experiment with pixel size}
-\picw=12cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val.pdf
+\clabel[35_pixel_size]{Experiment with pixel size}
+\line{\hsize=.5\hsize \vtop{%
+      %\clabel[ch3-sampleVC-geno]{Sample f0 virtual creature genotype}
+      \picw=4.2cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val.pdf
+      %\caption/f genotype
+   \par}\vtop{%
+      %\clabel[ch3-sampleVC-pheno]{Sample f0 virtual creature phenotype}
+      \picw=9cm \cinspic graphs/6.1.1._pixel_size/figRight_graphcomp_evol.pdf 
+      %\caption/f phenotype
+   \par}}
+%\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
 \caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Image only model was used.
 \endinsert
 
