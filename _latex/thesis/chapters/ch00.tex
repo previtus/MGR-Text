@@ -125,7 +125,7 @@ The widespread of using the ensemble technique reflects the democratization and 
 \secc Feature transfer
 %------------------
 
-The success of large CNNs with many parameters trained on large datasets like ImageNet has not only been positive, it also poses a question – will we always need huge datasets like ImageNet to properly teach CNN models? ImageNet has millions of annotated images and it has been gradually growing over time.
+The success of large CNNs with many parameters trained on large datasets like ImageNet has not only been positive, it also poses a question - will we always need huge datasets like ImageNet to properly teach CNN models? ImageNet has millions of annotated images and it has been gradually growing over time.
 
 Article ~\cite[Oquab_2014_CVPR] talks about this issue and proposes a strategy called feature transfer or model finetuning, which composes of using CNN models trained at one task to be retrained to a different task.
 
@@ -137,7 +137,7 @@ They offer a solution, where similar architecture of CNNs can be taught upon one
 \caption/f Illustration of the basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
 \endinsert
 
-This can be used, when the source task has a rich annotated dataset available (for example ImageNet), whereas the target one doesn’t. When talking about two tasks, the source and target classes might differ, when for example the labeling is different. Furthermore the whole domain of class labels can be also different – for example two datasets of images, where first mostly exhibits single objects and the second one rather contains more objects composed into scenes. This issue is referred to as a “dataset capture bias”.
+This can be used, when the source task has a rich annotated dataset available (for example ImageNet), whereas the target one doesn’t. When talking about two tasks, the source and target classes might differ, when for example the labeling is different. Furthermore the whole domain of class labels can be also different - for example two datasets of images, where first mostly exhibits single objects and the second one rather contains more objects composed into scenes. This issue is referred to as a “dataset capture bias”.
 
 The issue of different class labels is combated by adding two new adaptation layers which are retrained on the new set of classes. The problems of different positions and distributions of objects in image is addressed by employing a strategy of sliding window decomposition of the original image, continuing with sensible subsamples and finally having the result classifying all objects in the source image separately.
 
@@ -1419,10 +1419,10 @@ xception & a \cr}
 
 
 \label[ch6_model_versus] 
-\secc Model competition – image vs. OSM vs. mixed
+\secc Model competition - image vs. OSM vs. mixed
 %------------------
 
-We have proposed three major CNN architecture schemes to build models – OSM only described in \ref[osm_model] and build with Keras by Code \ref[code12_osm_model], image only described in \ref[img_model] and in Code \ref[code14_feature_cooking_img_model] and finally the mixed model described in \ref[mix_model] and build by Code \ref[code15_mix_model].
+We have proposed three major CNN architecture schemes to build models - OSM only described in \ref[osm_model] and build with Keras by Code \ref[code12_osm_model], image only described in \ref[img_model] and in Code \ref[code14_feature_cooking_img_model] and finally the mixed model described in \ref[mix_model] and build by Code \ref[code15_mix_model].
 
 We chose one dataset to compare these three models on. We use the default setting for building these models.
 
@@ -1448,7 +1448,7 @@ We chose one dataset to compare these three models on. We use the default settin
 See Figure \ref[38_modelversus_evol] for high level view of evolution of each models performance over time of epochs. For detailed view of models state in the final epoch see \ref[38_modelversus_last]. To be fair for evaluating the models, we also look at Figure \ref[38_modelversus_best] comparing the best performance of each model when just looking at its validation error. Note that the exact epoch when the model performed the best can be different for these three models.
 
 \label[ch6_model_osm_wd]
-\secc OSM specific – width and depth
+\secc OSM specific - width and depth
 %------------------
 
 This experiment focuses on the performance of OSM model (see \ref[osm_model]) in different settings of its width and depth. See Figure \ref[18_osm_model], where we can see what these two parameters influence. Note that by increasing width, we are setting the same width for all layers and that there are possible unexplored architectures of models with variable width in different depths (imagine for example a model with first layer wide 128 neurons and second and third layer 32 neurons wide).
