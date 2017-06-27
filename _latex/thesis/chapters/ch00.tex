@@ -1119,12 +1119,21 @@ metrics & ['mean\_absolute \_error'] & List of other metrics which we want to al
 \stopcenter
 \endinsert
 
+\newpagehax
 
 \label[ch5_experiment_runner]
 \sec Experiment running 
 %===================
 
-A
+"ExperimentRunner" is special scheme which uses other modules mentioned in this chapter. It starts with loading a custom Settings file and then follows the same structure for various experiments eventually evaluating the tested model and dataset combination.
+
+\midinsert
+\clabel[code16_experiment_runner_pseudocode]{ExperimentRunner pseudocode}
+\picw=13cm \cinspic pseudocodes/5.x._experiment_runner.pdf
+\caption/t ExperimentRunner pseudocode outlining the run of whole experiment, we are making heavy use of the units explained in this chapter.
+\endinsert
+
+The structure of ExperimentRunner is outlined in Code \ref[code16_experiment_runner_pseudocode]
 
 \label[ch5_training]
 \sec Training 
