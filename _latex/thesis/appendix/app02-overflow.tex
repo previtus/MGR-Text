@@ -3,6 +3,42 @@
 
 \sec Additional graphs
 
+\label[ap_dataset_longedgesplit]
+\secc Splitting long edges
+%------------------
+
+Figures \ref[36_splitedge_valerr_img] and \ref[36_splitedge_boxplot_img] show additional graphs to the experiment in \ref[ch6_dataset_longedgesplit].
+
+\midinsert
+		\clabel[36_splitedge_valerr_img]{Split long edges, Image model, validation error over iterations}
+		\picw=9cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_img.pdf
+		\caption/f Averages of validation errors with Image model testing edge splitting.
+\endinsert
+
+\midinsert
+		\clabel[36_splitedge_boxplot_img]{Split long edges, Image model, comparison of last epoch between datasets}
+		\picw=9cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last_img.pdf
+		\caption/f Last epoch of edge splitting with Image model.
+\endinsert
+
+
+%\midinsert
+%\line{\hsize=.5\hsize \vtop{%
+%		\clabel[36_splitedge_valerr_img]{Split long edges, Image model, validation error over iterations}
+%		\picw=7.5cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_img.pdf
+%		\caption/f Averages of validation errors with Image model testing edge splitting.
+%   \par}\vtop{%
+%		\clabel[36_splitedge_boxplot_img]{Split long edges, Image model, comparison of last epoch between datasets}
+%		\picw=7.5cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last_img.pdf
+%		\caption/f Last epoch of edge splitting with Image model.
+%   \par}}
+%%\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
+%\endinsert
+
+
+\supereject
+
+
 \label[ap_model_versus] 
 \secc Model competition - image vs. OSM vs. mixed
 %------------------
@@ -28,7 +64,18 @@ Figures \ref[ap1_modelversus_evol], \ref[ap1_modelversus_last] and \ref[ap1_mode
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
 \endinsert
 
+\supereject
 
+\label[ap_model_osm_wd]
+\secc OSM specific - width and depth
+%------------------
 
+Figure \ref[ap_osm_wd_d2cut] adds to the experiment of \ref[ch6_model_osm_wd]
+
+\midinsert
+\clabel[ap_osm_wd_d2cut]{OSM model depth 2 and altering width}
+\picw=12cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig2_cutOfD3fixed.pdf
+\caption/f OSM model with depth fixed at value 3 and variable width.
+\endinsert
 
 \endinput

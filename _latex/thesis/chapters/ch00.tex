@@ -1273,7 +1273,6 @@ In order to compare the performance of both the two used datasets and models, we
 \secc Splitting long edges
 %------------------
 
-
 \midinsert{ 
 \clabel[ch6_longedge_table]{Dataset overview in experiment with splitting long edges}
 \hrule
@@ -1323,20 +1322,7 @@ For this experiment it again makes sense to test on the image only and mixed mod
 
 Starting with Mixed model, we chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error. In Figure \ref[36_splitedge_valerr] we see the average validation errors plotted together in order to better compare their performances. Lastly in \ref[36_splitedge_boxplot] we can see comparison of all four datasets in their last epoch.
 
-Note that we also tested the image only model in Figures \ref[36_splitedge_valerr_img] and \ref[36_splitedge_boxplot_img].
-
-\midinsert
-\line{\hsize=.5\hsize \vtop{%
-		\clabel[36_splitedge_valerr_img]{Split long edges, Image model, validation error over iterations}
-		\picw=7.5cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_img.pdf
-		\caption/f Averages of validation errors with Image model testing edge splitting.
-   \par}\vtop{%
-		\clabel[36_splitedge_boxplot_img]{Split long edges, Image model, comparison of last epoch between datasets}
-		\picw=7.5cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last_img.pdf
-		\caption/f Last epoch of edge splitting with Image model.
-   \par}}
-%\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\endinsert
+Note that we also tested the image only model in Appendix with Figures \ref[36_splitedge_valerr_img] and \ref[36_splitedge_boxplot_img].
 
 \label[ch6_dataset_augmentation]
 \secc Dataset augmentation
@@ -1508,7 +1494,7 @@ We chose to display a cut of this table with fixed value of depth to 2 and varia
 \caption/f OSM model with depth fixed at value 2 and variable width.
 \endinsert
 
-For more combinations see section \ref[APPENDIXresultsoverflow_modelosmvariable_wd] in Appendix, where are other cuts (with one attribute fixed while the other one variable) available.
+For more combinations see section \ref[ap_model_osm_wd] in Appendix, where are other cuts (with one attribute fixed while the other one variable) available.
 
 %\label[ch6_overall]
 %\sec Detailed results of one model and dataset combination
@@ -1604,6 +1590,14 @@ When looking at the model comparison over dataset "5556x_minlen30_640px", the pe
 We can conclude that the neighborhood information brings in useful performance boost, when comparing both the Mixed and OSM models with the Image model. We also encountered the OSM model outperforming the other two more complicated models, only being caught up to by the Mixed model in cases where we used smart dataset enhancing techniques. It should be noted that the OSM model is more compact in terms of number of parameters of the NN as well as being more time efficient for evaluation.
 
 We have taken more care to tweak the performance of this OSM model design in \ref[ch7_model_osm_wd].
+
+\label[ch7_model_osm_wd]
+\secc Analysis of OSM model shape
+%------------------
+
+In section \ref[ch6_dataset_augmentation] we experimented with various settings used when building OSM model. In Figure \ref[39_osm_wd_4x4] we generated a grid comparing the performances of models with variable depth on the \textit{x} axis and variable width on the \textit{y} axis. Width influences the number of neurons each layer has and the depth influences the number of layers. Variation between the results of models with different setting is not very pronounced - even the most basic model with \textit{depth = 1} and \textit{width = 32} is viable. In general we can see the models with \textit{depth} set at lower extreme value \textit{1} to be somewhat lacking behind more balanced models. Similarly on the other end of graph models with \textit{depth} set to \textit{4} seem to have slightly worse results than the simpler models.
+
+Figure \ref[40_osm_wd_d2cut] allows us to compare amongst each other the models with fixed depth and variable width. Simple models in terms of width can achieve better results throughout the whole training process. Furthermore the smaller the model is in terms of its trainable parameter size, the faster it is taught.
 
 \label[ch8]
 \chap Conclusions
