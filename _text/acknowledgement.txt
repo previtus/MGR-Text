@@ -1,0 +1,5 @@
+I would like to thank my supervisor Ing. Jan Drchal, Ph.D. for his help and leadership of this thesis and my alma mater Czech Technical University in Prague (ČVUT) for giving me education.
+I would further like to thank the Indian Institute of Technology Madras (भारतीय प्रौद्योगिकी संस्थान मद्रास) and professor N. S. Narayanaswamy for his help with the research part of my thesis when I was on my study abroad in India.
+I would also like to thank Hosei University (法政大学) and professor Masami Iwatsuki for providing me with facilities to work on this thesis during my study abroad in Japan.
+
+Access to computing and storage facilities owned by parties and projects contributing to the National Grid Infrastructure MetaCentrum provided under the programme "Projects of Large Research, Development, and Innovations Infrastructures" (CESNET LM2015042), is greatly appreciated.

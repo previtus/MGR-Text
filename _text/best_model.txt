@@ -1,0 +1,122 @@
+
+
+
+Note that the best performing model can be considered in various terms. When we look at the average best achieved validation error of the 16 models like in \ref[39_osm_wd_4x4], where average of best results of 10 runs was taken, then model which was built with depth = 2 and width = 128 ranks first with mean:  mean 0.076 +/- 0.012. See table \ref[table 1] If we instead consider the minimal value of average validation error like in \ref[40_osm_wd_d2cut], then the model with depth = 2 and width = 64 ranks first with value: 0.08. See table \ref[table 2]
+
+Table 1
+Model comparison by average best validation error (average over minimal validation error of each fold).
+
+w d avg(best) std(best)
+128 & 2 & 0.0759 & 0.0117
+256 & 3 & 0.0766 & 0.0107
+64 & 2 & 0.0768 & 0.0117
+256 & 4 & 0.0769 & 0.0104
+128 & 3 & 0.0770 & 0.0110
+128 & 4 & 0.0779 & 0.0111
+256 & 1 & 0.0781 & 0.0125
+128 & 1 & 0.0781 & 0.0128
+256 & 2 & 0.0781 & 0.0130
+64 & 1 & 0.0783 & 0.0128
+64 & 3 & 0.0783 & 0.0109
+32 & 2 & 0.0794 & 0.0110
+32 & 3 & 0.0798 & 0.0099
+32 & 1 & 0.0812 & 0.0109
+32 & 4 & 0.0816 & 0.0099
+64 & 4 & 0.0818 & 0.0095
+
+w d mean(best) \rpm std(best)
+128 2 0.0759 \rpm0.0117
+256 3 0.0766 \rpm0.0107
+64 2 0.0768 \rpm0.0117
+256 4 0.0769 \rpm0.0104
+128 3 0.0770 \rpm0.0110
+128 4 0.0779 \rpm0.0111
+256 1 0.0781 \rpm0.0125
+128 1 0.0781 \rpm0.0128
+256 2 0.0781 \rpm0.0130
+64 1 0.0783 \rpm0.0128
+64 3 0.0783 \rpm0.0109
+32 2 0.0794 \rpm0.0110
+32 3 0.0798 \rpm0.0099
+32 1 0.0812 \rpm0.0109
+32 4 0.0816 \rpm0.0099
+64 4 0.0818 \rpm0.0095
+
+# w d mean(best) \rpm std(best)
+1 128 2 0.0759 \rpm0.0117
+2 256 3 0.0766 \rpm0.0107
+3 64 2 0.0768 \rpm0.0117
+4 256 4 0.0769 \rpm0.0104
+5 128 3 0.0770 \rpm0.0110
+6 128 4 0.0779 \rpm0.0111
+7 256 1 0.0781 \rpm0.0125
+8 128 1 0.0781 \rpm0.0128
+9 256 2 0.0781 \rpm0.0130
+10 64 1 0.0783 \rpm0.0128
+11 64 3 0.0783 \rpm0.0109
+12 32 2 0.0794 \rpm0.0110
+13 32 3 0.0798 \rpm0.0099
+14 32 1 0.0812 \rpm0.0109
+15 32 4 0.0816 \rpm0.0099
+16 64 4 0.0818 \rpm0.0095
+
+
+Table 2
+Model comparison by minimal average validation error (minimal of average validation errors over all folds).
+
+w d min(avg)
+64 & 2 & 0.0809
+256 & 3 & 0.0810
+128 & 3 & 0.0811
+256 & 4 & 0.0812
+128 & 2 & 0.0818
+128 & 4 & 0.0822
+64 & 1 & 0.0826
+32 & 2 & 0.0828
+64 & 3 & 0.0828
+32 & 3 & 0.0833
+256 & 1 & 0.0834
+128 & 1 & 0.0839
+256 & 2 & 0.0847
+32 & 1 & 0.0848
+32 & 4 & 0.0864
+64 & 4 & 0.0873
+
+w d min(avg)
+64 2 0.0809
+256 3 0.0810
+128 3 0.0811
+256 4 0.0812
+128 2 0.0818
+128 4 0.0822
+64 1 0.0826
+32 2 0.0828
+64 3 0.0828
+32 3 0.0833
+256 1 0.0834
+128 1 0.0839
+256 2 0.0847
+32 1 0.0848
+32 4 0.0864
+64 4 0.0873
+
+# w d min(avg)
+1 64 2 0.0809
+2 256 3 0.0810
+3 128 3 0.0811
+4 256 4 0.0812
+5 128 2 0.0818
+6 128 4 0.0822
+7 64 1 0.0826
+8 32 2 0.0828
+9 64 3 0.0828
+10 32 3 0.0833
+11 256 1 0.0834
+12 128 1 0.0839
+13 256 2 0.0847
+14 32 1 0.0848
+15 32 4 0.0864
+16 64 4 0.0873
+
+http://www.tablesgenerator.com/latex_tables
+
