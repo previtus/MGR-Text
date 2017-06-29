@@ -497,7 +497,7 @@ The final model architecture is determined by two major choices: which CNN to ch
 \secc{Base model}
 %------------------
 
-The framework we are working with, Keras, allows us to simply load many of the successful CNN models and by empirical experiments asses, which one is best suited for our task. More about Keras in the appropriate section \ref[ch4_keras].
+The framework we are working with, Keras, allows us to simply load many of the successful CNN models and by empirical experiments asses, which one is best suited for our task. More about Keras in the appropriate section \ref[ch5_keras].
 
 The output of the base CNN model is data in feature space. The dimension will vary depending on the type of model we choose, the size of images we feed the base models and also the depth in which we chose to cut the base CNN model.
 
@@ -509,7 +509,7 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 \caption/f Example of differently sized images on the input which result in different feature vector size.
 \endinsert
 
-Base CNN models in Keras are loaded while specifying their "input_shape". The description files for these models are adjustable, they are defined by a sequence of interconnected layers. Without going deeper into the syntax of Keras (like we later do in \ref[ch5_model_description_in_keras]), it's worth noting that the size of input of each layer will influence the size of its output. For example pooling layers function effectively in downsampling their input, so their output size is therefore influenced by input dimension. Some other layers can have fixed output sizes. Where this matters is in the moment of joining base CNN model with later custom top model. We need to be prepared for the dimension of features captured at the output of base model to be influenced by the size of its inputs. As we can see on example of Figure \ref[20_diff_in_diff_out], this can lead to vastly different sizes of feature vectors.
+Base CNN models in Keras are loaded while specifying their "input_shape". The description files for these models are adjustable, they are defined by a sequence of interconnected layers. Without going deeper into the syntax of Keras (like we later do in \ref[ch5_keras]), it's worth noting that the size of input of each layer will influence the size of its output. For example pooling layers function effectively in downsampling their input, so their output size is therefore influenced by input dimension. Some other layers can have fixed output sizes. Where this matters is in the moment of joining base CNN model with later custom top model. We need to be prepared for the dimension of features captured at the output of base model to be influenced by the size of its inputs. As we can see on example of Figure \ref[20_diff_in_diff_out], this can lead to vastly different sizes of feature vectors.
 
 \label[ch4_custom_top]
 \secc{Custom top model}
@@ -668,26 +668,6 @@ This approach obviously increases the computational requirements, because it rep
 \picw=11cm \cinspic figures/4.7._k_fold_cross_validation.pdf 
 \caption/f Splitting schema employed in the k-fold cross validation. We are given average score alongside with its standard deviation.
 \endinsert
-
-\sec Frameworks and projects 
-%===================
-
-The existence of this thesis depends on couple of frameworks which helped it greatly. Framework called “Keras” allowed for fast prototyping of Deep CNN models as well as efficient training environment. Thanks to the Metacentrum project we had access to machines with high enough computational power needed to teach these models.
-
-\label[ch4_keras]
-\secc Keras
-%------------------
-
-Keras ~\cite[chollet2015keras] is a framework which supports fast prototyping of models with easy API to underlaying backend using low level Theano and TensorFlow. We can build entire CNN or Machine Learning models by listing individual layers of the model from prebuilt list of commands. For most of models mentioned in \ref[ch2_history_of_cnn] which performed well in the ILSVRC competition there exists a model description in Keras. Models, which we will show how to load in Keras syntax in Code \ref[code13_applications], have weights available from learning on the large ImageNet dataset. This makes Keras perfect for our task, even for the feature transfer design we intend to use for our models.
-
-Keras also has a training and testing API prepared to use models efficiently with good hardware support including computation on GPUs.
-
-\secc Metacentrum project
-%------------------
-
-Metacentrum is a project supporting research groups including the academic research groups at our university. They provide a server cluster capable of running our experiments on wide array of machines with powerful hardware. We control the individual runs of experiments by special tasking and job queuing system, PBS Professional. We also make use of its storage units with image datasets containing many items and large feature files.
-
-See \ref[ch5_metacentrum] and Code \ref[code18_metacentrum_bash_task] for examples of scripts we use to queue jobs and experiments.
 
 \label[ch5]
 \chap The Implementation
@@ -873,16 +853,13 @@ We also provide multiple getter functions which split data into training and val
 %\secc Dataset statistics
 %\secc DatasetHandler structure
 
-\sec ModelHandler 
+\label[ch5_keras]
+\sec Keras syntax 
 %===================
 
-"ModelHandler" is composed of three functional sections. "ModelOI" provides the functions handling input and output – including interaction with "DatasetHandler" and reporting functions. "ModelGenerator" is responsible for building models in Keras syntax depending on settings we choose for current model. "ModelTester" provides functions controlling the training and testing capabilities of model.
+Keras ~\cite[chollet2015keras] is a framework which supports fast prototyping of models with easy API to underlaying backend using low level Theano and TensorFlow. We can build entire CNN or Machine Learning models by listing individual layers of the model from prebuilt list of commands. For most of models mentioned in \ref[ch2_history_of_cnn] which performed well in the ILSVRC competition there exists a model description in Keras. Models, which we will show how to load in Keras syntax in Code \ref[code13_applications], have weights available from learning on the large ImageNet dataset. This makes Keras perfect for our task, even for the feature transfer design we intend to use for our models.
 
-These individual blocks are controlled from "ExperimentRunner", which ties them together and manages shared Settings information.
-
-\label[ch5_model_description_in_keras]
-\secc Model description in Keras
-%------------------
+Keras also has a training and testing API prepared to use models efficiently with good hardware support including computation on GPUs.
 
 Generic code for building models in Keras works in two modes – Sequencial and Functional. We will use Functional in these particular examples as it is convenient both for writing and understanding.
 
@@ -932,8 +909,12 @@ The full code to build and train a generic Keras model on a dataset can be seen 
 \caption/t Fit generic model to data in Keras.
 \endinsert
 
-\secc ModelHandler Structure
-%------------------
+\sec ModelHandler 
+%===================
+
+"ModelHandler" is composed of three functional sections. "ModelOI" provides the functions handling input and output – including interaction with "DatasetHandler" and reporting functions. "ModelGenerator" is responsible for building models in Keras syntax depending on settings we choose for current model. "ModelTester" provides functions controlling the training and testing capabilities of model.
+
+These individual blocks are controlled from "ExperimentRunner", which ties them together and manages shared Settings information.
 
 Figure \ref[34_model_handler_structure] illustrates the various functions  which are part of the "ModelHandler". In \ref[code16_model_handler_functions] we can see snippets of code dealing with building and testing of models. Note that in one run we are handling multiple instances of models and datasets, as is explained in \ref[ch5_experiment_runner].
 
@@ -1203,8 +1184,12 @@ Histories produced during training in "ModelTester" are processed and plotted in
 For convenience we also chose to send interesting results via email after the often lengthy computations have finished.
 
 \label[ch5_metacentrum]
-\sec Metacentrum scripting 
+\sec Metacentrum project and scripting 
 %===================
+
+Thanks to the Metacentrum project ~\cite[vsustrmetacentrum] we had access to machines with high enough computational power needed to teach even complicated models.
+
+Metacentrum is a project supporting research groups including the academic research groups at our university. They provide a server cluster capable of running our experiments on wide array of machines with powerful hardware. We control the individual runs of experiments by special tasking and job queuing system, PBS Professional. We also make use of its storage units with image datasets containing many items and large feature files.
 
 Scripts controlling the job queuing on Metacentrum servers are using the PBS Professional job scheduler with couple of commands described in Figure \ref[ch5_metacentrum_scripts].
 
