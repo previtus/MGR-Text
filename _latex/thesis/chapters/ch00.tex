@@ -298,7 +298,7 @@ Depending on the object type, different attributes will have sensible values whi
 \midinsert
 \clabel[8_osm_interesting_attributes]{Sample of OSM attributes}
 \picw=13cm \cinspic figures/3.2.3.1_table_possible_values.pdf 
-\caption/f Sample of interesting attributes and their possible values in OSM dataset.
+\captiontablehack/f Sample of interesting attributes and their possible values in OSM dataset.
 \endinsert
 
 For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
@@ -306,7 +306,7 @@ For example attribute “highway” will be empty for most objects, unless they 
 \midinsert
 \clabel[8_osm_objects]{Sample of OSM objects}
 \picw=9cm \cinspic figures/3.2.3.1_(semi)_table_objects_with_values.pdf 
-\caption/f Example of values given to a selection of objects from OSM dataset.
+\captiontablehack/f Example of values given to a selection of objects from OSM dataset.
 \endinsert
 
 Out of these pairs, we can build a vector of their occurrences. The only remaining issue is to determine which attribute-value pairs we select into our vector. If we used every pair possible, the vector would be rather large and more importantly mostly filled with zeros.
@@ -1057,7 +1057,7 @@ Following are tables of important values of Settings syntax. Note that we write 
 }
 \vskip5pt
 \startcenter
-\caption/f List of parameters shared throughout the whole experiment.
+\captiontablehack/f List of parameters shared throughout the whole experiment.
 \stopcenter
 \endinsert
 
@@ -1098,7 +1098,7 @@ shuffle\_dataset \_method & 'default-same-segment' & Shuffling method which main
 }
 \vskip5pt
 \startcenter
-\caption/f List of parameters specific to individual models.
+\captiontablehack/f List of parameters specific to individual models.
 \stopcenter
 \endinsert
 
@@ -1150,7 +1150,7 @@ metrics & ['mean\_absolute \_error'] & List of other metrics which we want to al
 }
 \vskip5pt
 \startcenter
-\caption/f List of parameters specific to individual models (continued).
+\captiontablehack/f List of parameters specific to individual models (continued).
 \stopcenter
 \endinsert
 
@@ -1336,7 +1336,7 @@ min length 30m "5556x_minlen30_640px" & 13458 \cr
 }
 \vskip5pt
 \startcenter
-\caption/f Dataset overview for the experiment of splitting long edges into smaller segments. Note that the number of images corresponds with the size of inputs for models.
+\captiontablehack/f Dataset overview for the experiment of splitting long edges into smaller segments. Note that the number of images corresponds with the size of inputs for models.
 \stopcenter
 \endinsert
 
@@ -1480,7 +1480,7 @@ xception & 20,806,952 & (\textit{n}, 20, 20, 2048) \cr}
 }
 \vskip5pt
 \startcenter
-\caption/f List of models available in Keras framework with the number of parameters the mixed model using it as its base CNN model will have. Note that \textit{n} in the dimension of features signifies the number of images. Dataset used for this measurement contained images of 640x640 pixels.
+\captiontablehack/f List of models available in Keras framework with the number of parameters the mixed model using it as its base CNN model will have. Note that \textit{n} in the dimension of features signifies the number of images. Dataset used for this measurement contained images of 640x640 pixels.
 \stopcenter
 \endinsert
 
@@ -1649,11 +1649,11 @@ Note that the best performing model can be considered in various terms. When we 
 \line{\hsize=.5\hsize \vtop{%
       \clabel[41a_table_avg_best]{Model comparison by best error}
       \cinspic tables/6_avg_best_table.pdf
-      \caption/f Model comparison by average best validation error (average over minimal validation error of each fold).
+      \captiontablehack/f Model comparison by average best validation error (average over minimal validation error of each fold).
    \par}\vtop{%
       \clabel[41b_table_min_avg]{Model comparison by average error}
       \cinspic tables/6_min_avg_table.pdf
-      \caption/f Model comparison by minimal average validation error (minimal of average validation errors over all folds).
+      \captiontablehack/f Model comparison by minimal average validation error (minimal of average validation errors over all folds).
    \par}}
 \endinsert
 

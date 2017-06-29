@@ -254,6 +254,10 @@
 \sdef{mt:t:en}{Code}       \sdef{mt:t:cs}{Tabulka}      \sdef{mt:t:sk}{Tabu\v lka}
 \sdef{mt:f:en}{Figure}      \sdef{mt:f:cs}{Obr\'azek}    \sdef{mt:f:sk}{Obr\'azok}
 
+
+\def\mtexttablehack#1{Table}
+
+
 \ifx\r\undefined \csname csaccents\endcsname \fi
 
 \sdef{lan:0}{en}  \sdef{lan:100}{en} \sdef{lan:101}{en}
@@ -433,6 +437,21 @@
       \printcaption{\mtext{#1}}{\csname the#1num\endcsname}%
 }
 \def\printcaption#1#2{{\bf#1 #2}\enspace}
+
+\def\captiontablehack/#1 {\isdefined{#1num}%
+   \iftrue \global\advance \csname #1num\endcsname by1
+   \else   \opwarning{Unknown caption /#1}%
+   \fi
+   \bgroup
+      \leftskip=\iindent plus1fil
+      \rightskip=\iindent plus-1fil
+      \parfillskip=0pt plus2fil
+      \def\par{\nbpar\egroup}%
+      \captionhook{#1}\noindent 
+      \wlabel{\csname the#1num\endcsname}%
+      \printcaption{\mtexttablehack{#1}}{\csname the#1num\endcsname}%
+}
+
 
 \expandafter\def\expandafter\endinsert\expandafter{\expandafter\par\endinsert}
 
