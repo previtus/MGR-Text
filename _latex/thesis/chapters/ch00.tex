@@ -293,7 +293,7 @@ From implementation standpoint, we have downloaded the OSM data covering map of 
 
 The structure of OSM data consists of geometrical objects with attributes describing their properties. In the PostgreSQL database each row represents object and attributes are kept as table columns.
 
-Depending on the object type, different attributes will have sensible values while the rest will be empty. For better understanding consult table in Figure \ref[8_osm_interesting_attributes] with examples of attributes and their values and table in Figure \ref[8_osm_objects]. for examples of objects in OSM dataset.
+Depending on the object type, different attributes will have sensible values while the rest will be empty. For better understanding consult Table \ref[8_osm_interesting_attributes] with examples of attributes and their values and Table \ref[8_osm_objects]. for examples of objects in OSM dataset.
 
 \midinsert
 \clabel[8_osm_interesting_attributes]{Sample of OSM attributes}
@@ -499,7 +499,7 @@ The final model architecture is determined by two major choices: which CNN to ch
 
 The framework we are working with, Keras, allows us to simply load many of the successful CNN models and by empirical experiments asses, which one is best suited for our task. More about Keras in the appropriate section \ref[ch4_keras].
 
-The output of what remains of the base CNN model is data in feature space. The dimension will vary depending on the type of model we choose, the size of images we feed the base models and also the depth in which we chose to cut the base CNN model.
+The output of the base CNN model is data in feature space. The dimension will vary depending on the type of model we choose, the size of images we feed the base models and also the depth in which we chose to cut the base CNN model.
 
 The remains of base CNN model are followed by a Flatten layer which converts the possibly multidimensional feature data into a one dimensional vector, which we can feed into the custom top model.
 
@@ -508,6 +508,8 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 \picw=14cm \cinspic figures/4.3.1.1_different_sized_imgs.pdf 
 \caption/f Example of differently sized images on the input which result in different feature vector size.
 \endinsert
+
+Base CNN models in Keras are loaded while specifying their "input_shape". The description files for these models are adjustable, they are defined by a sequence of interconnected layers. Without going deeper into the syntax of Keras (like we later do in \ref[ch5_model_description_in_keras]), it's worth noting that the size of input of each layer will influence the size of its output. For example pooling layers function effectively in downsampling their input, so their output size is therefore influenced by input dimension. Some other layers can have fixed output sizes. Where this matters is in the moment of joining base CNN model with later custom top model. We need to be prepared for the dimension of features captured at the output of base model to be influenced by the size of its inputs. As we can see on example of Figure \ref[20_diff_in_diff_out], this can lead to vastly different sizes of feature vectors.
 
 \label[ch4_custom_top]
 \secc{Custom top model}
@@ -878,7 +880,7 @@ We also provide multiple getter functions which split data into training and val
 
 These individual blocks are controlled from "ExperimentRunner", which ties them together and manages shared Settings information.
 
-
+\label[ch5_model_description_in_keras]
 \secc Model description in Keras
 %------------------
 
@@ -1030,9 +1032,7 @@ Settings is initialized from default values, build as a python object dictionary
 \caption/f Settings syntax.
 \endinsert
 
-Following are tables of important values of Settings syntax. Note that we write these following syntax shown in Figure \ref[34_settings_syntax]. Figure \ref[ch5_settings_table_whole] contains table of parameters which are applied over the whole experiment run. All other parameters are model specific and are listed in tables of Figures \ref[ch5_settings_table_model] and \ref[ch5_settings_table_model_cont1].
-
-
+Following are tables of important values of Settings syntax. Note that we write these following syntax shown in Figure \ref[34_settings_syntax]. Table \ref[ch5_settings_table_whole] contains list of parameters which are applied over the whole experiment run. All other parameters are model specific and are listed in Tables \ref[ch5_settings_table_model] and \ref[ch5_settings_table_model_cont1].
 
 \midinsert{ 
 \clabel[ch5_settings_table_whole]{Settings parameters for the whole experiment}
@@ -1340,7 +1340,7 @@ min length 30m "5556x_minlen30_640px" & 13458 \cr
 \stopcenter
 \endinsert
 
-See table of Figure \ref[ch6_longedge_table] with a list of tested datasets. When we choose to split long edges, we generate more smaller segments and from each of these segments even more images. Note that we count only valid segments, where there is imagery data available and where we had a label in the initial dataset.
+See Table \ref[ch6_longedge_table] with a list of tested datasets. When we choose to split long edges, we generate more smaller segments and from each of these segments even more images. Note that we count only valid segments, where there is imagery data available and where we had a label in the initial dataset.
 
 We chose to run the experiment with dataset "5556x_markable_640x640" as comparison of how models fared without long edge splitting.
 
@@ -1615,7 +1615,7 @@ Whereas in \ref[ch7_dataset] we looked mainly at the difference between various 
 \secc Alternative base CNN model
 %------------------
 
-Plot of Figure \ref[37b_base_models] shows us the first 50 epochs into training of Mixed models built with different base CNNs from the list which Keras allows us to use. All the models except for "resnet50" have great difficulties to learn on the dataset. Table in Figure \ref[ch6_cnns_table] provides us with possible explanation. With chosen dataset of images sized 640x640 pixels, the dimensionality of features we save at the output of used base CNN varies dramatically between model "resnet50" with (2, 2, 2048) and other models with values up to (20, 20, 2048). Subsequently the training process of top model with an unchanged architecture is greatly hindered with too large features. We would need to alter the architecture of top models appropriately using pooling layers to subsample the dimension, or make use of dataset with smaller input images. After all these models were initially used with images of pixels size in range of 224x224 to 299x299.
+Plot of Figure \ref[37b_base_models] shows us the first 50 epochs into training of Mixed models built with different base CNNs from the list which Keras allows us to use. All the models except for "resnet50" have great difficulties to learn on the dataset. Table \ref[ch6_cnns_table] provides us with possible explanation. With chosen dataset of images sized 640x640 pixels, the dimensionality of features we save at the output of used base CNN varies dramatically between model "resnet50" with (2, 2, 2048) and other models with values up to (20, 20, 2048). Subsequently the training process of top model with an unchanged architecture is greatly hindered with too large features. We would need to alter the architecture of top models appropriately using pooling layers to subsample the dimension, or make use of dataset with smaller input images. After all these models were initially used with images of pixels size in range of 224x224 to 299x299.
 
 \label[ch7_model_versus]
 \secc Competition between model designs
@@ -1643,7 +1643,7 @@ In section \ref[ch6_dataset_augmentation] we experimented with various settings 
 
 Figure \ref[40_osm_wd_d2cut] allows us to compare amongst each other the models with fixed depth and variable width. Simple models in terms of width can achieve better results throughout the whole training process. Furthermore the smaller the model is in terms of its trainable parameter size, the faster it is taught.
 
-Note that the best performing model can be considered in various terms. When we look at the average best achieved validation error of the 16 models like in \ref[39_osm_wd_4x4], where average of best results of 10 runs was taken, then model which was built with \textit{depth = 2} and \textit{width = 128} ranks first with mean:  mean 0.076 +/- 0.012. See table \ref[41a_table_avg_best] If we instead consider the minimal value of average validation error like in \ref[40_osm_wd_d2cut], then the model with \textit{depth = 2} and \textit{width = 64} ranks first with value: 0.08. See table \ref[41b_table_min_avg].
+Note that the best performing model can be considered in various terms. When we look at the average best achieved validation error of the 16 models like in \ref[39_osm_wd_4x4], where average of best results of 10 runs was taken, then model which was built with \textit{depth = 2} and \textit{width = 128} ranks first with mean:  mean 0.076 +/- 0.012. See Table \ref[41a_table_avg_best]. If we instead consider the minimal value of average validation error like in \ref[40_osm_wd_d2cut], then the model with \textit{depth = 2} and \textit{width = 64} ranks first with value: 0.08. See Table \ref[41b_table_min_avg].
 
 \midinsert
 \line{\hsize=.5\hsize \vtop{%
