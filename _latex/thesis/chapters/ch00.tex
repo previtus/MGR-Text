@@ -47,7 +47,7 @@ Cost function can be very simple, but in order that it works on real life scenar
 
 In case of planning for cars we generally just want to get across as fast as possible, or to cover minimizing distance. When the user is driving a bicycle, more factors become relevant. We need to know the quality of terrain, steepness of the road, amount of traffic in the area and overall pleasantness of the road. In many cases the bikers will not follow the strictly shortest path, choosing their own criteria, such as for example stopping for a rest in a park.
 
-Some of these these criteria are measurable and objectively visible in the real world. For these we need to have highly detailed data available with parameters such as the quality of road and others. Other criteria are based on subjective, personal preference of some routes over other and for these we might need a long period of traces recording which routes have users selected in past. For example the work of \ref[navigation-made-personal] makes heavy use of user recorded traces.
+Some of these these criteria are measurable and objectively visible in the real world. For these we need to have highly detailed data available with parameters such as the quality of road and others. Other criteria are based on subjective, personal preference of some routes over other and for these we might need a long period of traces recording which routes have users selected in past. For example the work of ~\cite[navigation_made_personal] makes heavy use of user recorded traces.
 
 See ~\cite[hrnvcivr2016practical] and Figure \ref[2_slowdown_features] for examples of types of measurements we would likely need to estimate cost of each edge considering the slowdown effect of these features.
 
@@ -1522,7 +1522,7 @@ The results of "5556x_minlen30_640px" dataset are shown in Appendix \ref[ap_mode
 
 This experiment focuses on the performance of OSM model (see \ref[osm_model]) in different settings of its width and depth. See Figure \ref[18_osm_model], where we can see what these two parameters influence. Note that by increasing width, we are setting the same width for all layers and that there are possible unexplored architectures of models with variable width in different depths (imagine for example a model with first layer wide 128 neurons and second and third layer 32 neurons wide).
 
-We are trying values of (1, 2, 3, 4) for depth and (32, 64, 128, 256) for width. We have a grid of 4x4 possible combinations plotted in Figure \ref[39_osm_wd_4x4] with just their validation error in last epoch shown.
+We are trying values of (1, 2, 3, 4) for depth and (32, 64, 128, 256) for width. Each model was ran for 10 times with k=10 folds of cross-validation. Out of these runs we preserved the score best achieved validation over the evolution of epochs (to get the score before the model started overfitting). We have a grid of 4x4 possible combinations plotted in Figure \ref[39_osm_wd_4x4] each with statistics evaluation of the best achieved validation errors.
 
 \midinsert
 \clabel[39_osm_wd_4x4]{OSM model alterations in depth and width}
@@ -1642,6 +1642,20 @@ We have taken more care to tweak the performance of this OSM model design in \re
 In section \ref[ch6_dataset_augmentation] we experimented with various settings used when building OSM model. In Figure \ref[39_osm_wd_4x4] we generated a grid comparing the performances of models with variable depth on the \textit{x} axis and variable width on the \textit{y} axis. Width influences the number of neurons each layer has and the depth influences the number of layers. Variation between the results of models with different setting is not very pronounced - even the most basic model with \textit{depth = 1} and \textit{width = 32} is viable. In general we can see the models with \textit{depth} set at lower extreme value \textit{1} to be somewhat lacking behind more balanced models. Similarly on the other end of graph models with \textit{depth} set to \textit{4} seem to have slightly worse results than the simpler models.
 
 Figure \ref[40_osm_wd_d2cut] allows us to compare amongst each other the models with fixed depth and variable width. Simple models in terms of width can achieve better results throughout the whole training process. Furthermore the smaller the model is in terms of its trainable parameter size, the faster it is taught.
+
+Note that the best performing model can be considered in various terms. When we look at the average best achieved validation error of the 16 models like in \ref[39_osm_wd_4x4], where average of best results of 10 runs was taken, then model which was built with \textit{depth = 2} and \textit{width = 128} ranks first with mean:  mean 0.076 +/- 0.012. See table \ref[41a_table_avg_best] If we instead consider the minimal value of average validation error like in \ref[40_osm_wd_d2cut], then the model with \textit{depth = 2} and \textit{width = 64} ranks first with value: 0.08. See table \ref[41b_table_min_avg].
+
+\midinsert
+\line{\hsize=.5\hsize \vtop{%
+      \clabel[41a_table_avg_best]{Model comparison by best error}
+      \cinspic tables/6_avg_best_table.pdf
+      \caption/f Model comparison by average best validation error (average over minimal validation error of each fold).
+   \par}\vtop{%
+      \clabel[41b_table_min_avg]{Model comparison by average error}
+      \cinspic tables/6_min_avg_table.pdf
+      \caption/f Model comparison by minimal average validation error (minimal of average validation errors over all folds).
+   \par}}
+\endinsert
 
 \label[ch8]
 \chap Conclusions
