@@ -1266,7 +1266,7 @@ Note that the 640x640 dataset is bigger in its size and it also takes more time 
       %\caption/f bbbb
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Mixed model was used.
+\caption/f Model: \textit{Mixed}, Datasets: \textit{299x299}, \textit{640x640}. Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted.
 \endinsert
 
 We have used datasets internally marked as "5556x_mark_res_299x299" for 299x299 dataset and "5556x_markable_640x640" for the 640x640 dataset. Their only difference is in the image pixel dimensions.
@@ -1285,7 +1285,7 @@ As for the choice of models we don’t include the OSM only model as it is not a
       %\caption/f bbbb
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\caption/f Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted. Image model was used.
+\caption/f  Model: \textit{Image}, Datasets: \textit{299x299}, \textit{640x640}. Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted.
 \endinsert
 
 We can see both the validation error as well as training error evolution over time of epochs as well as box plot with more detailed view of last epoch.
@@ -1295,7 +1295,7 @@ In order to compare the performance of both the two used datasets and models, we
 \midinsert
 \clabel[35b_pixel_size_four]{Pixel size and best validation error}
 \picw=10.5cm \cinspic graphs/6.1.1._pixel_size/fig_Four.pdf
-\caption/f Comparison of four model and dataset combinations used in the pixel size experiment. We look at the best achieved validation error throughout their evolution over epochs.
+\caption/f Models: \textit{Image}, \textit{Mixed}, Datasets: \textit{299x299}, \textit{640x640}. Comparison of four model and dataset combinations used in the pixel size experiment. We look at the best achieved validation error throughout their evolution over epochs.
 \endinsert
 
 \label[ch6_dataset_longedgesplit]
@@ -1334,19 +1334,19 @@ For this experiment it again makes sense to test on the image only and mixed mod
 \midinsert
 \clabel[36_splitedge_2x2]{Split long edges, Mixed model, overall comparison}
 \picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig3_2x2comparison_mix.pdf
-\caption/f Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference. Mixed model.
+\caption/f Model: \textit{Mixed}. Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference.
 \endinsert
 
 \midinsert
 \clabel[36_splitedge_valerr]{Split long edges, Mixed model, validation error over iterations}
 \picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_mix.pdf
-\caption/f For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10. Mixed model.
+\caption/f Model: \textit{Mixed}. Long edge splitting experiment. For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10.
 \endinsert
 
 \midinsert
 \clabel[36_splitedge_boxplot]{Split long edges, Mixed model, comparison of last epoch between datasets}
 \picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last_mix.pdf
-\caption/f Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison. Mixed model.
+\caption/f Model: \textit{Mixed}. Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison. 
 \endinsert
 
 Starting with Mixed model, we chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error. In Figure \ref[36_splitedge_valerr] we see the average validation errors plotted together in order to better compare their performances. Lastly in \ref[36_splitedge_boxplot] we can see comparison of all four datasets in their last epoch.
@@ -1397,7 +1397,7 @@ As was explained in \ref[code7b_data_aug] we chose two schemes for data augmenta
       %\caption/f Evolution over epochs
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\caption/f Comparison of the two augmented datasets with the original referential one. Expanded dataset used the transformations of image flipping and shifting. Aggressively expanded dataset used additional transformations of shear, scale and rotation. Original dataset was "5556x_markable_640x640". 
+\caption/f Model: \textit{Mixed}, Dataset: \textit{5556x\_markable\_640x640}. Comparison of the two augmented datasets with the original referential one. Expanded dataset used the transformations of image flipping and shifting. Aggressively expanded dataset used additional transformations of shear, scale and rotation. 
 \endinsert
 
 Figure \ref[37_augmentation] shows the evolution of validation error over the epochs, as well as the validation and training error distribution from k-fold cross-validation in its last epoch. On Figure \ref[37b_augmentation] we have the same experiment using "5556x_minlen30_640px" as the original dataset.
@@ -1414,7 +1414,7 @@ Figure \ref[37_augmentation] shows the evolution of validation error over the ep
       %\caption/f Evolution over epochs
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
-\caption/f Comparison of the two augmented datasets with the original referential one "5556x_minlen30_640px".
+\caption/f Model: \textit{Mixed}, Dataset: \textit{5556x\_minlen30\_640px}. Comparison of the two augmented datasets with the original referential one.
 \endinsert
 
 \label[ch6_model]
@@ -1440,7 +1440,7 @@ As was mentioned in Code \ref[code13_applications], Keras allows to use multiple
 \midinsert
 \clabel[37b_base_models]{Different base CNN}
 \picw=13cm \cinspic graphs/6.2.1._different_CNN/fig_average_valerr_.pdf
-\caption/f Illustration of five models in one graph. For better clarity we chose to show only the averages of validation and training errors. These were Mixed models using different CNNs as their base.
+\caption/f Model: \textit{Mixed with variable base}, Dataset: \textit{5556x\_markable\_640x640}. Illustration of five models in one graph. For better clarity we chose to show only the averages of validation and training errors. These Mixed models used different CNNs as their base.
 \endinsert
 
 Note that these models plotted in \ref[37b_base_models] have different number of parameters in their structure and therefore the whole evaluation of experiment can take different amount of time and exhibit different memory requirements.
@@ -1481,18 +1481,18 @@ We chose one dataset to compare these three models on. We use the default settin
 \midinsert
 \clabel[38_modelversus_evol]{Model competition, evolution over epochs}
 \picw=13cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig1_evolution_markable.pdf
-\caption/f Model competition, evolution over epochs. Dataset 5556x\_markable\_640x640. %\textit{5556x\_markable\_640x640}
+\caption/f Models: \textit{OSM}, \textit{Image}, \textit{Mixed}, Dataset: \textit{5556x\_markable\_640x640}. Model competition, evolution over epochs.
 \endinsert
 
 \midinsert
 \line{\hsize=.5\hsize \vtop{%
       \clabel[38_modelversus_last]{Model competition, last epoch}
       \picw=5.5cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig2_last_epoch_markable.pdf
-      \caption/f Model competition, last epoch. Dataset 5556x\_markable\_640x640.
+      \caption/f Model competition, last epoch. Dataset: \textit{5556x\_markable\_640x640}.
    \par}\vtop{%
       \clabel[38_modelversus_best]{Model competition, best epoch}
       \picw=5.5cm \cinspic graphs/6.2.2._model_competition-img-vs-osm-vs-mix/fig3_best_epoch_markable.pdf
-      \caption/f Model competition, best epoch. Dataset 5556x\_markable\_640x640.
+      \caption/f Model competition, best epoch. Dataset: \textit{5556x\_markable\_640x640}.
    \par}}
 %\centerline {aaa\hfil\hfil bbb}\nobreak\medskip
 \endinsert
@@ -1512,7 +1512,7 @@ We are trying values of (1, 2, 3, 4) for depth and (32, 64, 128, 256) for width.
 \midinsert
 \clabel[39_osm_wd_4x4]{OSM model alterations in depth and width}
 \picw=10cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig1_4x4madness.pdf
-\caption/f OSM model alterations in depth and width.
+\caption/f Model: \textit{OSM}, Dataset: \textit{5556x\_markable\_640x640}. OSM model alterations in depth and width.
 \endinsert
 
 We chose to display a cut of this table with fixed value of depth to 2 and variable width in Figure \ref[40_osm_wd_d2cut] which follows also their performance over epochs.
@@ -1520,7 +1520,7 @@ We chose to display a cut of this table with fixed value of depth to 2 and varia
 \midinsert
 \clabel[40_osm_wd_d2cut]{OSM model depth 2 and altering width}
 \picw=12cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig2_cutOfD2fixed.pdf
-\caption/f OSM model with depth fixed at value 2 and variable width.
+\caption/f Model: \textit{OSM}, Dataset: \textit{5556x\_markable\_640x640}. OSM model with depth fixed at value 2 and variable width.
 \endinsert
 
 For more combinations see section \ref[ap_model_osm_wd] in Appendix, where are other cuts (with one attribute fixed while the other one variable) available.
@@ -1634,11 +1634,11 @@ Note that the best performing model can be considered in various terms. When we 
 \line{\hsize=.5\hsize \vtop{%
       \clabel[41a_table_avg_best]{Model comparison by best error}
       \cinspic tables/6_avg_best_table.pdf
-      \captiontablehack/f Model comparison by average best validation error (average over minimal validation error of each fold).
+      \captiontablehack/f Model comparison by average best validation error (average over minimal validation error of each fold). Model: \textit{OSM}, Dataset: \textit{5556x\_markable\_640x640}.
    \par}\vtop{%
       \clabel[41b_table_min_avg]{Model comparison by average error}
       \cinspic tables/6_min_avg_table.pdf
-      \captiontablehack/f Model comparison by minimal average validation error (minimal of average validation errors over all folds).
+      \captiontablehack/f Model comparison by minimal average validation error (minimal of average validation errors over all folds). Model: \textit{OSM}, Dataset: \textit{5556x\_markable\_640x640}.
    \par}}
 \endinsert
 
