@@ -297,7 +297,7 @@ Depending on the object type, different attributes will have sensible values whi
 
 \midinsert
 \clabel[8_osm_interesting_attributes]{Sample of OSM attributes}
-\picw=13cm \cinspic figures/3.2.3.1_table_possible_values.pdf 
+\picw=13cm \cinspic tables/3.6._attributes_and_their_vals.pdf 
 \captiontablehack/f Sample of interesting attributes and their possible values in OSM dataset.
 \endinsert
 
@@ -305,7 +305,7 @@ For example attribute “highway” will be empty for most objects, unless they 
 
 \midinsert
 \clabel[8_osm_objects]{Sample of OSM objects}
-\picw=9cm \cinspic figures/3.2.3.1_(semi)_table_objects_with_values.pdf 
+\picw=9cm \cinspic tables/3.7._example_of_objects_in_osm.pdf 
 \captiontablehack/f Example of values given to a selection of objects from OSM dataset.
 \endinsert
 
@@ -1305,27 +1305,10 @@ In order to compare the performance of both the two used datasets and models, we
 \secc Splitting long edges
 %------------------
 
-\midinsert{ 
+\midinsert
 \clabel[ch6_longedge_table]{Dataset overview in experiment with splitting long edges}
-\hrule
-\halign{
-% design of columns
-& \hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil}
-& \vrule \hskip2pt \vtop{\hsize=.4\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
-% data
-Dataset & \# of images \cr
-  \noalign{\hrule}
-Original "5556x_markable_640x640" & 8376 \cr
-min length 10m "5556x_minlen10_640px" & 24078 \cr
-min length 20m "5556x_minlen20_640px" & 18534 \cr
-min length 30m "5556x_minlen30_640px" & 13458 \cr
-}
-\hrule
-}
-\vskip5pt
-\startcenter
+\picw=10cm \cinspic tables/6.4._datasets_for_edgesplitting.pdf
 \captiontablehack/f Dataset overview for the experiment of splitting long edges into smaller segments. Note that the number of images corresponds with the size of inputs for models.
-\stopcenter
 \endinsert
 
 See Table \ref[ch6_longedge_table] with a list of tested datasets. When we choose to split long edges, we generate more smaller segments and from each of these segments even more images. Note that we count only valid segments, where there is imagery data available and where we had a label in the initial dataset.
@@ -1360,30 +1343,10 @@ Note that we also tested the Image model in Appendix with Figures \ref[36_splite
 \secc Dataset augmentation
 %------------------
 
-\midinsert{ 
+\midinsert
 \clabel[ch6_augmentation_table]{Datasets used for augmentation}
-\hrule
-\halign{
-% design of columns
-& \hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil}
-& \vrule\hskip2pt \vtop{\hsize=.4\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
-% data
-Dataset & \# of images \cr
-  \noalign{\hrule}
-Original "5556x_markable_640x640" & 8376 \cr
-Expanded & 25128 \cr
-Aggresively expanded & 25128 \cr
-  \noalign{\hrule}
-Original "5556x_minlen30_640px" & 13458 \cr
-Expanded & 40374 \cr
-Aggresively expanded & 40374 \cr
-}
-\hrule
-}
-\vskip5pt
-\startcenter
-\caption/f List of datasets used for the experiment of data augmentation with the number of valid images they contain.
-\stopcenter
+\picw=10cm \cinspic tables/6.8._datasets_for_dataaugmentation.pdf
+\captiontablehack/f List of datasets used for the experiment of data augmentation with the number of valid images they contain.
 \endinsert
 
 As was explained in \ref[code7b_data_aug] we chose two schemes for data augmentation which gives us three datasets to work with as listed by Figure \ref[ch6_augmentation_table].
