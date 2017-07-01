@@ -1,0 +1,21 @@
+\documentclass[border={15pt 1pt 5pt 1pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+\newcommand{\rpm}{\sbox0{$1$}\sbox2{$\scriptstyle\pm$}
+  \raise\dimexpr(\ht0-\ht2)/2\relax\box2 }
+
+\begin{table}[]
+\centering
+\begin{tabular}{l|c}
+Dataset & \# of images \\ \hline
+Original \verb!5556x_markable_640x640! & 8376 \\
+min length 10m \verb!5556x_minlen10_640px! & 24078 \\
+min length 20m \verb!5556x_minlen20_640px! & 18534 \\
+min length 30m \verb!5556x_minlen30_640px! & 13458 \\
+\end{tabular}
+\end{table}
+
+\end{document} 
+

@@ -1,0 +1,26 @@
+\documentclass[border={15pt 1pt 5pt 1pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+\newcommand{\rpm}{\sbox0{$1$}\sbox2{$\scriptstyle\pm$}
+  \raise\dimexpr(\ht0-\ht2)/2\relax\box2 }
+
+\begin{table}[]
+\centering
+\begin{tabular}{c|c|c|c|l}
+objects id & surface & bicycle & highway & ... \\ \hline
+\textit{356236228} & paved & '' & footway & ... \\
+\textit{356236245} & stone & '' & footway & ... \\
+\textit{115927367} & asphalt & yes & cycleway & ... \\
+\end{tabular}
+\end{table}
+
+\end{document} 
+
+
+
+ 
+
+ 
+

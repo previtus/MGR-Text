@@ -1,0 +1,23 @@
+\documentclass[border={15pt 1pt 5pt 1pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+\newcommand{\rpm}{\sbox0{$1$}\sbox2{$\scriptstyle\pm$}
+  \raise\dimexpr(\ht0-\ht2)/2\relax\box2 }
+
+\begin{table}[]
+\centering
+\begin{tabular}{l|c}
+Dataset & \# of images \\ \hline
+Original \verb!5556x_markable_640x640! & 8376 \\
+Expanded & 25128 \\
+Aggresively expanded & 25128 \\ \hline
+Original \verb!5556x_minlen30_640px! & 13458 \\
+Expanded & 40374 \\
+Aggresively expanded & 40374 \\
+\end{tabular}
+\end{table}
+
+\end{document} 
+

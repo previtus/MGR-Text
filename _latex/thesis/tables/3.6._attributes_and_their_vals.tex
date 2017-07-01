@@ -1,0 +1,23 @@
+\documentclass[border={15pt 1pt 5pt 1pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+\newcommand{\rpm}{\sbox0{$1$}\sbox2{$\scriptstyle\pm$}
+  \raise\dimexpr(\ht0-\ht2)/2\relax\box2 }
+
+\begin{table}[]
+\centering
+\begin{tabular}{c|l}
+attribute & possible values \\ \hline
+highway & residential, service, track, primary, secondary, tertiary, ... \\ \hline
+building & house, residential, garage, apartments, hut, industrial, ... \\ \hline
+natural & tree, water, wood, scrub, wetland, coastline, tree\_row, ... \\ \hline
+surface & asphalt, unpaved, paved, ground, gravel, concrete, dirt, ... \\ \hline
+landuse & residential, farmland, forest, grass, meadow, farmyard, ... \\
+\end{tabular}
+\end{table}
+
+\end{document} 
+
+
