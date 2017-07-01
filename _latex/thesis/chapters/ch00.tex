@@ -1584,7 +1584,7 @@ We further tested two augmentation schemes, so called “expanded” and “aggr
 
 Mixed model was used for all of these datasets.
 
-Let us first focus on the effect of data augmentation over the basic "5556x_" "markable_640x640" dataset. When comparing the three used datasets in left plot of Figure \ref[37_augmentation], we see better results in terms of both median and mean an the distribution of errors - expanded dataset improves the original one and aggressively expanded dataset goes even further. When consulting the overall view on the right side of Figure \ref[37_augmentation] we see, that the average validation error is improved significantly for the expanded datasets over the whole training period.
+Let us first focus on the effect of data augmentation over the basic "5556x_" "markable_640x640" dataset. When comparing the three used datasets in left plot of Figure \ref[37_augmentation], we see better results in terms of both median and mean an the distribution of errors - both expanded datasets improve the original one. When consulting the overall view on the right side of Figure \ref[37_augmentation] we see, that the average validation error is improved significantly for the expanded datasets over the whole training period.
 
 Situation with dataset "5556x_minlen30_640px" taken as the base for further augmentation hasn’t brought the same amount of performance boost, as can be see in Figure \ref[37b_augmentation]. In fact both the median and mean of validation error is worse in its last iteration in the cases of both expanded datasets. Looking at the values of training error, this might be due to the model overfitting more on the two expanded datasets. Overall view on the right side of Figure \ref[37b_augmentation] underscores that in this case the data augmentation didn’t help.
 
@@ -1646,9 +1646,9 @@ Note that the best performing model can be considered in various terms. When we 
 \chap Conclusion
 %==============================================================
 
-We have successfully implemented Convolutional Neural Network model for the task of route attractivity score estimation. We have enhanced the initial dataset of scored edges and nodes with downloaded Google Street View images and generated neighborhood vectors aggregated from Open Street Maps. We have experimented with various CNN model designs as well as with methods of generating and augmenting imagery dataset.
+We have successfully implemented Convolutional Neural Network model for the task of route attractivity score estimation. We have enhanced the initial dataset of scored edges and nodes with downloaded Google Street View images and generated neighborhood vectors aggregated from Open Street Maps. We have experimented with various CNN model designs as well as with methods of generating and augmenting imagery dataset. To overcome the limitations of our dataset size, we followed the method of feature transfer, reusing feature extractor section of complex CNN models while adapting them to our own task with custom classifier sections.
 
-We tested various setting combinations extensively comparing the results with k-fold cross-validation. We report the best model achieving mean squared error measurement of 0.076 +/- 0.012.
+We proposed three CNN model designs according to the type of data they use - Image model using imagery information, OSM model using neighborhood vector representation and Mixed model using both. We have made the model descriptions customizable and experimented with changing parameters influencing their shape, width and depth. We have tested various setting combinations extensively while comparing their results with k-fold cross-validation. We report the best model achieving mean squared error measurement of 0.076 +/- 0.012.
 
 \endinput
 %%
