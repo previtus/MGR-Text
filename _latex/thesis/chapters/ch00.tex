@@ -33,11 +33,11 @@ There are many applications for the task to search for the shortest route on gra
 \caption/f Abstracted representation of map, description of real world location via set of nodes and edges. This representation allows us to run generic algorithms over it.
 \endinsert
 
-We have a set of nodes N, which can be understood as places on map and edges E, which are the possible paths from one node to another, In order to have measurement of quality of traveling between two nodes, we also need a cost function. This cost function will assign a positive value c $\in$ \realnumbers + to each edge. Typically we are facing the task of finding the shortest path, in which we are minimizing the aggregated cost. See illustration of Figure \ref[1_abstracted_map].
+We have a set of nodes N, which can be understood as places on map and edges E, which are the possible paths from one node to another. In order to have a measurement of quality of traveling between two nodes, we also need a cost function. This cost function will assign a positive value c $\in$ \realnumbers + to each edge. Typically we are facing the task of finding the shortest path, in which we are minimizing the aggregated cost. See illustration of Figure \ref[1_abstracted_map].
 
-In real life scenario, road segments exhibit many different parameters which influence how fast we can traverse them. More or less objective criteria such as surface material, size of the road, time of the day, or criteria which depends solely on the preference of driver. What is the surrounding environment, what is the comfort level of the road. 
+In real life scenario, road segments exhibit many different parameters which influence how fast we can traverse them. There are more or less objective criteria such as surface material, size of the road, time of the day, and criteria which depends solely on the preference of driver. What is the surrounding environment, what is the comfort level of the road, etc.
 
-This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see ~\cite[hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in realistic time. We can expect such task on hand-held devices of car gps.
+This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see ~\cite[hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in realistic time. We can imagine such necessity on hand-held devices of car gps.
 
 \label[ch2_data_collection]
 \secc Data collection
@@ -45,7 +45,7 @@ This tasks gets more interesting, when we look at more complicated examples, whe
 
 Cost function can be very simple, but in order that it works on real life scenarios, we usually need more complicated one with lots of data recorded. Estimation of how much “cost” we associate with one street (represented by edge e $\in$ E connecting two crossroads represented by nodes) should reflect how much time we spend in crossing it.
 
-In case of planning for cars we generally just want to get across as fast as possible, or to cover minimizing distance. When the user is driving a bicycle, more factors become relevant. We need to know the quality of terrain, steepness of the road, amount of traffic in the area and overall pleasantness of the road. In many cases the bikers will not follow the strictly shortest path, choosing their own criteria, such as for example stopping for a rest in a park.
+In case of planning for cars we generally just want to get across as fast as possible, or to cover minimal distance. When the user is driving a bicycle, more factors become relevant. We need to know the quality of terrain, steepness of the road, amount of traffic in the area and overall pleasantness of the road. In many cases the bikers will not follow the strictly shortest path, choosing their own criteria, such as for example stopping for a rest in a park.
 
 Some of these these criteria are measurable and objectively visible in the real world. For these we need to have highly detailed data available with parameters such as the quality of road and others. Other criteria are based on subjective, personal preference of some routes over other and for these we might need a long period of traces recording which routes have users selected in past. For example the work of ~\cite[navigation_made_personal] makes heavy use of user recorded traces.
 
@@ -57,17 +57,17 @@ See ~\cite[hrnvcivr2016practical] and Figure \ref[2_slowdown_features] for examp
 \caption/f Example of the categories of highly detailed data we would require for multi-criteria cost function formulation as presented by ~\cite[hrnvcivr2016practical]. List of features contributing to a slowdown effect on route segment.
 \endinsert
 
-In any case highly qualitative, detailed and annotated dataset is required to begin with and a carefully fitted cost function which would take all these parameters into weighted account is also needed. Large companies are usually protective of their proprietary formulas of evaluating costs for route planners. For example ~\cite[navigation-made-personal] makes use of the road network data of Bing Maps with many parameters related to categories such as speed, delay on segment and turning to another street, however the exact representation remains unpublished.
+In any case highly qualitative, detailed and annotated dataset is required alongside with a carefully fitted cost function which would take all these parameters into account. Large companies are usually protective of their proprietary formulas of evaluating costs for route planners. For example ~\cite[navigation_made_personal] makes use of the road network data of Bing Maps with many parameters related to categories such as speed, delay on segment and turning to another street, however the exact representation remains unpublished.
 
-As we will touch upon this topic in later chapters, its useful to realize that this highly qualitative dataset is not always available. We would like to carry information we can infer from small annotated dataset into different areas, where we lack detailed measurements. We are using visual information of Google Street View images, which is more readily available in certain areas than the highly qualitative dataset.
+As we will touch upon this topic in later chapters, its useful to realize that this highly qualitative dataset is not always available. We would like to carry information we can infer from small annotated dataset into different areas, where we lack detailed measurements. We are instead using visual information of Google Street View images, which is more readily available in certain areas than the highly qualitative dataset.
 
 \label[ch2_history_of_cnn]
 \sec History of Convolutional Neural Networks 
 %===================
 
-Initial idea to use Convolutional Neural Networks (CNNs) as model was introduced in ~\cite[lecun1998gradient] by LeCun with his LeNet network design trained on the task of handwritten digits recognition. 
+Initial idea to use Convolutional Neural Networks (CNNs) as a model was introduced in ~\cite[lecun1998gradient] by LeCun with his LeNet network design trained on the task of handwritten digits recognition. 
 
-In this section we try to trace the important steps in the field of Computer Vision which lead to the widespread use of CNNs in current state of the art research. For more detailed overview we recommend ~\cite[schmidhuber2015overview].
+In this section we trace the important steps in the field of Computer Vision which lead to the widespread use of CNNs in current state of the art research. For more detailed overview we recommend ~\cite[schmidhuber2015overview].
 
 \secc ImageNet dataset
 %------------------
@@ -83,16 +83,16 @@ Effectively ImageNet became the huge qualitative dataset which was needed to pro
 \label[ch2_competition]
 \secc ImageNet Large Scale Visual Recognition Competition
 %------------------
-The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) ~\cite[Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure of cucumbers ~\cite[japanese-cucumber].
+The ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) ~\cite[Russakovsky2014] fueled the path of progress in the field of Image Recognition. While the tasks for each year slightly differs to encourage new novel approaches, it is considered the most prestigious  competition in this field. The victorious strategies, methods and trends of each years of this competition offer a reliable looking glass into the state of art techniques. The success of these works and fast rate of progress has lead to popularization of CNNs into more practical implementations as is the case of Japanese farmer automatizing the sorting procedure on his cucumber farm ~\cite[japanese-cucumber].
 
 \secc AlexNet, CNN using huge datasets
 %------------------
 
-The task of object recognition has been waiting for larger databases with high quality of annotation to move from easier tasks done in relatively controlled environment, such as the MNIST task. In the work of ~\cite[krizhevsky2012imagenet] the ImageNet database was used to teach a Deep Convolutional Neural Network (CNN) in a model later referred to as AlexNet. At the time this method has achieved more than 10\% improvement over its competitors in an ILSVRC 2012 competition.
+The task of object recognition has been waiting for larger databases with high quality of annotation to move from easier tasks done in relatively controlled environment, such as the MNIST ~\cite[lecun1998mnist] handwritten digit recognition task. In the work of ~\cite[krizhevsky2012imagenet] the ImageNet database was used to teach a Deep Convolutional Neural Network (CNN) in a model later referred to as AlexNet. At the time this method has achieved more than 10\% improvement over its competitors in an ILSVRC 2012 competition.
 
-Given hardware limitations and limited time available for learning, this work made use of only subsets of the ImageNet database used in ILSVRC-2010 and ILSVRC-2012 competition. Choice of CNN as a machine learning model has been made with the reasoning that it behaves almost as well as fully connected neural networks, but the amount of parameters of connections is much smaller and the learning is then more efficient.
+Given hardware limitations and limited time available for learning, this work made use of only subsets of the ImageNet database used in ILSVRC-2010 and ILSVRC-2012 competition. Choice of CNN as a machine learning model has been made with the reasoning that it behaves almost as well as fully connected neural networks, but the amount of parameters of connections is much smaller and the learning is therefore more efficient.
 
-For the competition an architecture of five convolutional and three fully-connected layers composed of Rectified Linear Units (ReLUs) as neuron models was used. Other alterations on the CNN architecture were also employed to combat overfitting, to fine-tune and increase score and reflect the limitations of hardware. Output of last fully-connected layer feeds to a softmax layer which produces a distribution over 1000 classes as a result of CNN.
+For the competition an architecture of five convolutional and three fully-connected layers composed of Rectified Linear Units (ReLUs) as neuron models was used. Other alterations on the CNN architecture were also employed to combat overfitting, to fine-tune and increase score and reflect the limitations of hardware. Output of last fully-connected layer feeds to a softmax layer which produces a probabilistic distribution over 1000 classes as a result of CNN.
 
 The stochastic gradient descent was used for training the model for roughly 90 cycles through training set composed of 1.2 million of images, which took five to six days to train on two NVIDIA GTX 580 3GB GPUs.
 
@@ -123,19 +123,19 @@ The widespread of using the ensemble technique reflects the democratization and 
 
 The success of large CNNs with many parameters trained on large datasets like ImageNet has not only been positive, it also poses a question - will we always need huge datasets like ImageNet to properly teach CNN models? ImageNet has millions of annotated images and it has been gradually growing over time.
 
-Article ~\cite[Oquab_2014_CVPR] talks about this issue and proposes a strategy called feature transfer or model finetuning, which composes of using CNN models trained at one task to be retrained to a different task.
+Article ~\cite[Oquab_2014_CVPR] talks about this issue and proposes a strategy called feature transfer or model finetuning, which consists of using CNN models trained at one task to be retrained to a different task.
 
-They offer a solution, where similar architecture of CNNs can be taught upon one task and then several of its layers can be reused, effectively transferring the mid-level feature representations to different tasks.
+They offer a solution, where similar architecture of CNNs can be taught upon one task and then several of its layers can be reused, effectively transferring the mid-level feature representations to a different task.
 
 \midinsert
 \clabel[3_feature_transfer]{Feature transfer illustrated}
 \picw=13cm \cinspic figures/2.2.3._feature_transform.pdf 
-\caption/f Illustration of the basic idea of feature transfer between source and target task. Imagine the source task source task being classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
+\caption/f Illustration of the basic idea of feature transfer between source and target task. Imagine the source task being a classification task on ImageNet and the target task as a new problem without large dataset at its disposal.
 \endinsert
 
 This can be used, when the source task has a rich annotated dataset available (for example ImageNet), whereas the target one doesn’t. When talking about two tasks, the source and target classes might differ, when for example the labeling is different. Furthermore the whole domain of class labels can be also different - for example two datasets of images, where first mostly exhibits single objects and the second one rather contains more objects composed into scenes. This issue is referred to as a “dataset capture bias”.
 
-The issue of different class labels is combated by adding two new adaptation layers which are retrained on the new set of classes. The problems of different positions and distributions of objects in image is addressed by employing a strategy of sliding window decomposition of the original image, continuing with sensible subsamples and finally having the result classifying all objects in the source image separately.
+The issue of different class labels is combated by adding new adaptation layers which are retrained on the new set of classes. The problems of different positions and distributions of objects in image is addressed by employing a strategy of sliding window decomposition of the original image, continuing with sensible subsamples and finally having the result classifying all objects in the source image separately.
 
 The article also works with a special target dataset Pascal VOC 2012 containing difficult class categories of activities described like “taking photos” or “playing instrument”. In this case the source dataset of ImageNet doesn’t contain labels which could overlap with these activities, yet the result of this “action recognition” task achieves best average precision on this dataset.
 
@@ -143,7 +143,7 @@ This article gives us hope, that we can similarly transfer layers of Deep CNN tr
 
 Study of ~\cite[decaf] also explores the feature transfer technique, essentially using an already taught CNN as a black box feature extractor for target task.
 
-Articles being submitted to the ILSVRC competition often include a section dedicated on using their designed models on different tasks then what they were trained upon. Effectively they should the models suitability for feature transfering.
+Articles being submitted to the ILSVRC competition often include a section dedicated on using their designed models on different tasks than what they were trained upon. Effectively they test the models suitability for feature transfering.
 
 Object localization is an example of typical target task, where a large qualitative dataset is not available, yet where the feature transfer technique brings in good results in works of ~\cite[OverFeat_localization] and  ~\cite[Regions_with_CNN].
 
@@ -152,7 +152,7 @@ Object localization is an example of typical target task, where a large qualitat
 \secc Common structures
 %------------------
 
-When designing the architecture of custom CNN model, we are using certain layers and building block schemes established as common practice in the ILSVRC competition. For a new unresearched task it has been suggested (by lecturers and online sources such as ~\cite[cnn_course]) to stick to an established way of designing the overall architecture.
+When designing the architecture of custom CNN model, we are using certain layers and building block schemes established as common practice in model building and in the ILSVRC competition. For a new unresearched task it has been suggested (by lecturers and online sources such as ~\cite[cnn_course]) to stick to an established way of designing the overall architecture.
 
 \midinsert
 \clabel[4_structure]{Generic CNN architecture formula}
@@ -160,7 +160,7 @@ When designing the architecture of custom CNN model, we are using certain layers
 \caption/f Formula describing a generic CNN architecture used with image data.
 \endinsert
 
-Refer to Figure \ref[4_structure]. For illustration of this recommended architecture. Naturally for custom tasks this architecture is later adapted and tweaked to serve well in its specific situation. We will return to this suggested architecture scheme when building our own custom CNN models in \ref[ch4_building_blocks].
+Refer to Figure \ref[4_structure] for illustration of this recommended architecture. Naturally for custom tasks this architecture is later adapted and tweaked to serve well in its specific situation. We will return to this suggested architecture scheme when building our own custom CNN models in \ref[ch4_building_blocks].
 
 \label[ch2_related_works]
 \sec Related works
@@ -169,36 +169,36 @@ Refer to Figure \ref[4_structure]. For illustration of this recommended architec
 \secc Practical application of CNNs
 %------------------
 
-We can find practically applied CNNs on the task of object recognition in highly specialized datasets, such as plant identification in ~\cite[deep_plant] and bird species categorization in ~\cite[bird_species]. Both of these works make use of the feature transfer and later CNN fine-tuning. They note the problems of over-fitting on dataset dramatically smaller than the source dataset, which need to be addressed.
+We can find practically applied CNNs on the task of object recognition in several highly specialized datasets, such as plant identification in ~\cite[deep_plant] and bird species categorization in ~\cite[bird_species]. Both of these works make use of the feature transfer and later CNN fine-tuning. They note the problems of over-fitting on dataset dramatically smaller than the source dataset, which need to be addressed.
 
-Work of ~\cite[wegner2016cataloging] uses R-CNN to automate the process of object categorization at specified geological location for the purpose of cataloging. They experiment on small scale area with plans to go US-wide and then cover the whole planet. Objects like trees, lamp posts, mailboxes, traffic lights etc. can be targeted. Main argumentation is on the automation of processes which otherwise require a lot of manual labor.
+Work of ~\cite[wegner2016cataloging] uses R-CNN to automate the process of object categorization at specified geological location for the purpose of cataloging. They experiment on small scale area with plans to go US-wide and then cover the whole planet. Objects like trees, lamp posts, mailboxes, traffic lights etc. can be targeted. Main focus is on the automation of processes which otherwise require a lot of manual labor.
 
 \secc Geolocation
 %------------------
 
-Large research field is the so called geolocation, assigning a location to images. Instead of answering the “what” of object identification, we are asking “where” and in the work of ~\cite[matzen2014scene_chronology] eventually also “when”. Article by ~\cite[leung2010proximate] names this task “proximate sensing” using an extensive geolocation referrenced dataset collected from social networks, blogs and other not-reviewed data collections. For comparison they also use Geograph British Isles photograph dataset taken with the intention to objectively represent the area of Great Britain and Ireland. They note the influence of photographers intent on the usability of images for datasets for machine learning models and mention filtration. We may also note the work of ~\cite[netvlad_cnn] which also deals with the geolocation tasks by the means of CNN model with custom top “NetVLAD” layer.
+Large research field is the so called geolocation, assigning a location to images. Instead of answering the “what” of object identification task, we are asking “where” and in the work of ~\cite[matzen2014scene_chronology] eventually also “when”. Article ~\cite[leung2010proximate] names this task “proximate sensing” using an extensive geolocation referrenced dataset collected from social networks, blogs and other not-reviewed data collections. For comparison they also use Geograph British Isles photograph dataset which was taken with the intention to objectively represent the area of Great Britain and Ireland. They note the influence of photographers intent on the usability of images for datasets for machine learning models and mention the necessity of filtration. We may also note the work of ~\cite[netvlad_cnn] which also deals with the geolocation tasks by the means of CNN model with custom top “NetVLAD” layer.
 
-On the topic of processing publicly available photographs we have study of ~\cite[mapping_the_world] which focuses on analysis of where the images are taken and in producing heatmaps and lists of landmark ordered by the quantity of photograph and their viability as image datasets. Similarly the study of ~\cite[Quack_world_mining_community] focuses on mining of community created geotagged images. They cluster sets of publicly available images of the same subject.
+On the topic of processing publicly available photographs we have the study ~\cite[mapping_the_world] which focuses on analysis of where the images are taken by producing heatmaps and lists of landmarks ordered by the quantity of photographs and their viability as image datasets. Similarly the study of ~\cite[Quack_world_mining_community] focuses on mining the community created geotagged images. They cluster sets of publicly available images of the same subject.
 
 Paper ~\cite[cross_view_lin2013cross] makes use of aerial imagery with the street level photography in cross-view manner. They explore the intermediate relational attributes such as the quality of neighborhoods to circumvent the lack of ground level images in certain scenarios. Their algorithm produces a probability distribution of localization over limited map segment. Work of ~\cite[ground_to_aerial_Lin_2015_CVPR] also discusses the problems associated with matching the two datasets of aerial and ground level images.
 
 Note that these datasets could be used as alternative data sources even for our task - instead of just using downloaded images from Street View Image, we could download a set of representative images for nearby area, perhaps getting the feel for the neighborhood. Neighborhoods of those edges with high scores could be a guide of what we are looking for in our bicycle route planning.
 
-As for the problem of temporal localization on top of the task of geolocation, the work of ~\cite[matzen2014scene_chronology] explores the scene chronology and task of time-stamping photos. It focuses on presence of temporary objects, such as poster, signs, street art, etc. The presence of temporal information is usually ignored, which produces what is described as time chimeras of objects from different times placed and used together. This is an issue in the case of 3D scene reconstruction from images rather than in case, however it should be noted that Google Street View images do carry a time-stamp. For most precise information we may prefer the most recent imagery data, however certain locations carry older photographs. A source of possible problems would also be a sudden appearance of images from different time of the year, such as images from Summer using dataset from images taken during Winter.
+As for the problem of temporal localization on top of the task of geolocation, the work of ~\cite[matzen2014scene_chronology] explores the scene chronology and task of time-stamping photos. It focuses on presence of temporary objects, such as poster, signs, street art, etc. The presence of temporal information is usually ignored, which produces what is described as \textit{time chimeras} of objects from different times placed and used together. This is an issue in the case of 3D scene reconstruction from images rather than in our case, however it should be noted that Google Street View images do carry a time-stamp. For most precise information we may prefer the most recent imagery data, however certain locations carry older photographs. A source of possible problems would also be a sudden appearance of images from different time of the year, such as images from Summer while using a dataset from images taken during Winter.
 
 \secc Google Street View
 %------------------
 
-We have already mentioned using the Google Street View service ~\cite[anguelov2010google_street_view] to obtain images applicable for our task. There has been extensive research over the application of Neural Networks on tasks regarding the Google Street View itself, such as in ~\cite[privacy_protection] where multiple classifiers are used to identify and blur out human faces and license plates on the recorded images.
+We have already mentioned using the Google Street View service ~\cite[anguelov2010google_street_view] to obtain images applicable for our task. There has been extensive research over the application of Neural Networks on tasks regarding the Google Street View itself, such as in ~\cite[privacy_protection] where multiple classifiers are used to identify and blur out human faces and license plates on the recorded images for the sake of privacy protection.
 
-Data collected from Google Street view service has also been used in ~\cite[goodfellow2013multidigit] for the task of digit recognition. Using Street View House Numbers (SVHN) dataset introduced by ~\cite[nips2011_housenumbers] as well as internal dataset generated from Google Street View imagery, they achieve almost human operator grade performance on digit recognition as well as on reCAPTCHA reverse turing test challenge.
+Data collected from Google Street view service has also been used in ~\cite[goodfellow2013multidigit] for the task of digit recognition. Using Street View House Numbers (SVHN) dataset introduced by ~\cite[nips2011_housenumbers] as well as an internal dataset generated from Google Street View imagery, they achieve almost human operator grade performance on digit recognition as well as on reCAPTCHA reverse turing test challenge.
 
-The tool of Google Street View is also being used as a cheap method of in-field visits for social observations in ~\cite[odgers2012systematic] or in ~\cite[rundle2011using] study, which measures the applicability of using Street View images for cheap location auditing. While this study needed human intervention in both its generated datasets, an in-person field audit and Street View human operated audit, it is of interest to us. While some labels cannot be conclusively obtained just from the imagery data, other environmental characteristics are easily recognized. Measures of pedestrian safety, such as speed bumps, infrastructure object of public transportation systems and parking spaces could be discovered on the images. This study gives us an idea of what kind of information can be concluded from Street View images by human evaluators.
+The tool of Google Street View is also being used as a cheap method of in-field visits for social observations in ~\cite[odgers2012systematic] or in ~\cite[rundle2011using]. This study measures the applicability of using Street View service for cheap location auditing. While this study needed human intervention in both its generated datasets, an in-person field audit and Street View human operated audit, it is of interest to us. While some labels cannot be conclusively obtained just from the imagery data, other environmental characteristics are easily recognized. Measures of pedestrian safety, such as speed bumps, infrastructure object of public transportation systems and parking spaces could be discovered on the images. This study gives us an idea of what kind of information can be concluded from Street View images by human evaluators.
 
-Another work of ~\cite[scene-completion2007] makes use of large datasets of images for the task of missing masked out section of photograph recreation, by estimating inter-image similarity and patch of image transplantation suitability.
+Another work of ~\cite[scene-completion2007] makes use of large datasets of Google Street View like images for the task of missing masked out section of photograph recreation, by estimating inter-image similarity and patch of image transplantation suitability.
 
 \label[ch3]
-\chap The Task
+\chap Task
 %==============================================================
 
 \sec Route planning for bicycles 
@@ -206,7 +206,7 @@ Another work of ~\cite[scene-completion2007] makes use of large datasets of imag
 
 The task we are faced with consists of planning a route for bicycle on a map of nodes and edges. We are designing an evaluation method, which will give each edge segment appropriate cost. In such a way we are building one part of route planner, which will use our model for cost evaluation and fit into a larger scheme mentioned in \ref[ch2_planning]. We are building a machine learning model, such as the one jokingly described in xkcd comic strip ~\cite[xkcd_machine_learning].
 
-As has been stated in \ref[ch2_data_collection] a cost function can be an explicitly defined formula depending on many measured variables. Similar formula has been used by the ATG research group, which produced a partially annotated section of map with scores of bike attractivity. We want to enrich this dataset with additional visual information from Google Street View and with vector data of Open Street Map.
+As has been stated in \ref[ch2_data_collection] a cost function can be an explicitly defined formula depending on many measured variables. Similar formula has been used by the ATG research group, which produced a partially annotated section of map with scores of bike attractivity. We want to enrich this dataset with additional visual information from Google Street View and with vector data from Open Street Map.
 
 We want to train a model on the small annotated map segment and later use it in areas where such detailed information is not available. We argue that Google Street View and Open Street Map data are more readily obtainable, than supply of highly qualitative measurements.
 
@@ -218,7 +218,7 @@ We want to train a model on the small annotated map segment and later use it in 
 \secc Initial dataset
 %------------------
 
-We are given a dataset from the ATG research group of nodes and edges with score ranking ranging from 0 to 1. Score of 0 denotes, that in simulation this route segment was not used and value 1 means that it was a highly attractive road to take.
+We are given a dataset from the ATG research group of nodes and edges with score ranking ranging from 0 to 100. Score of 0 denotes, that in simulation this route segment was not used and value 100 means that it was a highly attractive road to take. We rescale these to the range of 0 to 1.
 
 \midinsert
 \clabel[5_geojson]{Sample of the initial dataset}
@@ -257,7 +257,7 @@ Google Street View API uses the parameters of location which is the latitude and
 
 In order to make good use of the location and collect enough data, we decided to break down longer edges into smaller segments maintaining the minimal edge size fixed. We also select both of the starting and ending locations of each segment. In each position we also rotate around the spot.
 
-We collect total of 6 images from each segment, 3 in each of its corners while rotating 120\degrees degrees around the spot. This allows us to get enough distinct images from each location and we don’t overlap with neighboring edges. See the illustration in Figure 7. Note that all of these images will correspond to one edge and thus to one shared score value.
+We collect total of 6 images from each segment, 3 in each of its corners while rotating 120\degrees degrees around the spot. This allows us to get enough distinct images from each location which don’t overlap with neighboring edges. See the illustration in Figure \ref[7_edge_breakdown]. Note that all of these images will correspond to one edge and thus to one shared score value.
 
 Also note that we are limited to downloading images of maximal size 640x640 pixels as per the limitation of free use of Google Street View API.
 
@@ -277,7 +277,7 @@ We will return to the issue of dataset augmentation in \ref[ch4_data_augmentatio
 
 We are looking for another source of information about an edge segment in the neighborhood surrounding its location in Open Street Map data.
 
-Open Street Map data is structured as vector objects placed with location parameters and large array of attributes and values. We can encounter point objects, line objects and polygon objects, which represent points of interest, streets and roads, building, parks and other landmarks.
+Open Street Map data is structured as vector objects placed with location parameters and large array of attributes and values. We can encounter point objects, line objects and polygon objects, which represent points of interest, streets and roads, buildings, parks and other landmarks.
 
 \midinsert
 \clabel[8_ex_params]{OSM data structure with parameters}
@@ -301,7 +301,7 @@ Depending on the object type, different attributes will have sensible values whi
 \captiontablehack/f Sample of interesting attributes and their possible values in OSM dataset.
 \endinsert
 
-For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
+For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its importance and size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
 
 \midinsert
 \clabel[8_osm_objects]{Sample of OSM objects}
@@ -309,9 +309,9 @@ For example attribute “highway” will be empty for most objects, unless they 
 \captiontablehack/f Example of values given to a selection of objects from OSM dataset.
 \endinsert
 
-Out of these pairs, we can build a vector of their occurrences. The only remaining issue is to determine which attribute-value pairs we select into our vector. If we used every pair possible, the vector would be rather large and more importantly mostly filled with zeros.
+Out of these pairs, we can build a vector of their occurrences. The only remaining issue is to determine which attribute-value pairs will we select into our vector. If we used every pair possible, the vector would be rather large and more importantly mostly filled with zeros.
 
-In order to select which pairs are important, we chose to look at OSM data statistics available at webpage taginfo.openstreetmap.org. From an ordered list of most commonly used attribute-value pairs, we have selected relevant pairs and generated our own list of pairs which we consider important.
+In order to select which pairs are important, we chose to look at OSM data statistics available at webpage \textit{taginfo.openstreetmap.org} ~\cite[taginfo]. From an ordered list of most commonly used attribute-value pairs, we have selected relevant pairs and generated our own list of pairs which we consider important.
 
 \midinsert
 \clabel[9_ex_loc]{Unique locations with neighborhood vectors}
@@ -319,7 +319,7 @@ In order to select which pairs are important, we chose to look at OSM data stati
 \caption/f Four unique locations with their corresponding neighborhood vectors. Note that these can be very similar for close enough locations.
 \endinsert
 
-Then for each distinct location of edge segment, we look into its neighborhood and count the number of occurrences of each pair from the list. See Figure \ref[10_vec_count].
+Then for each distinct location of edge segment, we look into its neighborhood and count the number of occurrences of each pair from the list. See Figures \ref[9_ex_loc] and \ref[10_vec_count].
 
 \midinsert
 \clabel[10_vec_count]{Construction of neighborhood vector}
@@ -340,9 +340,10 @@ One further undivided edge segment contains 6 images which share the same score,
 \secc Radius choice
 %------------------
 
-Depending on the radius we choose different area will be considered as neighborhood. If we were to choose too small radius, the occurrences would mostly result in zero OSM vector. On the other hand selecting too high radius would lead many OSM vectors to be indistinguishable from each other as they would share the exact same values.
+Depending on the radius choice, different area will be considered as neighborhood. If we were to choose too small radius, the occurrences would mostly result in zero OSM vector. On the other hand selecting too high radius would lead many OSM vectors to be indistinguishable from each other as they would share the exact same values.
 
-Our final choice for radius was value of 100 meters. %, which was empirically tested in \ref[ch6] Results.
+Experimentally we have found radius of 100 meters to be effective.
+%Our final choice for radius was value of 100 meters. %, which was empirically tested in \ref[ch6] Results.
 
 \secc Data transformation
 %------------------
@@ -354,7 +355,7 @@ Instead of raw data of occurrences, we can convert this information into one-hot
 See more about data augmentation in \ref[ch4_data_augmentation].
 
 \label[ch4]
-\chap The Method
+\chap Method
 %==============================================================
 
 Our method will rely upon using Convolutional Neural Networks (CNNs) mentioned in \ref[ch2_history_of_cnn] on an annotated dataset described in \ref[ch3]. As we have enriched our original dataset with multiple types of data, particularly imagery Street View data and the neighborhood vectors, we have an option to build more or less sophisticated models, depending on which data will they be using. We can build a model which uses only relatively simple OSM data, or big dataset of images, or finally the combination of both.
@@ -371,12 +372,12 @@ Regardless of the model type or purpose, there are certain construction blocks, 
 \secc Model abstraction
 %------------------
 
-When building a CNN model, we can observe an abstracted view of such model in terms of its design. Whereas at the input side of the model we want to extract general features from the dataset, at the output side we stride for a clear classification of the image.
+When building a CNN model, we can observe an abstracted view of such model in terms of its design. Whereas at the input side of the model we want to extract general features from the dataset, at the output side we strive for a clear classification of the image. See Figure \ref[11_extractor_class].
 
 \midinsert
 \clabel[11_extractor_class]{Feature extractor and classificator}
 \picw=13cm \cinspic figures/4.1.1_model_abstraction.pdf 
-\caption/f Abstraction of CNN model into feature extractor section and classificator section.
+\caption/f An abstraction of CNN model into feature extractor section and classificator section.
 \endinsert
 
 Each of these segments will require different sets of building blocks and will prioritize different behavior. Good model design will lead to generalization of concrete task-specific data into general features, which will then be again converted into concrete categories or scores. The deeper the generic abstraction is, the better the model behavior in terms of overfitting will be.
@@ -431,7 +432,7 @@ Pooling layers are put in between convolutional layers in order to decrease the 
 \secc Dropout layers
 %------------------
 
-Dropout layer is special layer suggested by ~\cite[srivastava2014dropout] which has since been widely used on the design of CNN architectures as a tool to prevent model overfitting.
+Dropout layer is special layer suggested by ~\cite[srivastava2014dropout]. It has become widely used feature in the design of CNN architectures as a tool to prevent model overfitting.
 
 \midinsert
 \clabel[16_drop]{Dropout layer}
@@ -439,7 +440,7 @@ Dropout layer is special layer suggested by ~\cite[srivastava2014dropout] which 
 \caption/f Illustration of dropout layers effect during the training period, which renders certain connection invalid with set probability. This prevents the network to depend too much on overly complicated formations of neurons.
 \endinsert
 
-The dropout layer placed between two fully-connected layers functions randomly drops connections between neurons with certain probability during the training period. Instead of fully-connected network of connections we are left with a thinned network with only some of the connections remaining. This thinned networks is used during training and prevents neurons to rely too much on co-adaptation. They are instead forced to develop more ways to fit the data as there is the effect of connection dropping. During test evaluation, the full model is used with its weights changed by the probability of dropout probability.
+The dropout layer placed between two fully-connected layers functions randomly drops connections between neurons with certain probability during the training period. Instead of fully-connected network of connections we are left with a thinned network with only some of the connections remaining. This thinned networks is used during training and prevents neurons to rely too much on co-adaptation. They are instead forced to develop more ways to fit the data as there is the effect of connection dropping. During test evaluation, the full model is used with its weights multiplied by the dropout probability.
 
 
 \label[osm_model]
@@ -456,7 +457,7 @@ In this version of model, we broke down edge segments formerly representing stre
 
 Single unit of data is therefore a neighborhood vector linked to each distinct location of the original dataset. We have designed a model which takes these vectors as inputs and scores as outputs.
 
-The OSM vector model is built from repeated building blocks of fully-connected layer followed by dropout layer. Fully connected layer of width 1 with sigmoid activation function is used as the final classification segment. Figure \ref[18_osm_model] shows the model alongside its dimensions.
+The \textit{OSM model} is built from repeated building blocks of fully-connected layer followed by dropout layer. Fully connected layer of width 1 with sigmoid activation function is used as the final classification segment. Figure \ref[18_osm_model] shows the model alongside its dimensions.
 
 \midinsert
 \clabel[18_osm_model]{OSM neighborhood vector CNN model}
@@ -480,11 +481,11 @@ As discussed in \ref[ch2_history_of_cnn] we are using a CNN model which has been
 \caption/f Reusing part of already trained CNN model as a base model and adding our custom top model.
 \endinsert
 
-We can generally divide even the more complicated CNN models into two abstract segments as mentioned in \ref[ch4_model_abstraction]. The beginning of the model, which usually comprises of repeated structure of convolutional layers, followed by a classification section usually made of fully-connected layers.
+We can generally divide even the more complicated CNN models into two abstract segments as mentioned in \ref[ch4_model_abstraction]. The beginning of the model, which usually composes of repeated structure of convolutional layers is the base model, followed by a classification section usually made of fully-connected layers.
 
 The former works in extracting high dimensional features of incoming imagery data, whereas the classification section translates those features into a probability distribution over categories or score. In our case we are considering a regression problem model, which works with score instead of categories.
 
-As was mentioned in \ref[ch2_feature_transfer_research] we reuse the model trained on large dataset of ImageNet, separate it from its classificatory and instead provide our own custom made top model. See Figure \ref[19_base_top].
+As was mentioned in \ref[ch2_feature_transfer_research] we reuse the model trained on large dataset of ImageNet, separate it from its classifier and instead provide our own custom made top model. See Figure \ref[19_base_top].
 
 We prevent the layers of base model from changing their weights and train only the newly attached top model for the new task. There are certain specifics connected with this approach which we will explore in \ref[ch4_feature_cooking] section.
 
@@ -492,14 +493,14 @@ We prevent the layers of base model from changing their weights and train only t
 \secc Model architecture
 %------------------
 
-The final model architecture is determined by two major choices: which CNN to choose as its base model and how to design the custom top model so it’s able to transfer the base models features to our task.
+The final model architecture is determined by two major choices: which CNN to choose as its base model and how to design the custom top model so it’s able to transfer the base model's features to our task.
 
 \secc{Base model}
 %------------------
 
 The framework we are working with, Keras, allows us to simply load many of the successful CNN models and by empirical experiments asses, which one is best suited for our task. More about Keras in the appropriate section \ref[ch5_keras].
 
-The output of the base CNN model is data in feature space. The dimension will vary depending on the type of model we choose, the size of images we feed the base models and also the depth in which we chose to cut the base CNN model.
+The output of the base CNN model is data in feature space. The dimension will vary depending on the type of the model we choose, the size of images we feed the base model and also the depth in which we chose to cut the base CNN model.
 
 The remains of base CNN model are followed by a Flatten layer which converts the possibly multidimensional feature data into a one dimensional vector, which we can feed into the custom top model.
 
@@ -515,14 +516,14 @@ Base CNN models in Keras are loaded while specifying their "input_shape". The de
 \secc{Custom top model}
 %------------------
 
-We feed the feature vector into a custom model built of repeated blocks of fully-connected neuron layers interlaced with dropout layers. The number of neurons used in each of the layers influences the so called model “width” and the number of used layers influences the model “depth”. Both of these attributes influence the amount of parameters of our model. We can try various combinations of these parameters to explore the models optimal shape.
+We feed the feature vector into a custom model built from repeated blocks of fully-connected neuron layers interlaced with dropout layers. The number of neurons used in each of the layers influences the so called model “width” and the number of used layers influences the model “depth”. Both of these attributes influence the amount of parameters of our model. We can try various combinations of these parameters to explore the models optimal shape.
 
 The final layer of the classification section consists of fully-connected layer of width 1 with sigmoid activation function which weighs in all neurons of the previous layer. See Figure \ref[21_custom_top]. Note that in the final model we chose to interlace individual fully-connected layers with dropout layers.
 
 \midinsert
 \clabel[21_custom_top]{Top model structure}
 \picw=14cm \cinspic figures/4.3.1.2_feature-score.pdf 
-\caption/f Top model structure which takes in the feature vector and follows with fully connected layers which are retrained on our own task.
+\caption/f Top model structure which takes in the feature vector and follows with fully connected layers which are retrained on our own task. Note that in our case we also place dropout layers in between the fully connected layers.
 \endinsert
 
 \maybebreak 5pt
@@ -530,7 +531,7 @@ The final layer of the classification section consists of fully-connected layer 
 \secc{The final architecture}
 %------------------
 
-The final architecture composes of base CNN model with its weights trained on the ImageNet dataset and of custom classification top model trained to fit the base model for our task.
+The final architecture in Figure \ref[22_img_model] consists of base CNN model with its weights trained on the ImageNet dataset and of custom classification top model trained to fit the base model for our task.
 
 \midinsert
 \clabel[22_img_model]{Image model structure}
@@ -549,7 +550,7 @@ In this case one segment again generates multiple images, which share the same s
 \midinsert
 \clabel[23_single_data_unit_for_mix]{Structure of mixed model input data}
 \picw=14.5cm \cinspic figures/4.4._mixed_data_repetition.pdf 
-\caption/f Example of possible decomposition of original edge into rows of data accepted by the mixed model. We use both the image data and the OSM neighborhood vectors.
+\caption/f Example of possible decomposition of original edge into rows of data accepted by the Mixed model. We use both the image data and the OSM neighborhood vectors.
 \endinsert
 
 As a single unit of data we can consider the triplet of image, OSM vector and score. It’s useful to note that later in designing the evaluation method of models, we should take into account, that the neighborhood vector and score can be repeated across data. When splitting the dataset into training and validation sets, we should be careful and place images from one edge into only one of these sets. Otherwise data with distinct images, but possibly the same neighborhood vector and score could end up in both of these sets. Figure \ref[23_single_data_unit_for_mix] illustrates how single data units are generated from one edge.
@@ -559,7 +560,7 @@ We can join the architectures designed in previous steps, or we can design a new
 \midinsert
 \clabel[24_mix_model]{Mixed model structure}
 \picw=15cm \cinspic figures/4.4._mixed_model_v2.pdf 
-\caption/f Final architecture of the mixed model, which uses both OSM vector and the image data.
+\caption/f Final architecture of the Mixed model, which uses both OSM vector and the image data.
 \endinsert
 
 
@@ -577,7 +578,7 @@ This cannot be done just blindly, as some of these transformations could mislead
 
 There are multiple ways we can approach the problem of generating as many images from our initial dataset as we can. Before getting to the data augmentation aspect, please note, that this is also the reason, why we are generating multiple images per segment. We stand in two corners of each edge segment and rotate 120\degrees degrees to get three images on each side. We have also employed a technique, which splits long edges into as many small segments as possible, while not hitting the self imposed minimal edge length.
 
-It could be debated, that we could rotate for smaller angle or split edges to even smaller segments in order to take advantage of the initial dataset fully. However we came across an issue, that with too small minimal edge length or with different rotation scheme, we obtain very similar images, which actually do not improve the overall performance. This occurs when we don't generate differing enough images during downloading. For actual performance change see chapter \ref[ch6].
+It could be debated, that we could rotate for smaller angle or split edges to even smaller segments in order to take advantage of the initial dataset fully. However we came across an issue, that with too small minimal edge length or with different rotation scheme, we obtain very similar images, which actually do not improve the overall performance. This occurs when we don't generate differing enough images during downloading. For actual performance change see chapter \ref[ch6_dataset_longedgesplit].
 
 We face similar issue when choosing a radius for obtaining OSM neighborhood vector as specified in the section \ref[ch3_neighborhood_in_osm]. Instead of selecting one particular radius setting, we can make use of results of multiple queries. When building the OSM vector we would effectively multiply its length by concatenating it with other versions of OSM vectors. We could concatenate the vectors acquired with one fixed radius setting with another version with different radius. See Figure \ref[25_osm_multiple_radius_aug] for illustration.
 
@@ -587,8 +588,9 @@ We face similar issue when choosing a radius for obtaining OSM neighborhood vect
 \caption/f Illustration of the construction of combined OSM vector and the expected result of more specific area targetting by the model.
 \endinsert
 
-	Finally we also come across the method of data augmentation by transformation of the original image dataset. Certain operation, such as vertically flipping the image make sense for our dataset. (Also the normalization of color palete can be used in our task.)
-	We show an example of images undergoing such transformation on Figure \ref[26_image_augmentation_flips]. Note that in this particular example we chose vertical flipping alongside with clipping of 90\% of the image while making up for the lost 10\%. These operations are random and the resulting images are added to create a larger dataset. For the sake of repetition of experiments with the same data, we save these generated images into an expanded dataset.
+	Finally we also come across the method of data augmentation by transformation of the original image dataset. Certain operation, such as vertically flipping the image make sense for our dataset.
+
+	We show an example of images undergoing such transformation on Figure \ref[26_image_augmentation_flips]. Note that in this particular example we chose vertical flipping alongside with shifting the 90\% of the image while making up for the lost 10\%. These operations are random and the resulting images are added to create a larger dataset. For the sake of repetition of experiments with the same data, we save these generated images into an expanded dataset.
 
 \midinsert
 \clabel[26_image_augmentation_flips]{Image data augmentation}
@@ -603,18 +605,18 @@ We face similar issue when choosing a radius for obtaining OSM neighborhood vect
 \secc Data Split 
 %------------------
 
-Traditionally we split our dataset into two sets – training set, which we use for training of model and so called validation set, which is used only for models performance evaluation. As we discuss in \ref[ch4_model_evaluation], we employ more complex strategy of k-fold cross validation test to obtain more precise results.
+Traditionally we split our dataset into two sets – training set, which we use for training of model and so called validation set, which is used only for models performance evaluation. As we discuss in \ref[ch4_model_evaluation], we employ more complex strategy of k-fold cross-validation test to obtain more precise results.
 
 The difference between the error achieved on training data and on validation data can be used as a measure of our model overfitting.
 
-\secc Training setting 
+\secc Settings 
 %------------------
 
-We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as "rmsprop" ~\cite[rmsprop_tieleman2012lecture] and "adam" (see ~\cite[adam_optimizer] where Adam has been tested as effective on CNN learning related tasks). For greater parametric control we can also select the SGD optimizer.
+We are using backpropagation algorithm to train our models as is supported by the selected Keras framework. We can choose from a selection of optimizers, which control the learning process. We made use of the more automatic optimizers supported by Keras, such as "rmsprop" ~\cite[rmsprop_tieleman2012lecture] and "adam" (see ~\cite[adam_optimizer] where Adam has been tested as an effective CNN learning optimizer). For greater parametric control we can also select the SGD optimizer.
 
-Given the nature of our task, we are solving a regression problem, trying to minimize deviation from scored data. In most models mentioned in \ref[ch2_competition], the task revolves around selecting the correct category to classify objects.
+Given the nature of our task, we are solving a regression problem, trying to minimize deviation from scored data. In most models mentioned in \ref[ch2_competition], the task instead revolves around selecting the correct category to classify objects.
 
-Accordingly we have to select appropriate loss function. We have selected the mean squared error metric with the formula given by Figure \ref[27_mse_formula].
+Accordingly we have to choose appropriate loss function. We have selected the mean squared error metric ~\cite[wang2009mean] with the formula given by Figure \ref[27_mse_formula].
 
 \midinsert
 \clabel[27_mse_formula]{Mean squared error metric}
@@ -625,9 +627,9 @@ Accordingly we have to select appropriate loss function. We have selected the me
 \secc Training stages 
 %------------------
 
-As has been discussed in \ref[ch4_model_architecture], we are building models by reusing base of other already trained CNN models. In our case we make use of weights loaded from model trained on the ImageNet dataset.
+As has been discussed in \ref[ch4_model_architecture], with image data we are building models that reuse base of other already trained CNN models. In our case we make use of weights loaded from model trained on the ImageNet dataset.
 
-We attach a custom classifier section to base model and try to train it on a new task. In order to preserve the information stored in connections of the base model, we lock its weights and prevent it from retraining. The only weight values which are changing are in the custom top model. This can be understood as a first stage of training the model as illustrated on Figure \ref[28_training_stages].
+We attach a custom classifier section to a base model and try to train it on a new task. In order to preserve the information stored in connections of the base model, we lock its weights and prevent it from retraining. The only weight values which are changing are in the custom top model. This can be understood as a first stage of training the model as illustrated on Figure \ref[28_training_stages].
 
 \midinsert
 \clabel[28_training_stages]{Training stages schematics}
@@ -641,7 +643,7 @@ This is sometimes followed with a finetunning period, where we unlock certain le
 \secc Feature cooking 
 %------------------
 
-This method is specific to situation when we are training a model with parts, which are frozen, as is in the case of \ref[img_model] image and \ref[mix_model] mixed model design. We can take advantage of the fact that certain section of the model will never change and precompute the image features for a fixed dataset.
+This method is specific to situation when we are training a model with parts, which are frozen, as is in the case of \ref[img_model] image and \ref[mix_model] mixed model design. We can take an advantage of the fact that certain section of the model will never change and precompute the image features for a fixed dataset.
 
 In this way we can save computational costs associated with training the model. In the end the original model can be rebuilt by loading obtained weight values.
 
@@ -657,30 +659,30 @@ This allows for fast prototyping of the custom top model, even if the whole mode
 \sec Model evaluation 
 %===================
 
-As was mentioned in \ref[ch4_model_training] we are using the practice of splitting dataset into training and validation dataset, with the k-fold cross validation technique.
+As was mentioned in \ref[ch4_model_training] we are using the practice of splitting dataset into training and validation dataset, with the k-fold cross-validation technique.
 
 In order to prevent from being influenced by the selection bias, we split our entire dataset into k folds and then in sequence we use these to build training datasets and validation datasets. Every fold will take role of validation set for a model, which will train on data composed from all the remaining folds. Each of these will run a full training ended by an evaluation giving us score. Eventually we can calculate the average score with standard deviation.
 
 This approach obviously increases the computational requirements, because it repeats the whole experiment for each fold. It is not used while prototyping models, but as a reliable method to later generate score. We have chosen the number of folds to be 10, as is a traditionally recommended approach.
 
 \midinsert
-\clabel[30_k_fold]{K-fold cross validation}
+\clabel[30_k_fold]{K-fold cross-validation}
 \picw=11cm \cinspic figures/4.7._k_fold_cross_validation.pdf 
-\caption/f Splitting schema employed in the k-fold cross validation. We are given average score alongside with its standard deviation.
+\caption/f Splitting schema employed in the k-fold cross-validation. We are given average score alongside with its standard deviation.
 \endinsert
 
 \label[ch5]
-\chap The Implementation
+\chap Implementation
 %==============================================================
 
 \sec Project overview 
 %===================
 
-In planning of the composition of project code, we have somewhat separated the sections responsible for downloading data, from those managing the dataset and modeling and running experiments.
+In planning of the composition of project code, we have somewhat separated the sections responsible for downloading the data, from those managing the dataset and modeling and running experiments.
 
-Downloader is tasked to download images from Google Street View API from the initial dataset of edges and nodes mentioned in \ref[ch3_initial_dataset]. Segment object works as a unit holding information about edge and its corresponding images and score. See \ref[ch5_downloader].
+Downloader is tasked to download images from Google Street View API to enhance the initial dataset of edges and nodes mentioned in \ref[ch3_initial_dataset]. See \ref[ch5_downloader] for the Downloader functionality description. Segment object works as a unit holding information about edge and its corresponding images and score.
 
-However for later working with data, we have created a DatasetHandler which contains all the necessary functions. See \ref[ch5_dataset_handler].
+However for later processing of the data, we have created a DatasetHandler which contains all the necessary functions. See \ref[ch5_dataset_handler].
 
 To run more instances of models and later evaluate them, we have chosen to build individual experiments from custom written setting files in \ref[ch5_settings]. Experiment Runner provides the common framework for all these more complicated computations in \ref[ch5_experiment_runner]. In Settings folder we hold setting files defining each experiment.
 
@@ -694,7 +696,7 @@ To run more instances of models and later evaluate them, we have chosen to build
 \sec Downloader functionality 
 %===================
 
-The Downloader is the main method of acquiring imagery data and preparation of dataset. It first creates necessary folders according to the directory path and custom name we provide it with.
+The Downloader is the main method of acquiring imagery data and preparation of the dataset. It first creates necessary folders according to the directory path and custom name we provide it with.
 
 "Defaults.py" contains default settings for the downloader, such as default number of times the code should try downloading each image and internal codes with which to mark unsuccessfully downloaded segments. Besides these internal representation settings, it also controls the pixel size of downloaded images.
 
@@ -704,15 +706,15 @@ The Downloader is the main method of acquiring imagery data and preparation of d
 \caption/t RunDownload code sample.
 \endinsert
 
-Downloading procedure is initiated in "RunDownload()" method (see Code \ref[code1_downloader]), which parses node and edge data in provided GeoJSON files and build an array of Segments.
+Downloading procedure is initiated in "RunDownload()" method (see Code \ref[code1_downloader]), which parses node and edge data in provided GeoJSON files and builds an array of Segments.
 
-For each segment in this array, we generate list of images to download. Long segments will be split by interpolating the start and end location to create smaller edge sections (see Code \ref[code3_longedges]). We generate a url link in format corresponding to Google Street View API discussed in Code \ref[code2_googleapi] alongside with unique  file name.
+For each segment in this array, we generate list of images to download. Long segments will be split by interpolating the start and end location to create smaller edge sections (see Code \ref[code3_longedges]). We generate a url link in format corresponding to Google Street View API presented in Code \ref[code2_googleapi] alongside with an unique file name.
 
 \midinsert
 \clabel[code2_googleapi]{Google Street View API url}
 \begtt
-http://maps.googleapis.com/maps/api/streetview?size=600x400
-   &location=<lat>,<long>&heading=<angle from north>&key=<api>
+http://maps.googleapis.com/maps/api/streetview?size=<width>x<height>
+        &location=<lat>,<long>&heading=<angle from north>&key=<api>
 \endtt
 \caption/t Exact Google Street View API url we need to generate
 \endinsert
@@ -725,7 +727,7 @@ http://maps.googleapis.com/maps/api/streetview?size=600x400
 
 One by one we try to download each of these images, marking segments with error flag, if we were unable to access them. The code attempts to retry each request for default number of times, to prevent temporary instability of network to hinder the downloading process.
 
-We also check for invalid images in areas where Google Street View doesn’t have any data available (see Figure \ref[32_noimagery]).
+We also check for invalid images in areas where Google Street View doesn’t have any data available, see Figure \ref[32_noimagery].
 
 \midinsert
 \clabel[32_noimagery]{No imagery available on Google Street View}
@@ -734,7 +736,7 @@ We also check for invalid images in areas where Google Street View doesn’t hav
 \endinsert
 
 
-Eventually we save the pickled array into file for further processing. Folder structure is as follows in Figure \ref[code4_folder_struct]
+Eventually we save the pickled array into file for further processing. Folder structure is as follows in Figure \ref[code4_folder_struct].
 
 \midinsert
 \clabel[code4_folder_struct]{Dataset folder structure}
@@ -761,7 +763,7 @@ Function "RunCheck()" in \ref[code5_downloader_check] allows us to load previous
 \sec OSM Marker 
 %===================
 
-Our code works with data downloaded from Open Street Maps to estimate what is the neighborhood of each segment. We have downloaded the .osm data file of corresponding location and exported it into a PostgreSQL database following commands represented in Code \ref[code6_convert_osm_to_db].
+Our code works with data downloaded from Open Street Maps to estimate what is the neighborhood of each segment. We have downloaded the .osm data file of corresponding location and exported it into a PostgreSQL database following commands shown in Code \ref[code6_convert_osm_to_db].
 
 \midinsert
 \clabel[code6_convert_osm_to_db]{Loading data into PostgreSQL database}
@@ -787,7 +789,7 @@ Result of query gives us list of rows, each representing one object in vicinity 
 
 Final neighborhood vector counts all these occurrences in fixed positions as was discussed in \ref[ch3_osm_vector].
 
-Each segment stores multiple neighborhood vectors, one for each distinct location. Marked array of Segments is saved into pickled ".dump" file. We can store multiple versions of these files, each with different radius setting, while reusing all the downloaded images.
+Each segment stores multiple neighborhood vectors, one for each distinct location. Marked array of Segments is saved into the pickled ".dump" file. We can store multiple versions of these files, each with different radius setting, while reusing all the downloaded images.
 
 \label[ch5_dataset_augmentation]
 \sec Dataset Augmentation
@@ -805,14 +807,14 @@ Each segment stores multiple neighborhood vectors, one for each distinct locatio
       %\caption/f bbbb
    \par}}
 \centerline {Expansion scheme\hfil\hfil Aggresive Expansion scheme}\nobreak\medskip
-\caption/f Data augmentation with the Keras ImageDataGenerator syntax.
+\caption/t Data augmentation with the Keras ImageDataGenerator syntax.
 \endinsert
 
-We made use of Keras inbuilt ability of ImageDataGenerator which can be controlled with syntax visible \ref[code7b_data_aug]. We present two schemes of data augmentation first where we allow for flipping and image shifting in limited amount of 10\% of the whole image. 
+We made use of the Keras inbuilt object ImageDataGenerator which can be controlled with syntax presented in Code \ref[code7b_data_aug]. We present two schemes of data augmentation. First scheme in which we allow for flipping and image shifting in limited amount of 10\% of the whole image. 
 
-A more aggressive augmentation scheme is suggested for the second case, where we allow for flipping, shifting up to 20\%, rescale of 10\% and even shear and rotation of the image by 10\degrees degrees.
+A more aggressive augmentation scheme is suggested for the second case, where we allow for flipping, shifting up to 20\%, rescale of 20\% and even shear and rotation of the image by 10\degrees degrees.
 
-For each image in our original dataset we create a fixed amount of images with random transformations allowed from this augmentation scheme. For practical reasons of limiting the size of our dataset we chose to generate 2 new images (effectively tripling the size of original dataset). For reproducibility of the results we stored the expanded dataset into their own folders reusing the same randomly generated data.
+For each image in our original dataset we create a fixed amount of images with random transformations allowed from this augmentation scheme. For practical reasons of limiting the size of our dataset we chose to generate 2 new images (effectively tripling the size of the original dataset). For reproducibility of the results we stored the expanded dataset into their own folders reusing the same randomly generated data.
 
 \label[ch5_dataset_handler]
 \sec Datasets and DatasetHandler 
@@ -828,7 +830,7 @@ Figure \ref[33_dataset_object] shows us the structure of "DatasetObject", with i
 \caption/f Dataset object with important functions highlighted.
 \endinsert
 
-Dataset is initialized by reading a "SegmentsData.dump" file, however it stores data in its own four internal arrays. These are: list of urls to images, labels marking the scores, OSM vectors if we have loaded a marked Segments file and unique IDs of original segments. Note that we are not directly loading all the images yet, rather we are keeping only their filenames. We can access the images when necessary, saving us from wasteful memory allocation.
+Dataset is initialized in Code \ref[code8_dataset_handler] by reading a "SegmentsData.dump" file, however it stores data in its own four internal arrays. These are: list of urls to images, labels marking the scores, OSM vectors if we have loaded a marked Segments file and unique IDs of original segments. Note that we are not directly loading all of the images yet, rather we are keeping only their filenames. We can access the images when necessary, saving us from wasteful memory allocation.
 
 We also provide multiple getter functions which split data into training and validation datasets for the purpose of testing experiments. Each model type will require access to different data – image only model will for example omit all the OSM neighborhood vectors.
 
@@ -857,7 +859,7 @@ We also provide multiple getter functions which split data into training and val
 \sec Keras syntax 
 %===================
 
-Keras ~\cite[chollet2015keras] is a framework which supports fast prototyping of models with easy API to underlaying backend using low level Theano and TensorFlow. We can build entire CNN or Machine Learning models by listing individual layers of the model from prebuilt list of commands. For most of models mentioned in \ref[ch2_history_of_cnn] which performed well in the ILSVRC competition there exists a model description in Keras. Models, which we will show how to load in Keras syntax in Code \ref[code13_applications], have weights available from learning on the large ImageNet dataset. This makes Keras perfect for our task, even for the feature transfer design we intend to use for our models.
+Keras ~\cite[chollet2015keras] is a framework which supports fast prototyping of models with easy API to underlaying backend using low level Theano and TensorFlow. We can build entire CNN or Machine Learning models by listing individual layers of the model from prebuilt list of commands. For most of models mentioned in \ref[ch2_history_of_cnn] which performed well in the ILSVRC competition there exists a model description in Keras. Models, which we show how to load in Keras syntax in Code \ref[code13_applications], have weights available from learning on the large ImageNet dataset. This makes Keras perfect for our task, even for the feature transfer design we intend to use for our models.
 
 Keras also has a training and testing API prepared to use models efficiently with good hardware support including computation on GPUs.
 
@@ -889,7 +891,7 @@ Dropout layer is used accompanying the Dense layers and follows the process ment
 After building the model we need to compile it specifying settings which will be used for training such as the optimizer, loss function and additional measured metrics.
 
 \begtt
-Model.compile()
+Model.compile(optimizer, loss, metrics)
 \endtt
 
 
@@ -898,10 +900,10 @@ For details about which settings we use for training, check \ref[ch4_model_train
 Finally our model is trained on dataset with fit command.
 	
 \begtt
-model.fit(data, labels, ...)
+model.fit(data, labels, validation_data = (data_val, labels_val))
 \endtt
 
-The full code to build and train a generic Keras model on a dataset can be seen in Figure \ref[code11_run_generic_experiment].
+The full code to build and train a generic Keras model on a dataset can be seen in Code \ref[code10_build_generic_model] and \ref[code11_run_generic_experiment].
 
 \midinsert
 \clabel[code11_run_generic_experiment]{Fit generic model to data}
@@ -912,11 +914,11 @@ The full code to build and train a generic Keras model on a dataset can be seen 
 \sec ModelHandler 
 %===================
 
-"ModelHandler" is composed of three functional sections. "ModelOI" provides the functions handling input and output – including interaction with "DatasetHandler" and reporting functions. "ModelGenerator" is responsible for building models in Keras syntax depending on settings we choose for current model. "ModelTester" provides functions controlling the training and testing capabilities of model.
+"ModelHandler" is composed of three functional sections. "ModelOI" provides the functions handling input and output – including interaction with "DatasetHandler" and reporting functions. "ModelGenerator" is responsible for building models in Keras syntax depending on settings we choose for current model. "ModelTester" provides functions controlling the training and testing capabilities of the model.
 
 These individual blocks are controlled from "ExperimentRunner", which ties them together and manages shared Settings information.
 
-Figure \ref[34_model_handler_structure] illustrates the various functions  which are part of the "ModelHandler". In \ref[code16_model_handler_functions] we can see snippets of code dealing with building and testing of models. Note that in one run we are handling multiple instances of models and datasets, as is explained in \ref[ch5_experiment_runner].
+Figure \ref[34_model_handler_structure] illustrates the various functions  which are part of the "ModelHandler". In Code  \ref[code16_model_handler_functions] we can see snippets of code dealing with building and testing models. Note that in one run we are handling multiple instances of models and datasets, as is explained in \ref[ch5_experiment_runner].
 
 \midinsert
 \clabel[34_model_handler_structure]{ModelHandler Structure}
@@ -936,23 +938,23 @@ Figure \ref[34_model_handler_structure] illustrates the various functions  which
 
 Particular models described in section \ref[ch4] are shown here with functions which generate them. We have stated that their structure can be parametrized, and that we can alter these parameters to change their shape and performance. We can change the depth and width of these models.
 	
-\secc OSM only model
+\secc OSM model
 %------------------
 
-See Code sample \ref[code12_osm_model], which builds the model discussed in \ref[osm_model]. As input we are using the OSM neighborhood data. Number of fully-connected Dense layers as well as their width is variable.
+See Code \ref[code12_osm_model], which builds the model discussed in \ref[osm_model]. As input we are using the OSM neighborhood data. Number of fully-connected Dense layers as well as their width is variable.
 
 \midinsert
 \clabel[code12_osm_model]{OSM only model code}
 \picw=13cm \cinspic pseudocodes/5.6._osm_model.pdf
-\caption/t Function producing a Keras model described in \ref[osm_model].
+\caption/t Function producing a Keras OSM model described in \ref[osm_model].
 \endinsert
 
-\secc Images only model
+\secc Images model
 %------------------
 
 When we are working with model described in \ref[img_model], we make use of the feature transfer method and as such the training process can be made easier as was discussed in \ref[ch4_feature_cooking].
 
-Also the Keras syntax will be correspondingly altered. We create two models instead of a single whole model. One represents the feature extractor section of model and is mostly created by the reused base of pretrained CNN model. We can load these as base of our models with weights initialized from model trained on ImageNet dataset, such as is done in \ref[code13_applications].
+Also the Keras syntax will be correspondingly altered. We create two models instead of a single whole model. One represents the feature extractor section of the model and is mostly created by the reused base of pretrained CNN model. We can load these as base of our models with weights initialized from model trained on ImageNet dataset, with syntax presented in Code \ref[code13_applications].
 
 \midinsert
 \clabel[code13_applications]{Keras base models}
@@ -960,10 +962,10 @@ Also the Keras syntax will be correspondingly altered. We create two models inst
 \caption/t Available CNN models in Keras for loading as base models.
 \endinsert
 
-Our second model is then made of just our custom top architecture discussed in \ref[ch4_custom_top]. We will feed it with outputs of features from the first model. Note that for repeated experiments with the same dataset and model setting, we can save these features into files and spare a lot of valuable computation time. Code snippet in \ref[code14_feature_cooking_img_model] shows us an example of the use of two models.
+Our second model is then made of just our custom top architecture discussed in \ref[ch4_custom_top]. We will feed it with outputs of features from the first base model. Note that for repeated experiments with the same dataset and model setting, we can save these features into files and spare a lot of valuable computation time. Code snippet \ref[code14_feature_cooking_img_model] shows us an example of the use of these two models.
 
 \midinsert
-\clabel[code14_feature_cooking_img_model]{Feature cooking}
+\clabel[code14_feature_cooking_img_model]{Image model feature cooking}
 \picw=13cm \cinspic pseudocodes/5.6._feature_cooking_img_model.pdf
 \caption/t Images only model using the feature cooking method.
 \endinsert
@@ -973,12 +975,12 @@ Our second model is then made of just our custom top architecture discussed in \
 
 Mixed model uses the same techniques of feature transfer and is fully described in \ref[mix_model].
 
-Code in \ref[code15_mix_model] shows how we build this model. Note that we can even reuse the saved feature files from image only model, as long as we maintain the same order in our dataset. "DatasetHandler" can shuffle data in deterministic manner which allows us to do so.
+Code \ref[code15_mix_model] shows how we build this model. Note that we can even reuse the saved feature files from image only model, as long as we maintain the same order of data in our dataset. "DatasetHandler" can shuffle data in deterministic manner which allows us to do so.
 
 \midinsert
 \clabel[code15_mix_model]{Building mixed model}
 \picw=13cm \cinspic pseudocodes/5.6._mix_model.pdf
-\caption/t Building mixed model.
+\caption/t Building mixed model. Note that instead of calculating "img_features" on the fly from the selected base model, we can load the feature files shared with Image models.
 \endinsert
 
 
@@ -999,7 +1001,7 @@ Finally the reasoning behind experiments is to join these individual model runs 
 \caption/t Default Settings initialization.
 \endinsert
 
-Settings is initialized from default values, build as a python object dictionary as seen in Code \ref[code16_default_settings]. Then a custom Setup function is called which specifies differences from the default settings. This allows for descriptions of new experiments to be relatively small and to reuse already written code. This also allows for very small settings description files specifying either simple problems, while also being able to design complex experiments going into great detail. See Code \ref[code16_minimal_settings_file] for example of a minimal experiment specification.
+Settings is initialized from default values, built as a python object dictionary as seen in Code \ref[code16_default_settings]. Then a custom Setup function is called which specifies differences from the default settings. This allows for descriptions of new experiments to be relatively small and to reuse already written code. This also allows for very small settings description files specifying either simple problems, while also being able to design complex experiments going into great detail. See Code \ref[code16_minimal_settings_file] for example of a minimal experiment specification.
 
 \midinsert
 \clabel[code16_minimal_settings_file]{Minimal Settings description file}
@@ -1026,7 +1028,7 @@ Following are tables of important values of Settings syntax. Note that we write 
 % data
   parameter name & default value & description \cr
   \noalign{\hrule}
-  experiment\_name & basic & Name of the experiment as well as name of the folder used to store the results in. \cr
+  experiment\_name & ‘basic’ & Name of the experiment as well as name of the folder used to store the results in. \cr
   \noalign{\hrule}
   graph\_histories & [‘all’, ‘together’] & Accepts values of ‘all’, which produces one graph for each model, ‘together’, which draws graphs of all models into one shared graph. Also accepts lists of numbers, which specify which models we would like to have plotted together. For example [0,2] would plot histories of the first and third model together. \cr
   \noalign{\hrule}
@@ -1054,7 +1056,7 @@ Following are tables of important values of Settings syntax. Note that we write 
 % data
   parameter name & default value & description \cr
   \noalign{\hrule}
-  Dataset specific \cr
+  \bold{Dataset specific} \cr
   \noalign{\hrule}
 dataset\_pointer & -1 & If left at value ‘-1’ we instantiate a new dataset for this model. Otherwise we use the dataset of the indicated different model. For example if the first model has -1, then the second model can have dataset\_pointer set to 0 to reuse the same dataset. \cr
   \noalign{\hrule}
@@ -1096,11 +1098,11 @@ shuffle\_dataset \_method & 'default-same-segment' & Shuffling method which main
 % data
   parameter name & default value & description \cr
   \noalign{\hrule}
-  Dataset specific \cr
+  \bold{Dataset specific} \cr
   \noalign{\hrule}
 edit\_osm\_vec & ‘’ & Additional transformation of the OSM data, accepts 'booleans', which turns all quantitative entries into 0 or 1. Setting 'low-mid-high' turns all entries into three categorical system of low, mid and high depending on percentiles of data distribution in dataset. These three categories are encoded as one-hot vector producing variants: 001, 010 or 100. Note that this effectively triples the length OSM vector. \cr
   \noalign{\hrule}
-  Model specific \cr
+  \bold{Model specific} \cr
   \noalign{\hrule}
 unique\_id & & Unique name for this model, will be used for plotting graphs and later for identification which plotted history belonged to which model.\cr
   \noalign{\hrule}
@@ -1116,9 +1118,9 @@ osm\_manual\_width & 256 & Manually setting the width of osm\_only model. \cr
   \noalign{\hrule}
 save\_visualization & True & Whether we want to plot graphs for this experiment. \cr
   \noalign{\hrule}
-Training specific \cr
+\bold{Training specific} \cr
   \noalign{\hrule}
-epochs & 150 & Indication of how many epochs we want to spend in training of this model. \cr
+epochs & 150 & Indication of how many epochs we want to spend on training of this model. \cr
   \noalign{\hrule}
 optimizer & 'rmsprop' & Choice for the Keras optimizer. Suggested values are 'rmsprop' or 'adam', however also accepts the object of Keras optimizer such as customizable  optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9) \cr
   \noalign{\hrule}
@@ -1159,7 +1161,7 @@ Basic model functionality is supported by Keras with commands in Code \ref[code1
 
 As a loss function we have selected “mean squared error” with formula in Figure \ref[27_mse_formula]. Keras allows us to specify additional metrics, which can be used to simply track progress, but don’t actually influence the training process.
 
-Finally we are given a history stored in dictionary of arrays with tracked values (both of the loss function and measured metrics). We make use if these histories to plot the progress of training into graphs.
+Finally we are given a history stored in dictionary of arrays with tracked values (both of the loss function and measured metrics). We make use of these histories to plot the progress of training into graphs.
 	
 \midinsert
 \clabel[code17_training]{Model training syntax}
@@ -1191,7 +1193,7 @@ Thanks to the Metacentrum project ~\cite[vsustrmetacentrum] we had access to mac
 
 Metacentrum is a project supporting research groups including the academic research groups at our university. They provide a server cluster capable of running our experiments on wide array of machines with powerful hardware. We control the individual runs of experiments by special tasking and job queuing system, PBS Professional. We also make use of its storage units with image datasets containing many items and large feature files.
 
-Scripts controlling the job queuing on Metacentrum servers are using the PBS Professional job scheduler with couple of commands described in Figure \ref[ch5_metacentrum_scripts].
+Scripts controlling the job queuing on Metacentrum servers are using the PBS Professional job scheduler with couple of commands described in Code \ref[ch5_metacentrum_scripts].
 
 Note that further customization of commands is available, however these commands were all we needed for our experiments.
 	
@@ -1199,7 +1201,8 @@ Note that further customization of commands is available, however these commands
 \midinsert \clabel[ch5_metacentrum_scripts]{Metacentrum scripts}
 \ctable{ll}{
 "qsub task.sh" & basic specification to run bash program in "task.sh" \cr
-"-l walltime=$<$time$>$"   & memory requirements (for example "mem=32gb") \cr
+"-l walltime=$<$time$>$"   & reserved time (for example "walltime=23:30:00") \cr
+"-l mem=$<$memory$>$"   & memory requirements (for example "mem=32gb") \cr
 "-l ncpus=$<$n$>$"         & number of CPUs used (for example "ncpus=4") \crl \tskip4pt
 % -------------------------------------
 "qstat -u $<$user$>$"      & command to get list of tasks run by a specific user \cr
@@ -1216,9 +1219,9 @@ Contents of task.sh written in bash are in Code \ref[code18_metacentrum_bash_tas
 \midinsert
 \clabel[code18_metacentrum_bash_task]{Metacentrum task code}
 \picw=16cm \cinspic pseudocodes/5.11._metacentrum_bash_task.pdf
-\caption/t Bash code to run python file with custom targeted Settings file. Note that "$PBS_JOBID" is a unique job id given by the tasking and scheduling software.
+\caption/t Bash code to run python file with custom targeted Settings file. Note that "$PBS_JOBID" is an unique job id given by the tasking and scheduling software.%$$
 \endinsert
-%$$
+
 
 \label[ch6]
 \chap Results
@@ -1242,9 +1245,9 @@ In this section we will focus on the results of various attempts to alter the da
 
 As we described in \ref[ch3_available_data] we have multiple ways to construct our dataset. We have tried varying the size of downloaded images in \ref[ch6_dataset_pixelsize].
 
-We also explore two types of increasing the images available for our models. In \ref[ch6_dataset_longedgesplit] we try splitting long edges to smaller segments, while maintaining a limit of how small can resulting segment be. The smaller the minimal segment length, the higher the number of segments ans consequentially the number of images. See \ref[ch3_downloading_street_view_images] and Code \ref[code3_longedges] for details.
+We also explore two types of increasing the images available for our models. In \ref[ch6_dataset_longedgesplit] we try splitting long edges to smaller segments, while maintaining a limit of how small can resulting segment be. The smaller the minimal segment length, the higher the number of segments and consequentially the number of images. See \ref[ch3_downloading_street_view_images] and Code \ref[code3_longedges] for details.
 
-In \ref[ch6_dataset_augmentation] we try alternative approach to dataset augmentation from data already obtained by applying additional transformations such as flipping the image, shifting or scaling. In this way we create new images from already existing set.
+In \ref[ch6_dataset_augmentation] we try alternative approach to dataset augmentation from data already obtained by applying additional transformations such as flipping the image, shifting or scaling. In this way we create new images from an already existing set.
 
 \label[ch6_dataset_pixelsize]
 \secc Dimensions of downloaded images
@@ -1255,7 +1258,7 @@ We chose to try two settings to illustrate the effect of our choice in the matte
 Note that the 640x640 dataset is bigger in its size and it also takes more time for the models to be trained on it. Also the consequent feature files which we store in between experiments to allow their reuse are bigger.
 
 \midinsert
-\clabel[35_pixel_size_mixed]{Experiment with pixel size, mixed model}
+\clabel[35_pixel_size_mixed]{Experiment with pixel size, Mixed model}
 \line{\hsize=.5\hsize \vtop{%
       %\clabel[bbb]{aaa}
       \picw=4.2cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val_mix.pdf
@@ -1274,7 +1277,7 @@ We have used datasets internally marked as "5556x_mark_res_299x299" for 299x299 
 As for the choice of models we don’t include the OSM only model as it is not affected by image pixel size. Figure \ref[35_pixel_size_mixed] shows the results when choosing mixed model (see \ref[mix_model]). Figure \ref[35_pixel_size_image] shows the results when using image only model (see \ref[img_model]).
 
 \midinsert
-\clabel[35_pixel_size_image]{Experiment with pixel size, image model}
+\clabel[35_pixel_size_image]{Experiment with pixel size, Image model}
 \line{\hsize=.5\hsize \vtop{%
       %\clabel[bbb]{aaa}
       \picw=4.2cm \cinspic graphs/6.1.1._pixel_size/figLeft_boxplotcomp_val_img.pdf
@@ -1288,7 +1291,7 @@ As for the choice of models we don’t include the OSM only model as it is not a
 \caption/f  Model: \textit{Image}, Datasets: \textit{299x299}, \textit{640x640}. Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted.
 \endinsert
 
-We can see both the validation error as well as training error evolution over time of epochs as well as box plot with more detailed view of last epoch.
+We can see both the validation error as well as training error evolution over time of epochs as well as box plots with more detailed view of last epoch.
 
 In order to compare the performance of both the two used datasets and models, we use the box plots in Figure \ref[35b_pixel_size_four], which look at the best validation error score of the four models.
 
@@ -1308,7 +1311,7 @@ In order to compare the performance of both the two used datasets and models, we
 \halign{
 % design of columns
 & \hskip2pt \vtop{\hsize=.5\hsize\noindent\strut #\strut \hfil}
-& \vrule\hskip2pt \vtop{\hsize=.4\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
+& \vrule \hskip2pt \vtop{\hsize=.4\hsize\noindent\strut #\strut \hfil} \tabskip=1em \crcr 
 % data
 Dataset & \# of images \cr
   \noalign{\hrule}
@@ -1327,9 +1330,9 @@ min length 30m "5556x_minlen30_640px" & 13458 \cr
 
 See Table \ref[ch6_longedge_table] with a list of tested datasets. When we choose to split long edges, we generate more smaller segments and from each of these segments even more images. Note that we count only valid segments, where there is imagery data available and where we had a label in the initial dataset.
 
-We chose to run the experiment with dataset "5556x_markable_640x640" as comparison of how models fared without long edge splitting.
+We chose to run the experiment with the original dataset "5556x_markable_640x640" as comparison of how models fared without long edge splitting.
 
-For this experiment it again makes sense to test on the image only and mixed models as those are the ones affected by imagery data input.
+For this experiment it again makes sense to test on the Image and Mixed models as those are the ones affected by imagery data input.
 
 \midinsert
 \clabel[36_splitedge_2x2]{Split long edges, Mixed model, overall comparison}
@@ -1349,9 +1352,9 @@ For this experiment it again makes sense to test on the image only and mixed mod
 \caption/f Model: \textit{Mixed}. Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison. 
 \endinsert
 
-Starting with Mixed model, we chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error. In Figure \ref[36_splitedge_valerr] we see the average validation errors plotted together in order to better compare their performances. Lastly in \ref[36_splitedge_boxplot] we can see comparison of all four datasets in their last epoch.
+Starting with Mixed model, we chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error. In Figure \ref[36_splitedge_valerr] we see the average validation errors plotted together in order to better compare their performances. Lastly in \ref[36_splitedge_boxplot] we can see the comparison of all four datasets in their last epoch.
 
-Note that we also tested the image only model in Appendix with Figures \ref[36_splitedge_valerr_img] and \ref[36_splitedge_boxplot_img].
+Note that we also tested the Image model in Appendix with Figures \ref[36_splitedge_valerr_img] and \ref[36_splitedge_boxplot_img].
 
 \label[ch6_dataset_augmentation]
 \secc Dataset augmentation
@@ -1425,9 +1428,9 @@ We already could see changing behavior of different model types interacting with
 
 Note that we will mostly use the datasets which showed promising results in \ref[ch6_dataset] ignoring those which lead to decrease of performance.
 
-When using the mixed and image models, we are using an already existing base CNN model for feature transfer (see \ref[img_model] and Figure \ref[19_base_top]), so in the our first experiment in \ref[ch6_model_base] we will explore the possible types of used CNN models.
+When using the Mixed and Image models, we are using an already existing base CNN model for feature transfer (see \ref[img_model] and Figure \ref[19_base_top]), so in the our first experiment in \ref[ch6_model_base] we will explore the possible types of used CNN base models.
 
-In \ref[ch6_model_versus] we will look into the comparison of performances of the three designed models – image only, OSM only and mixed model.
+In \ref[ch6_model_versus] we look into the comparison of performances of the three designed models – Image only, OSM only and Mixed model.
 
 In \ref[ch6_model_osm_wd] we will look at a OSM model specific setting of depth and width of the CNN design.
 
@@ -1471,10 +1474,10 @@ xception & 20,806,952 & (\textit{n}, 20, 20, 2048) \cr}
 
 
 \label[ch6_model_versus] 
-\secc Model competition - image vs. OSM vs. mixed
+\secc Model competition - Image vs. OSM vs. Mixed
 %------------------
 
-We have proposed three major CNN architecture schemes to build models - OSM only described in \ref[osm_model] and build with Keras by Code \ref[code12_osm_model], image only described in \ref[img_model] and in Code \ref[code14_feature_cooking_img_model] and finally the mixed model described in \ref[mix_model] and build by Code \ref[code15_mix_model].
+We have proposed three major CNN architecture schemes to build models - OSM only described in \ref[osm_model] and built with Keras by Code \ref[code12_osm_model], Image only described in \ref[img_model] and in Code \ref[code14_feature_cooking_img_model] and finally the Mixed model described in \ref[mix_model] and built by Code \ref[code15_mix_model].
 
 We chose one dataset to compare these three models on. We use the default setting for building these models.
 
@@ -1510,7 +1513,7 @@ This experiment focuses on the performance of OSM model (see \ref[osm_model]) in
 We are trying values of (1, 2, 3, 4) for depth and (32, 64, 128, 256) for width. Each model was ran for 10 times with k=10 folds of cross-validation. Out of these runs we preserved the score best achieved validation over the evolution of epochs (to get the score before the model started overfitting). We have a grid of 4x4 possible combinations plotted in Figure \ref[39_osm_wd_4x4] each with statistics evaluation of the best achieved validation errors.
 
 \midinsert
-\clabel[39_osm_wd_4x4]{OSM model alterations in depth and width}
+\clabel[39_osm_wd_4x4]{OSM model with variable depth and width}
 \picw=10cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig1_4x4madness.pdf
 \caption/f Model: \textit{OSM}, Dataset: \textit{5556x\_markable\_640x640}. OSM model alterations in depth and width.
 \endinsert
@@ -1518,7 +1521,7 @@ We are trying values of (1, 2, 3, 4) for depth and (32, 64, 128, 256) for width.
 We chose to display a cut of this table with fixed value of depth to 2 and variable width in Figure \ref[40_osm_wd_d2cut] which follows also their performance over epochs.
 
 \midinsert
-\clabel[40_osm_wd_d2cut]{OSM model depth 2 and altering width}
+\clabel[40_osm_wd_d2cut]{OSM model with fixed depth and variable width}
 \picw=12cm \cinspic graphs/6.2.3._OSM_model_GRID_4x4/fig2_cutOfD2fixed.pdf
 \caption/f Model: \textit{OSM}, Dataset: \textit{5556x\_markable\_640x640}. OSM model with depth fixed at value 2 and variable width.
 \endinsert
