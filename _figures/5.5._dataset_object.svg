@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="350.31723"
-     inkscape:cy="174.89276"
+     inkscape:cx="234.5622"
+     inkscape:cy="170.85214"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -122,7 +122,7 @@
          sodipodi:role="line"
          x="40.911179"
          y="168.7807"
-         id="tspan4902-7-1">[y, y_val] = get_only_labels(validation_split)</tspan><tspan
+         id="tspan4902-7-1">[x, y, x_val, y_val] = get_images(validation_split)</tspan><tspan
          sodipodi:role="line"
          x="40.911179"
          y="187.5307"
@@ -146,18 +146,18 @@
          sodipodi:role="line"
          x="433.05405"
          y="168.7807"
-         id="tspan4994-3"
-         style="font-style:italic;font-size:15px;fill:#008000"># for osm_only model</tspan><tspan
+         style="font-style:italic;font-size:15px;fill:#008000"
+         id="tspan5070"># for images model</tspan><tspan
          sodipodi:role="line"
          x="433.05405"
          y="187.5307"
          style="font-style:italic;font-size:15px;fill:#008000"
-         id="tspan5070"># for images_model</tspan><tspan
+         id="tspan5072"># for osm model</tspan><tspan
          sodipodi:role="line"
          x="433.05405"
          y="206.2807"
          style="font-style:italic;font-size:15px;fill:#008000"
-         id="tspan5072"># for mixed_model</tspan></text>
+         id="tspan4158"># for mixed model</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

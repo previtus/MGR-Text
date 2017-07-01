@@ -28,6 +28,6 @@ def query_location(self, location, radius):
 	
 	for pair in pairs
 		if pair in observed_pairs:
-			index = indice_dictionary(pair)
+			index = indice_dictionary[pair]
 			nearby_vector[ index ] += 1
 	return nearby_vector

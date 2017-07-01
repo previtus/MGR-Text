@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="227.53384mm"
+   width="231.22173mm"
    height="72.509949mm"
-   viewBox="0 0 806.22228 256.92501"
+   viewBox="0 0 819.28958 256.92501"
    id="svg17081"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -50,8 +50,8 @@
     </marker>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 526.18107 : 1"
-       inkscape:vp_y="0 : 999.99994 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 999.99997 : 0"
        inkscape:vp_z="744.09448 : 526.18107 : 1"
        inkscape:persp3d-origin="372.04724 : 350.78738 : 1"
        id="perspective18559" />
@@ -79,8 +79,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.84179379"
-     inkscape:cx="297.86008"
-     inkscape:cy="109.74234"
+     inkscape:cx="497.7003"
+     inkscape:cy="100.23883"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -103,7 +103,7 @@
      fit-margin-right="5"
      fit-margin-bottom="5">
     <sodipodi:guide
-       position="175.21478,247.34113"
+       position="175.21478,247.34114"
        orientation="0,1"
        id="guide18448" />
     <sodipodi:guide
@@ -111,17 +111,17 @@
        orientation="1,0"
        id="guide18601" />
     <sodipodi:guide
-       position="124.93641,138.41255"
+       position="124.93641,138.41256"
        orientation="0,1"
        id="guide18603" />
     <sodipodi:guide
-       position="236.45255,329.57912"
+       position="236.45255,329.57913"
        orientation="-0.49242356,0.8703557"
        id="guide18729"
        inkscape:label=""
        inkscape:color="rgb(0,0,255)" />
     <sodipodi:guide
-       position="547.98967,196.52988"
+       position="547.98967,196.52989"
        orientation="1,0"
        id="guide19217" />
   </sodipodi:namedview>
@@ -888,20 +888,20 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="710.79163"
+       x="723.85895"
        y="101.13857"
        id="text18468-99"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan18470-32"
-         x="710.79163"
+         x="723.85895"
          y="101.13857">probability distribution</tspan><tspan
          sodipodi:role="line"
-         x="710.79163"
+         x="723.85895"
          y="123.01357"
          id="tspan19237">over categories</tspan><tspan
          sodipodi:role="line"
-         x="710.79163"
+         x="723.85895"
          y="144.88858"
          id="tspan19239">or score</tspan></text>
     <text
@@ -919,13 +919,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:17.5px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="616.02649"
+       x="629.09381"
        y="234.41809"
        id="text18468-3-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan18470-3-1"
-         x="616.02649"
+         x="629.09381"
          y="234.41809"
          style="text-align:start;text-anchor:start;fill:#ff0000">concrete examples</tspan></text>
   </g>

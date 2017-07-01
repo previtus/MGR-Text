@@ -3,8 +3,12 @@
 \usepackage{color}
 
 \begin{document}
+
 \input listing_style
-%caption={RunDownloader -$>$ RunCheck}
-\lstinputlisting[]{5.3._downloader_check.py}
+\lstinputlisting[language=Python, morekeywords={
+RunCheck, LoadDataFile, HasErroneousData, FixDataFile_FailedDownloads, GenListOfUrls, DownloadUrlFilenameMap
+}]{
+5.3._downloader_check.py
+}
 
 \end{document} 

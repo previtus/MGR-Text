@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="200.64931mm"
+   width="203.81966mm"
    height="67.252556mm"
-   viewBox="0 0 710.96212 238.29646"
+   viewBox="0 0 722.19564 238.29646"
    id="svg4264"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="430.16534"
-     inkscape:cy="142.99206"
+     inkscape:cx="280.15768"
+     inkscape:cy="140.97176"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -43,7 +43,7 @@
      fit-margin-bottom="5"
      fit-margin-right="5">
     <sodipodi:guide
-       position="175.85565,135.06876"
+       position="175.85564,135.06876"
        orientation="1,0"
        id="guide4313" />
   </sodipodi:namedview>
@@ -55,7 +55,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -136,7 +136,7 @@
          y="55.597515"
          id="tspan4202">save_histories, graph_histories <tspan
    style="font-size:12.5px;fill:#0000ff"
-   id="tspan4372">~ saves and plots results</tspan></tspan><tspan
+   id="tspan4372">~ saves and plots the results</tspan></tspan><tspan
          sodipodi:role="line"
          x="314.61746"
          y="74.347519"

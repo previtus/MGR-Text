@@ -5,7 +5,7 @@ def RunCheck(segments_filename):
 		Segments = FixDataFile_FailedDownloads(Segments, ERROR)
 	SaveDataFile(Segments, segments_filename)
 
-def FixDataFile_FailedDownloads(Segments):
+def FixDataFile_FailedDownloads(Segments, ERROR):
 	BrokenSegments = []
 	for (i, Segment) in Segments:
 		if Segment.ErrorMesages[i] == ERROR

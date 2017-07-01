@@ -3,7 +3,7 @@ def get_top_models():
 
 	for model_setting in Settings["models"]:
 		model_type = model_setting["model_type"]
-		model = build_img_only / build_osm_model / build_mix_model
+		model = build_img_model / build_osm_model / build_mix_model
 		
 		models.append( model )
 	return models
