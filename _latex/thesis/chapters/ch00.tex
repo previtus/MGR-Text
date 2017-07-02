@@ -1231,23 +1231,23 @@ This chapter is divided into several sections. First we will look at the efficie
 
 \sec How to read graphs in this section
 
-We have implemented a k-fold cross-validation discussed in \ref[ch4_model_evaluation] and used it to evaluate performance of the tested model and dataset combination. We will present a higher level view of the experiment by plotting the evolution of error over training epochs. Note that we can follow both the training and validation error to see how much is our model overfitting.
+We have implemented a k-fold cross-validation discussed in \ref[ch4_model_evaluation] and used it to evaluate performance of the tested model and dataset combination. We present a higher level view of the experiments by plotting the evolution of error over training epochs. Note that we can follow both the training and validation error to see how much is our model overfitting.
 
 We also provide a more detailed view into the situation after the training was finished. We look at the box plot graphs of errors in the last epoch of training.
 
-Note that in some cases we may want to hold the model with the best achieved validation error, instead of the one from last iteration. This applies in the case when with further training iterations the model overfits. For this view we may plot box plot graphs of the epoch where each model fared the best.
+Note that in some cases we may want to hold the model with the best achieved validation error, instead of the one from last iteration. This applies in the case when with further training iterations the model overfits. For this view we may show box plot graphs of the epoch where each model fared the best.
 
 \label[ch6_dataset]
 \sec Strategies employed in dataset generation
 %===================
 
-In this section we will focus on the results of various attempts to alter the dataset generation scheme. For in-depth explanation of the reasoning why we chose these approaches consult the discussion section \ref[ch7_dataset].
+In this section we focus on the results of various attempts to alter the dataset generation scheme. For in-depth explanation of the reasoning why we chose these approaches consult the discussion section \ref[ch7_dataset].
 
 As we described in \ref[ch3_available_data] we have multiple ways to construct our dataset. We have tried varying the size of downloaded images in \ref[ch6_dataset_pixelsize].
 
 We also explore two types of increasing the images available for our models. In \ref[ch6_dataset_longedgesplit] we try splitting long edges to smaller segments, while maintaining a limit of how small can resulting segment be. The smaller the minimal segment length, the higher the number of segments and consequentially the number of images. See \ref[ch3_downloading_street_view_images] and Code \ref[code3_longedges] for details.
 
-In \ref[ch6_dataset_augmentation] we try alternative approach to dataset augmentation from data already obtained by applying additional transformations such as flipping the image, shifting or scaling. In this way we create new images from an already existing set.
+In \ref[ch6_dataset_augmentation] we try an alternative approach to dataset augmentation from data already obtained by applying additional transformations such as flipping the image, shifting or scaling. In this way we create new images from an already existing set.
 
 \label[ch6_dataset_pixelsize]
 \secc Dimensions of downloaded images
@@ -1274,7 +1274,7 @@ Note that the 640x640 dataset is bigger in its size and it also takes more time 
 
 We have used datasets internally marked as "5556x_mark_res_299x299" for 299x299 dataset and "5556x_markable_640x640" for the 640x640 dataset. Their only difference is in the image pixel dimensions.
 
-As for the choice of models we don’t include the OSM only model as it is not affected by image pixel size. Figure \ref[35_pixel_size_mixed] shows the results when choosing mixed model (see \ref[mix_model]). Figure \ref[35_pixel_size_image] shows the results when using image only model (see \ref[img_model]).
+As for the choice of models we don’t include the OSM model as it is not affected by image pixel size. Figure \ref[35_pixel_size_mixed] shows the results when choosing Mixed model (see \ref[mix_model]). Figure \ref[35_pixel_size_image] shows the results when using Image model (see \ref[img_model]).
 
 \midinsert
 \clabel[35_pixel_size_image]{Experiment with pixel size, Image model}
@@ -1291,7 +1291,7 @@ As for the choice of models we don’t include the OSM only model as it is not a
 \caption/f  Model: \textit{Image}, Datasets: \textit{299x299}, \textit{640x640}. Results of experiment with pixel size of input images. Here we see the graph of evolution of loss function over epochs. K-fold cross-validation scheme was used with k=10. We can see error on validation dataset of all the 10 runs with average results highlighted.
 \endinsert
 
-We can see both the validation error as well as training error evolution over time of epochs as well as box plots with more detailed view of last epoch.
+We can see both the validation error as well as training error evolution over time of epochs as well as box plots with more detailed view of the last epoch.
 
 In order to compare the performance of both the two used datasets and models, we use the box plots in Figure \ref[35b_pixel_size_four], which look at the best validation error score of the four models.
 
@@ -1346,7 +1346,7 @@ Note that we also tested the Image model in Appendix with Figures \ref[36_splite
 \midinsert
 \clabel[ch6_augmentation_table]{Datasets used for augmentation}
 \picw=10cm \cinspic tables/6.8._datasets_for_dataaugmentation.pdf
-\captiontablehack/f List of datasets used for the experiment of data augmentation with the number of valid images they contain.
+\captiontablehack/f List of datasets used for the experiment of data augmentation with the number of valid images they contain. Note that the “Expanded” and “Aggresively expanded” dataset followed different generation scheme, even though their number of images is the same (3 times the original dataset).
 \endinsert
 
 As was explained in \ref[code7b_data_aug] we chose two schemes for data augmentation which gives us three datasets to work with as listed by Figure \ref[ch6_augmentation_table].
@@ -1431,7 +1431,7 @@ xception & 20,806,952 & (\textit{n}, 20, 20, 2048) \cr}
 }
 \vskip5pt
 \startcenter
-\captiontablehack/f List of models available in Keras framework with the number of parameters the mixed model using it as its base CNN model will have. Note that \textit{n} in the dimension of features signifies the number of images. Dataset used for this measurement contained images of 640x640 pixels.
+\captiontablehack/f List of models available in Keras framework with the number of parameters the Mixed model using it as its base CNN model will have. Note that \textit{n} in the dimension of features signifies the number of images. Dataset used for this measurement contained images of 640x640 pixels.
 \stopcenter
 \endinsert
 
@@ -1510,7 +1510,7 @@ For more combinations see section \ref[ap_model_osm_wd] in Appendix, where are o
 
 There are two main fields of strategies we can analyze when approaching our task – dataset augmentation in \ref[ch7_dataset] and model design in \ref[ch7_model]. As was discussed in section \ref[ch3_available_data], there are some ways to alter the scheme of generating data from edges. We understand data as lists of items each with a triple (image, OSM vector, score). When expanding the initial dataset with imagery information, we chose a scheme of generating six non-overlapping images per segment. We rotate by 120\degrees degrees two sides of each segment. Furthermore as described in \ref[7_edge_breakdown] we chose to split long edges into smaller segments and then generate images from them.
 
-It could be argued that it is in our interest to generate as many images as possible, which would encourage breaking long edges into many very short segments and perhaps also adapting the amount of degrees we rotate around on the same spot. In theory the continuous quality of real world could make us want to sample it in the most detailed way, generating an infinity of distinct images. However the practical reality is very much different. In fact we are working with a discrete representation of real world into a limited set of images. If we ask Google Street View for samples too close to each other, we will in fact obtain the same images from its API. Similarly choosing to rotate for less than 120\degrees degrees would produce images with vastly overlapping content.
+It could be argued that it is in our interest to generate as many images as possible, which would encourage breaking long edges into many very short segments and perhaps also adapting the amount of degrees we rotate around on the same spot. In theory the continuous quality of real world could make us want to sample it in the most detailed way, generating an infinity of distinct images. However the practical reality we are faced with is very much different. In fact we are working with a discrete representation of real world into a limited set of images. If we ask Google Street View for samples too close to each other, we will in fact obtain the same images from its API. Similarly choosing to rotate for less than 120\degrees degrees would produce images with vastly overlapping content.
 
 Note that increasing number of images inevitably also introduces an increase in time and resource consumption. We should consider the advantages of being economical with resources as well as watching the validation error.
 
@@ -1538,7 +1538,7 @@ In section \ref[ch6_dataset_longedgesplit] we looked into comparison of three da
 
 When looking at Figure \ref[36_splitedge_boxplot_img] which portrays the comparison of Image model over the four datasets, we can notice slight improvement of “minlen30” dataset over the original untouched set. Except for one outlier, the lower and upper quartile of results over the ten tests evaluated in k-fold cross-validation are better. However note that for Image model the mean value remained the same across all datasets. This can be visible on Figure \ref[36_splitedge_valerr_img], where validation error averages converge to the same value in their last iteration. It is also worth noting, that in the initial 100 iterations the Expanded datasets performed better and only overfit towards the same mean average value with their 400th to 500th iteration.
 
-Situation in Figure \ref[36_splitedge_valerr] is similar, however the original model seems to be performing better even in initial iterations. Look at Figure \ref[36_splitedge_boxplot] reveals that the state of the last iteration didn’t bring much improvement with the altered datasets of “minlen10”, “minlen20” and “minlen30”. The spread of results in the non original datasets is wider, however both the median and mean of “minlen30” has improved over the original dataset. For several further experiments we chose dataset “5556x\_minlen30\_640px” to accompany the original “5556x\_markable\_640x640”.
+Situation in Figure \ref[36_splitedge_valerr] is similar, however the original model seems to be performing better even in initial iterations. Look at Figure \ref[36_splitedge_boxplot] reveals that the state of the last iteration didn’t bring much improvement with the altered datasets of “minlen10”, “minlen20” and “minlen30”. The spread of results in the non-original datasets is wider, however both the median and mean of “minlen30” has improved over the original dataset. For several further experiments we chose dataset “5556x\_minlen30\_640px” to accompany the original “5556x\_markable\_640x640”.
 
 \label[ch7_dataset_augmentation]
 \secc Influence of dataset augmentation
@@ -1554,7 +1554,7 @@ Let us first focus on the effect of data augmentation over the basic "5556x_" "m
 
 Situation with dataset "5556x_minlen30_640px" taken as the base for further augmentation hasn’t brought the same amount of performance boost, as can be see in Figure \ref[37b_augmentation]. In fact both the median and mean of validation error is worse in its last iteration in the cases of both expanded datasets. Looking at the values of training error, this might be due to the model overfitting more on the two expanded datasets. Overall view on the right side of Figure \ref[37b_augmentation] underscores that in this case the data augmentation didn’t help.
 
-It is interesting to compare the result of data augmentation on the original dataset, versus on the dataset with more data samples in "5556x_minlen30_640px". When looking at table in Figure \ref[ch6_augmentation_table], we can see the exact numbers of images. It seems that the dual data enhancement, first with long edge splitting followed by augmentation by random image transformations didn’t bring in expected error reduction. The byproduct was in fact vastly increased time needed for training and evaluation of models with more than 4 times the images than the initial dataset "5556x_markable_640x640".
+It is interesting to compare the result of data augmentation on the original dataset, versus on the dataset with more data samples in "5556x_minlen30_640px". When looking at Table \ref[ch6_augmentation_table], we can see the exact numbers of images. It seems that the dual data enhancement, first with long edge splitting followed by augmentation by random image transformations didn’t bring in the expected error reduction. The byproduct was in fact vastly increased time needed for training and evaluation of models with more than 4 times the images than the initial dataset "5556x_markable_640x640".
 
 
 \label[ch7_model]
@@ -1572,15 +1572,15 @@ Plot of Figure \ref[37b_base_models] shows us the first 50 epochs into training 
 \secc Competition between model designs
 %------------------
 
-We have tested the three basic model designs suggested in chapter \ref[ch4]. OSM model using only the vector neighborhood data of \ref[osm_model], Image model using gathered Google Street View images of \ref[img_model] and finally the mixed model of \ref[mix_model] combining both data sources.
+We have tested the three basic model designs suggested in chapter \ref[ch4]. OSM model using only the vector neighborhood data of \ref[osm_model], Image model using gathered Google Street View images of \ref[img_model] and finally the Mixed model of \ref[mix_model] combining both data sources.
 
-For this experiment we have used three datasets to test the models performance upon. The basic dataset is again "5556x_markable_640x640" followed by "5556x_minlen30_640px".
+For this experiment we have used two datasets to test the models performance upon. The basic dataset is again "5556x_markable_640x640" followed by "5556x_minlen30_640px".
 
-We will start by looking at the models performance on the basic "5556x_markable_" "640x640" dataset on Figure \ref[38_modelversus_evol]. We can see that on the basic dataset the OSM model outperforms all other models by quite large margin. In detail we can explore the performance in Figure \ref[38_modelversus_last] in last iteration of the training process, or to be more fair in Figure \ref[38_modelversus_best] which looks at the best result over the whole training. The OSM model has better median and mean of validation error as well as lower and upper quartile spread than the other two models.
+We will start by looking at the models performance on the basic "5556x_markable_" "640x640" dataset on Figure \ref[38_modelversus_evol]. We can see that on the basic dataset the OSM model outperforms all the other models by quite large margin. In detail we can explore the performance in Figure \ref[38_modelversus_last] in last iteration of the training process, or to be more fair in Figure \ref[38_modelversus_best] which looks at the best result over the whole training. The OSM model has better median and mean of validation error as well as lower and upper quartile spread than the other two models.
 
 When we compare the results of the basic unexpanded dataset "5556x_markable_" "640x640" with other expanded datasets, the performance of OSM model actually suffers in the expanded datasets. This is due to the model using only the neighborhood vector information without taking images into account. By the manner of data generation, when splitting long edges, we are also creating new distinct locations, which will be marked with their own distinct OSM vector. But when we simply apply image transformations mentioned in Code \ref[code7b_data_aug] we are not adding any new unique locations. Therefore the OSM model cannot gain any new information by the data augmentation.
 
-When looking at the model comparison over dataset "5556x_minlen30_640px", the performance of Mixed model is much closed to the OSM model. Looking directly at Figure \ref[ap1_modelversus_best], which shows the best achieved average validation error over the whole training process, we see that the Mixed model has in fact very slightly lower validation error in terms of both lower and upper percentile than the OSM model. We can see similar result of \ref[ap1_modelversus_evol], where the Mixed and OSM models have comparable performance over the evolution of epochs, whereas the Image model is lascking.
+When looking at the model comparison over dataset "5556x_minlen30_640px", the performance of Mixed model is much closed to the OSM model. Looking directly at Figure \ref[ap1_modelversus_best], which shows the best achieved average validation error over the whole training process, we see that the Mixed model has in fact very slightly lower validation error in terms of both lower and upper percentile than the OSM model. We can see similar result of \ref[ap1_modelversus_evol], where the Mixed and OSM models have comparable performance over the evolution of epochs, whereas the Image model is lacking.
 
 We can conclude that the neighborhood information brings in useful performance boost, when comparing both the Mixed and OSM models with the Image model. We also encountered the OSM model outperforming the other two more complicated models, only being caught up to by the Mixed model in cases where we used smart dataset enhancing techniques. It should be noted that the OSM model is more compact in terms of number of parameters of the NN as well as being more time efficient for evaluation.
 
@@ -1594,7 +1594,7 @@ In section \ref[ch6_dataset_augmentation] we experimented with various settings 
 
 Figure \ref[40_osm_wd_d2cut] allows us to compare amongst each other the models with fixed depth and variable width. Simple models in terms of width can achieve better results throughout the whole training process. Furthermore the smaller the model is in terms of its trainable parameter size, the faster it is taught.
 
-Note that the best performing model can be considered in various terms. When we look at the average best achieved validation error of the 16 models like in \ref[39_osm_wd_4x4], where average of best results of 10 runs was taken, then model which was built with \textit{depth = 2} and \textit{width = 128} ranks first with mean:  mean 0.076 +/- 0.012. See Table \ref[41a_table_avg_best]. If we instead consider the minimal value of average validation error like in \ref[40_osm_wd_d2cut], then the model with \textit{depth = 2} and \textit{width = 64} ranks first with value: 0.08. See Table \ref[41b_table_min_avg].
+Note that the best performing model can be considered in various terms. When we look at the average best achieved validation error of the 16 models like in \ref[39_osm_wd_4x4], where average of best results of 10 runs was taken, then model which was built with \textit{depth = 2} and \textit{width = 128} ranks first with mean:  0.0759 +/- 0.0117. See Table \ref[41a_table_avg_best]. If we instead consider the minimal value of average validation error like in \ref[40_osm_wd_d2cut], then the model with \textit{depth = 2} and \textit{width = 64} ranks first with value: 0.0809. See Table \ref[41b_table_min_avg].
 
 \midinsert
 \line{\hsize=.5\hsize \vtop{%
