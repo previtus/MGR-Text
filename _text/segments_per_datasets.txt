@@ -1,0 +1,59 @@
+------------------------------------------------------------------------
+5556x_markable_640x640
+
+Loaded | 5556 | segments.
+Lists contain 5058 of Segments with 30072 images.
+Unscored  3662  Segments with 21696 images.
+Scored  1396  Segments with 8376 images.
+
+------------------------------------------------------------------------
+5556x_minlen10_640px
+
+Loaded | 5556 | segments.
+Lists contain 1396 of Segments with 24078 images.
+Unscored  0  Segments with 0 images.
+Scored  1396  Segments with 24078 images.
+
+------------------------------------------------------------------------
+5556x_minlen20_640px
+
+Loaded | 5556 | segments.
+Lists contain 1396 of Segments with 18534 images.
+Unscored  0  Segments with 0 images.
+Scored  1396  Segments with 18534 images.
+
+------------------------------------------------------------------------
+5556x_minlen30_640px
+
+Loaded | 5556 | segments.
+Lists contain 1396 of Segments with 13458 images.
+Unscored  0  Segments with 0 images.
+Scored  1396  Segments with 13458 images.
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+5556x_minlen30_640px_2x_expanded
+Loaded | 5556 | segments.
+Lists contain 1396 of Segments with 40374 images.
+Unscored  0  Segments with 0 images.
+Scored  1396  Segments with 40374 images.
+
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+
+
+/home/ekmek/Vitek/MGR-Project-Code/Data/StreetViewData/5556x_markable_640x640/SegmentsData_marked_R100_4TablesN.dump
+Loaded | 5556 | segments.
+Lists contain 5058 of Segments with 30072 images.
+Unscored  3662  Segments with 21696 images.
+Scored  1396  Segments with 8376 images.
+
+/home/ekmek/Vitek/MGR-Project-Code/Data/StreetViewData/5556x_markable_640x640/SegmentsData_marked_R100_4Tables.dump
+Loaded | 5556 | segments.
+Lists contain 5058 of Segments with 30072 images.
+Unscored  3662  Segments with 21696 images.
+Scored  1396  Segments with 8376 images.
