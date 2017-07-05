@@ -62,3 +62,16 @@
 %\filbreak
 %\supereject %SKIP TO NEXT PAGE - if needed
 %\filbreak
+
+% ============================================================================================================
+% verbatim in headers via \code{x}, has same effect as "x"
+\def\code#1{\def\tmpb{#1}\edef\tmpb{\expandafter\stripm\meaning\tmpb\relax}%
+   \expandafter\replacestrings\expandafter{\string\\}{\bslash}%
+   \expandafter\replacestrings\bslash{}%
+   \codeP{\leavevmode\hbox{\tt\tmpb}}}
+\def\codeP#1{#1}
+\def\stripm#1->#2\relax{#2}
+\addprotect\code \addprotect\\ \addprotect\{ \addprotect\} 
+\addprotect\^ \addprotect\_ \addprotect\~
+\setcnvcodesA
+\addto\cnvhook{\let\code=\codeP}
