@@ -1411,6 +1411,8 @@ As was mentioned in Code \ref[code13_applications], Keras allows to use multiple
 
 Note that these models plotted in \ref[37b_base_models] have different number of parameters in their structure and therefore the whole evaluation of experiment can take different amount of time and exhibit different memory requirements.
 
+We have also made the same comparison between different base CNN models on dataset with 299x299 pixels in Figure \ref[ap_base_models].
+
 \midinsert{ 
 \clabel[ch6_cnns_table]{Comparison of alternate base CNNs}
 \hrule
@@ -1566,7 +1568,9 @@ Whereas in \ref[ch7_dataset] we looked mainly at the difference between various 
 \secc Alternative base CNN model
 %------------------
 
-Plot of Figure \ref[37b_base_models] shows us the first 50 epochs into training of Mixed models built with different base CNNs from the list which Keras allows us to use. All the models except for "resnet50" have great difficulties to learn on the dataset. Table \ref[ch6_cnns_table] provides us with possible explanation. With chosen dataset of images sized 640x640 pixels, the dimensionality of features we save at the output of used base CNN varies dramatically between model "resnet50" with (2, 2, 2048) and other models with values up to (20, 20, 2048). Subsequently the training process of top model with an unchanged architecture is greatly hindered with too large features. We would need to alter the architecture of top models appropriately using pooling layers to subsample the dimension, or make use of dataset with smaller input images. After all these models were initially used with images of pixels size in range of 224x224 to 299x299.
+Plot of Figure \ref[37b_base_models] shows us the first 50 epochs into training of Mixed models built with different base CNNs from the list which Keras allows us to use. All the models except for "resnet50" have great difficulties to learn on the dataset. Table \ref[ch6_cnns_table] provides us with possible explanation. With chosen dataset of images sized 640x640 pixels, the dimensionality of features we save at the output of used base CNN varies dramatically between model "resnet50" with (2, 2, 2048) and other models with values up to (20, 20, 2048). Subsequently the training process of top model with an unchanged architecture is greatly hindered with too large features. We would need to alter the architecture of top models appropriately using pooling layers to subsample the dimension, or make use of dataset with smaller input images. 
+
+After all these models were initially used with images of pixels size in range of 224x224 to 299x299. However Figure \ref[ap_base_models] confirms that we can see similar behavior even on smaller dataset "5556x_mark_res_299x299" which contains the same amount of images, just resized to pixel size of 299x299.
 
 \label[ch7_model_versus]
 \secc Competition between model designs
