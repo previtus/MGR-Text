@@ -1,0 +1,52 @@
+\documentclass[border={5pt 3pt 5pt 3pt}, varwidth=60em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+%\begin{table}[]
+%\centering
+%\begin{tabular}{l|l}
+%\hline Proper datasets:                                                       &                                                                     \\ \hline
+%5556x\_markable\_640x640                                               & Original dataset                                                    \\
+%5556x\_mark\_res\_299x299                                              & Resized original dataset to the dimension of 299x299 pixels         \\
+%5556x\_minlen30\_640px,  & Edge splitting technique used with variable minimal edge length     \\
+%5556x\_minlen20\_640px, 5556x\_minlen10\_640px &       \\
+%5556x\_reslen30\_299px                                                 & Resized version of 5556x\_minlen30\_640px dataset to 299x299 pixels \\ \hline
+%Expanded datasets:                                                     &                                                                     \\ \hline
+%5556x\_markable\_640x640\_2x\_expanded                                 & Expanded original dataset                                           \\
+%5556x\_markable\_640x640\_2x\_agressive\_expanded                      & Secondary scheme of augmentation on original dataset                \\
+%5556x\_minlen30\_640px\_2x\_expanded                                   & Expanded dataset with split edges                                   \\
+%5556x\_minlen30\_640px\_2x\_agressive\_expanded                        & Secondary scheme of augmentation on dataset with split edges        \\ \hline
+%Subsets of datasets for fast prototyping                               &                                                                     \\ \hline
+%1200x\_markable\_299x299                                               & Roughly one fifth of all usable data, sized 299x299                 \\
+%miniset\_640px                                                         & Minimal dataset example with just 24 images.                        \\ \hline
+%\end{tabular}
+%\end{table}
+
+
+
+\begin{table}[]
+\centering
+\begin{tabular}{l|l}
+\hline Proper datasets:                                                       &                                                                     \\ \hline
+\verb!5556x_markable_640x640!                                               & Original dataset                                                    \\
+\verb!5556x_mark_res_299x299!                                              & Resized original dataset to the dimension of 299x299 pixels         \\
+\verb!5556x_minlen30_640px!,  & Edge splitting technique used with variable minimal edge length     \\
+\verb!5556x_minlen20_640px!, \verb!5556x_minlen10_640px! &       \\
+\verb!5556x_reslen30_299px!                                                 & Resized version of 5556x\_minlen30\_640px dataset to 299x299 pixels \\ \hline
+Expanded datasets:                                                     &                                                                     \\ \hline
+\verb!5556x_markable_640x640_2x_expanded!                                 & Expanded original dataset                                           \\
+\verb!5556x_markable_640x640_2x_agressive_expanded!                      & Secondary scheme of augmentation on original dataset                \\
+\verb!5556x_minlen30_640px_2x_expanded!                                   & Expanded dataset with split edges                                   \\
+\verb!5556x_minlen30_640px_2x_agressive_expanded!                        & Secondary scheme of augmentation on dataset with split edges        \\ \hline
+Subsets of datasets for fast prototyping                               &                                                                     \\ \hline
+\verb!1200x_markable_299x299!                                               & Roughly one fifth of all usable data, sized 299x299                 \\
+\verb!miniset_640px!                                                         & Minimal dataset example with just 24 images.                        \\ \hline
+\end{tabular}
+\end{table}
+
+
+\end{document} 
+
+
+
