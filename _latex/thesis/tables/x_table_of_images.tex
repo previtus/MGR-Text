@@ -1,0 +1,41 @@
+\documentclass[border={5pt 1pt 5pt 5pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+
+\begin{document}
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ccc}
+\includegraphics[width=20mm]{imgs_for_table/1/w.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\newline
+\includegraphics[width=20mm]{imgs_for_table/1/y.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/z.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\newline
+\includegraphics[width=20mm]{imgs_for_table/1/y.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/z.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\end{tabular}
+%\caption{table caption...}
+\end{table}
+
+\setlength{\tabcolsep}{0.1em}
+{
+\renewcommand{\arraystretch}{0.5}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cccc}
+\includegraphics[width=20mm]{imgs_for_table/1/w.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\newline
+\includegraphics[width=20mm]{imgs_for_table/1/y.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/z.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\newline
+\includegraphics[width=20mm]{imgs_for_table/1/y.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/z.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\newline
+\includegraphics[width=20mm]{imgs_for_table/1/y.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/z.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg} & \includegraphics[width=20mm]{imgs_for_table/1/x.jpg}\\
+\end{tabular}
+%\caption{table caption...}
+\end{table}
+}
+
+\end{document} 
+
