@@ -781,7 +781,27 @@ Our code works with data downloaded from Open Street Maps to estimate what is th
 
 The code \ref[code7_osm_marker] loads array of Segments and one by one accesses all the distinct locations stored in each Segment. This could be only two locations for segments too short to be broken down, or more if the original segment was split. Minimally these are the starting and the ending locations of the segment.
 
-We generate a SQL command, which targets particular columns which we chose to observe and also filters the data with "WHERE" clause for objects in distance smaller than chosen radius from segments location.
+We generate a SQL command, which targets particular columns which we chose to observe and also filters the data with "WHERE" clause for objects in distance smaller than chosen radius from segments location. See the actual SQL query on Figure \ref[sql_query].
+
+
+\midinsert
+\clabel[sql_query]{Generated SQL query}
+\picw=14cm \cinspic pseudocodes/5.3._marker_sql.pdf
+\caption/t SQL query for attributes which caught our interest. In this examples the coordinates of "14.4310, 50.0631" constitute for the location of edge and value "50" for the radius.
+\endinsert
+
+%\midinsert
+%\clabel[sql_query]{Generated SQL query}
+%\begtt
+%SELECT * FROM (
+%   SELECT ST_Distance(ST_Transform(way, 4326), ST_MakePoint(14.4310, 
+%   50.0631)::geography) AS dist_meters, "shop", "bridge", "amenity", 
+%   "bicycle", "office", "surface", "cutting", "wetland", "waterway", 
+%   ... FROM planet_osm_line
+%) AS A WHERE A.dist_meters < 100;\endtt
+%\caption/t SQL query for attributes which caught our interest. In this examples the coordinates of "14.4310, 50.0631" constitute for the location of edge and value "100" for the radius.
+%\endinsert
+
 
 OSM data we imported into PostgreSQL database takes structure of four tables representing "point", "line", "polyline" and "road" objects. We look into each of these tables and combine the results.
 

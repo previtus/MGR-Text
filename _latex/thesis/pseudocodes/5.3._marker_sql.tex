@@ -1,0 +1,14 @@
+\documentclass[border={15pt 1pt 5pt 1pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+\input listing_style
+\begin{lstlisting}[language=SQL, morekeywords={}]
+SELECT * FROM (
+	SELECT ST_Distance(ST_Transform(way, 4326), ST_MakePoint(14.4310, 50.0631)::geography) AS dist_meters, "shop", "bridge", "amenity", "bicycle", "office", "surface", "cutting", "wetland", "waterway", ... FROM planet_osm_line
+) AS A WHERE A.dist_meters < 50;
+\end{lstlisting}
+
+
+\end{document} 
