@@ -13,16 +13,17 @@ Table \ref[ap_attrval_pairs] shows us the list of attribute and value pairs, whi
 \captiontablehack/f Examples of attribute=value pairs used to filter out which values are of interest to us while building the OSM vector.
 \endinsert
 
+
 \label[ap_dataset_list]
 \sec Used datasets overview
 %------------------
 
-Table \ref[ap_used_datasets] shows the list of the used datasets.
+Table \ref[ap_used_datasets] shows the list of the used datasets. These can be roughly divided by their purpose and method of generation. We can see those created by the edge splitting technique from \ref[ch6_dataset_longedgesplit] and those generated with data augmentation schemes from \ref[ch6_dataset_augmentation]. We also have several datasets used purely for fast prototyping and experimentation, which can serve as simple examples.
 
 \midinsert
 \clabel[ap_used_datasets]{List of used datasets}
-\picw=14cm \cinspic tables/ap_datasets_list.pdf
-\captiontablehack/f List of used datasets.
+\picw=15cm \cinspic tables/ap_datasets_list.pdf
+\captiontablehack/f List of used datasets divided by their use.
 \endinsert
 
 \label[ap_dataset_examples]
@@ -36,7 +37,7 @@ Original dataset "5556x_markable_640x640" containing images of pixel size 640x64
 \midinsert
 \clabel[ap_original]{Original dataset examples}
 \picw=11cm \cinspic tables/tab_original_dataset.pdf
-\caption/f Scored examples of the dataset "5556x_markable_640x640".
+\caption/f Scored examples of the dataset "5556x_markable_640x640". Note that the score labels come from the initial dataset.
 \endinsert
 
 \secc Expanded dataset
