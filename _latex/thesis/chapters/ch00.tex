@@ -13,9 +13,7 @@ Section \ref[ch5] Implementation explores the actual code solutions and tries to
 
 Section \ref[ch6] Results presents measurements and evaluation of each individual approach we employed to enhance the performance of our models. It also shows the final assessment of our model capabilities.
 
-Section \ref[ch7] Discussion comments upon the results of taken experiments.
-
-Section \ref[ch8] Conclusion closes the topic with final words.
+Section \ref[ch7] Conclusion closes the topic with final words.
 
 \label[ch2]
 \chap Research
@@ -1587,15 +1585,52 @@ Note that increasing number of images inevitably also introduces an increase in 
 \sec Discussion
 %===================
 
+We have tried experimenting both with the definition of models and with the construction of dataset in this chapter. Some methods were noticeable effective in terms of models performance, while other were negligible. In some case we chose the only feasible solution for the rest of the experiments such as in the case of base CNN model choice in \ref[ch6_model_base]. The example of \ref[ch6_dataset_pixelsize] revealed that in our case bigger doesn’t always mean better. The experiments of \ref[ch6_dataset_longedgesplit] and \ref[ch6_dataset_augmentation] showed us that in most cases our attempts to enlarge the dataset by either data augmentation or more complex method of preprocessing initial dataset by edge splitting are advantageous. 
+
+When compared the results of edge splitting with Mixed model in Figure \ref[36_splitedge_valerr] fall behind the more pronounced performance boost of data augmentation in Figure \ref[37_augmentation], especially in the case of more aggressive augmentation scheme.
+
+However the results of Figure \ref[37b_augmentation] reveal that some of the attempts to improve our dataset cannot be efficiently stacked, the already enlarged dataset "5556x_minlen30_640px", produced by refined edge splitting didn’t benefit from subsequent data augmentation scheme.
+
+Results of the model competition in section \ref[ch6_model_versus] reveal that the simple OSM model fared well even in comparison with its more complicated competition. While also carrying the benefits of decreased computation and memory requirements, this result is particularly interesting.
+The Mixed model didn’t fall very far behind and further was able to deal very successfully in otherwise difficult situations, where for example the Image model failed. We can see this when we compare the results of Mixed model with Image model on Figures \ref[35b_pixel_size_four] and also particularly well on the Figure \ref[38_modelversus_best].
+
+The OSM model showed its capability when compared with other more complicated models. Furthermore in Figure \ref[39_osm_wd_4x4] we can see that there is space for improvement in the way it is built. Balancing the complexity of the model, in the sense of amount of layers and number of neurons per layer (parametrically the model’s width and depth), shows that some configurations work better.
+
+It can be noted that researching both the Mixed and OSM model is perspective.
 
 
-\label[ch8]
+\label[ch6_future]
+\sec Future Work
+%===================
+
+While the result overviewed in \ref[ch6_discussion] are encouraging, they also show that there is space for further improvement in future work.
+
+We propose the usage of more varied datasets in terms of their original locations. Having more rich data background, we could interact with more general features of images across differing geographical locations and temporal timestamps. We suggest that the usage of more varied dataset could be beneficial even for the case of data based from a singular source. Teaching our model on datasets from various cities, landscape types and seasons could improve the precision of the road scoring in any particular city. Models should be less prone to overfitting with richer datasets.
+
+The shapes of our selected CNNs could be explored in more detail, as the results of \ref[39_osm_wd_4x4] are already promising. Hyper parameter optimization over model settings could introduce further refinement of already proposed models.
+
+The results of Mixed model which combines two data sources are promising, even if they lag behind the more simple OSM model. We could try adjusting the imagery data influence in an attempt to have the Image model section of the Mixed model give us more precision rather than to weaken the simple OSM model. We argue that there is a more balanced architecture to be found, which would improve over the OSM model by combining multiple sources of data. We suggest that altering the dimensionality of the images could be a promising approach as is supported by the results of section \ref[ch6_dataset_pixelsize] and also would not increase the resource requirements of the model drastically.
+
+
+
+\label[ch7]
 \chap Conclusion
 %==============================================================
 
-We have successfully implemented Convolutional Neural Network model for the task of route attractivity score estimation. We have enhanced the initial dataset of scored edges and nodes with downloaded Google Street View images and generated neighborhood vectors aggregated from Open Street Maps. We have experimented with various CNN model designs as well as with methods of generating and augmenting imagery dataset. To overcome the limitations of our dataset size, we followed the method of feature transfer, reusing feature extractor section of complex CNN models while adapting them to our own task with custom classifier sections.
+Following the research of the state of the art techniques on object identification in imagery data, we have successfully adjusted Convolutional Neural Network models for the task of route attractivity score estimation.
+We have enhanced the initial dataset of scored edges and nodes with imagery information downloaded from Google Street View and with vector representation of neighborhood structures aggregated from Open Street Maps. We introduced two major ways of further extending the dataset with the method of long edge refinement into smaller segments and by the dataset augmentation.
 
-We proposed three CNN model designs according to the type of data they use - Image model using imagery information, OSM model using neighborhood vector representation and Mixed model using both. We have made the model descriptions customizable and experimented with changing parameters influencing their shape, width and depth. We have tested various setting combinations extensively while comparing their results with k-fold cross-validation. We report the best model achieving mean squared error measurement of 0.076 +/- 0.012.
+To overcome the limitations imposed by relatively small dataset size in terms of richness of unique images, we followed the method of feature transfer. We reused feature extractor section of complex CNN model "resnet50" trained on the large "ImageNet" dataset while adapting it for our own task by attaching a custom classifier and fine-tuning it on the task of score estimation.
+
+Models and experiments were constructed with efficiency in mind by reusing the once computed image features across multiple runs enabling faster model prototyping.
+As a result we were able to experiment with various CNN model designs and variable generation schemes for generating and augmenting datasets.
+
+We proposed three CNN model architectures according to the data types used to asses the informational value of each data source.  We designed Image model using only the imagery information, OSM model using only the vector neighborhood representation and Mixed model using both data sources. 
+We have made the model descriptions customizable and experimented with changing parameters influencing their shape, width and depth.
+ 
+We have tested various setting combinations extensively while comparing their results with k-fold cross-validation. Our experiments explored the search space of model definition settings as well as dataset augmentations. The results were studied and compared to find underlying principles and suggest possible improvements.
+
+We report the best model achieving mean squared error measurement of 0.076 +/- 0.012 on validation data.
 
 \endinput
 %%
