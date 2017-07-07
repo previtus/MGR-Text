@@ -1585,16 +1585,16 @@ Note that increasing number of images inevitably also introduces an increase in 
 \sec Discussion
 %===================
 
-We have tried experimenting both with the definition of models and with the construction of dataset in this chapter. Some methods were noticeable effective in terms of models performance, while other were negligible. In some case we chose the only feasible solution for the rest of the experiments such as in the case of base CNN model choice in \ref[ch6_model_base]. The example of \ref[ch6_dataset_pixelsize] revealed that in our case bigger doesn’t always mean better. The experiments of \ref[ch6_dataset_longedgesplit] and \ref[ch6_dataset_augmentation] showed us that in most cases our attempts to enlarge the dataset by either data augmentation or more complex method of preprocessing initial dataset by edge splitting are advantageous. 
+We have tried experimenting both with the definitions of models and with the construction of datasets in this chapter. Some methods were noticeably effective in terms of models performance, while other were negligible. In some case we chose the only feasible solution for the rest of the experiments, such as in the case of the base CNN model choice in \ref[ch6_model_base]. The example of \ref[ch6_dataset_pixelsize] revealed that in our case bigger doesn’t always mean better. The experiments of \ref[ch6_dataset_longedgesplit] and \ref[ch6_dataset_augmentation] showed us that in most cases our attempts to enlarge the dataset by either data augmentation or more complex method of preprocessing initial dataset by edge splitting are rewarded with better precision. 
 
-When compared the results of edge splitting with Mixed model in Figure \ref[36_splitedge_valerr] fall behind the more pronounced performance boost of data augmentation in Figure \ref[37_augmentation], especially in the case of more aggressive augmentation scheme.
+When compared, the results of edge splitting in Figure \ref[36_splitedge_valerr] fall behind the more pronounced performance boost of data augmentation in Figure \ref[37_augmentation], especially in the case of more aggressive augmentation scheme.
 
-However the results of Figure \ref[37b_augmentation] reveal that some of the attempts to improve our dataset cannot be efficiently stacked, the already enlarged dataset "5556x_minlen30_640px", produced by refined edge splitting didn’t benefit from subsequent data augmentation scheme.
+However the results of Figure \ref[37b_augmentation] reveal that some of the attempts to improve our dataset cannot be efficiently stacked. The already enlarged dataset "5556x_minlen30_640px", produced by refined edge splitting didn’t benefit from subsequent data augmentation scheme.
 
-Results of the model competition in section \ref[ch6_model_versus] reveal that the simple OSM model fared well even in comparison with its more complicated competition. While also carrying the benefits of decreased computation and memory requirements, this result is particularly interesting.
-The Mixed model didn’t fall very far behind and further was able to deal very successfully in otherwise difficult situations, where for example the Image model failed. We can see this when we compare the results of Mixed model with Image model on Figures \ref[35b_pixel_size_four] and also particularly well on the Figure \ref[38_modelversus_best].
+Results of the model competition in section \ref[ch6_model_versus] reveal that the simple OSM model fared well even in comparison with its more complex competition. While also carrying the benefits of decreased computation and memory requirements, this result is particularly interesting.
+The Mixed model didn’t fall very far behind and further was able to deal very successfully in otherwise difficult situations, where for example the Image model failed. We can see this when we compare the results of Mixed model with Image model on Figure \ref[35b_pixel_size_four] and also particularly well on the Figure \ref[38_modelversus_best].
 
-The OSM model showed its capability when compared with other more complicated models. Furthermore in Figure \ref[39_osm_wd_4x4] we can see that there is space for improvement in the way it is built. Balancing the complexity of the model, in the sense of amount of layers and number of neurons per layer (parametrically the model’s width and depth), shows that some configurations work better.
+The OSM model showed its capability when compared with other more complicated models. Furthermore in Figure \ref[39_osm_wd_4x4] we can see that there is space for improvement in the way it is built. Balancing the complexity of the model, in the sense of amount of layers and number of neurons per layer (parametrically the width and depth of the model), shows that some configurations work better than other.
 
 It can be noted that researching both the Mixed and OSM model is perspective.
 
@@ -1609,8 +1609,7 @@ We propose the usage of more varied datasets in terms of their original location
 
 The shapes of our selected CNNs could be explored in more detail, as the results of \ref[39_osm_wd_4x4] are already promising. Hyper parameter optimization over model settings could introduce further refinement of already proposed models.
 
-The results of Mixed model which combines two data sources are promising, even if they lag behind the more simple OSM model. We could try adjusting the imagery data influence in an attempt to have the Image model section of the Mixed model give us more precision rather than to weaken the simple OSM model. We argue that there is a more balanced architecture to be found, which would improve over the OSM model by combining multiple sources of data. We suggest that altering the dimensionality of the images could be a promising approach as is supported by the results of section \ref[ch6_dataset_pixelsize] and also would not increase the resource requirements of the model drastically.
-
+The results of Mixed model which combines two data sources are favorable, even if they lag behind the simpler OSM model. We could try adjusting the imagery data influence in an attempt to have the Image model section of the Mixed model give us more precision rather than to weaken the contribution of the vector neighborhood data. We argue that there is a more balanced architecture to be found, which would improve over the OSM model by combining multiple sources of data. We suggest that altering the dimensionality of the images could be a promising approach as is supported by the results of section \ref[ch6_dataset_pixelsize] and also as it would not drastically increase the resource requirements of the model.
 
 
 \label[ch7]
@@ -1618,6 +1617,7 @@ The results of Mixed model which combines two data sources are promising, even i
 %==============================================================
 
 Following the research of the state of the art techniques on object identification in imagery data, we have successfully adjusted Convolutional Neural Network models for the task of route attractivity score estimation.
+
 We have enhanced the initial dataset of scored edges and nodes with imagery information downloaded from Google Street View and with vector representation of neighborhood structures aggregated from Open Street Maps. We introduced two major ways of further extending the dataset with the method of long edge refinement into smaller segments and by the dataset augmentation.
 
 To overcome the limitations imposed by relatively small dataset size in terms of richness of unique images, we followed the method of feature transfer. We reused feature extractor section of complex CNN model "resnet50" trained on the large "ImageNet" dataset while adapting it for our own task by attaching a custom classifier and fine-tuning it on the task of score estimation.
