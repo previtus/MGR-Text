@@ -1,11 +1,29 @@
 \label[visualization]
 \app Data visualization
 
-\sec Data visualization
+\sec Edge evaluation with models
 %------------------
 
-AAA
+Once we have trained our model and saved it in its last epoch iteration, we can use it to estimate scores of a custom dataset. We chose to load the original GeoJSON Edge file mentioned in \ref[5_geojson] and have our model evaluate the edges with missing score. As can be seen in Table \ref[ap_evaluation_numbers_of_data], there is large amount of edges which didn’t have initial score. Note that for various models we have to make distinction, of if we can obtain images in the location. For 498 edges we weren’t able to download images and only the OSM vectors could have been collected. This reveals another advantage of the OSM model over Image and Mixed models, which depend on presence of imagery data.
 
+\midinsert
+\clabel[ap_evaluation_numbers_of_data]{Dataset evaluation, number of data}
+\picw=10cm \cinspic tables/ap_evaluation_numbers_of_data.pdf
+\captiontablehack/f Breakdown of scores in the initial dataset. We make a distinction between edges which were initially scored and also between those edges, where we can access imagery information versus where only the OSM vector is available.
+\endinsert
+
+
+Each edge is represented by multiple data entries, in our initial dataset where we didn’t use edge splitting this is maximally 6 images or vectors per edge. In some cases we couldn’t obtain all 6 images, because Google Street View didn’t have imagery information available at the location.
+
+We have used OSM model from experiment \ref[ch6_model_osm_wd] with parameters \textit{width=64} and \textit{depth=2} on dataset \textit{5556x\_markable\_640x640} to evaluate score of all images with initially missing score. We saved this information to a new GeoJSON file.
+
+Figure \ref[ap_viz_osm] shows the online resource of Carto.com, which allowed us to simply visualize our GeoJSON data. Note that in this example we were able to evaluate all present edges, even those without any Google Street View images. This visualization is avilable online at \url{https://previtus.carto.com/builder/1c616d9a-46b8-4f5a-8c6e-f56476cb1f0c/embed}.
+
+\midinsert
+\clabel[ap_viz_osm]{Evaluated edges visualization}
+\picw=13cm \cinspic figures/visualizations/osm_w64d2_v2.png
+\caption/f Model: \textit{OSM model width 64, depth 2}, Dataset: \textit{5556x\_markable\_640x640}. GeoJSON file visualization provided by the online service Carto.com. Note that all edges were evaluated as OSM model doesn’t depend on presence of imagery information.
+\endinsert
 
 
 \endinput
