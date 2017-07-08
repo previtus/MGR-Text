@@ -1,0 +1,29 @@
+swap descriptions of mixed and image model in 6.2.2. ?
+
+
+
+
+(maybe ref)
+https://scholar.google.cz/scholar?hl=cs&q=taginfo.openstreetmap.org&btnG=
+
+
+(maybe edit fig)
+Figure 3.10. Example of further not divided edge segment, which generates data entries,
+where certain values overlap. For example the score is shared among all images produced
+from one segment.
+
+(idkidkidk)
+The former works in extracting high dimensional features of incoming imagery data, - high dimensional features ??
+
+4.3.3
+Custom top model
+Both of these attributes influence the amount of parameters of our model. We can try various combinations of these parameters to explore the models optimal shape.
+
+(strange)
+4.6.1 Data Split
+Traditionally we split our dataset into two sets – training set, which we use for training of
+model and so called validation set, which is used only for models performance evaluation.
+
+Each of these will run a
+full training ended by an evaluation giving us score. Eventually we can calculate the
+average score with standard deviation.
