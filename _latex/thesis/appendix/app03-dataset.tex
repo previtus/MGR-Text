@@ -36,7 +36,7 @@ Original dataset "5556x_markable_640x640" containing images of pixel size 640x64
 
 \midinsert
 \clabel[ap_original]{Original dataset examples}
-\picw=11cm \cinspic tables/tab_original_dataset.pdf
+\picw=12cm \cinspic tables/tab_original_dataset.pdf
 \caption/f Scored examples of the dataset "5556x_markable_640x640". Note that the score labels come from the initial dataset.
 \endinsert
 
@@ -47,7 +47,7 @@ Expanded dataset "5556x_markable_640x640_2x_expanded" with images generated expa
 
 \midinsert
 \clabel[ap_extended]{Extended dataset examples}
-\picw=11cm \cinspic tables/tab_expanded_dataset.pdf
+\picw=12cm \cinspic tables/tab_expanded_dataset.pdf
 \caption/f Examples of the dataset "5556x_markable_640x640_2x_expanded".
 \endinsert
 
@@ -58,8 +58,52 @@ Expanded dataset "5556x_markable_640x640_2x_agressive_expanded" with images gene
 
 \midinsert
 \clabel[ap_ag_extended]{Aggressively extended dataset examples}
-\picw=11cm \cinspic tables/tab_ag_expanded_dataset.pdf
+\picw=12cm \cinspic tables/tab_ag_expanded_dataset.pdf
 \caption/f Examples of the dataset "5556x_markable_640x640_2x_agressive" "_expanded".
 \endinsert
+
+\label[ap_dataset_histo]
+\sec Dataset analysis
+%------------------
+
+We look at the composition of dataset entries in terms of edge length before their splitting in Figures \ref[ap_edgelen_histo], \ref[ap_edgelen_boxplot] and \ref[ap_edgelen_sorted]. We look at the score distribution in Figures \ref[ap_scores_histo], \ref[ap_scores_boxplot] and \ref[ap_scores_sorted].
+
+\midinsert
+\line{\hsize=.5\hsize \vtop{%
+      \clabel[ap_edgelen_histo]{Edge length analysis, histogram}
+      \picw=8cm \cinspic figures/dataset_stats/edge_lengths-histo.pdf
+      \caption/f Histogram of edge lengths from the initial dataset \textit{5556x\_markable} \textit{\_640x640}.
+   \par}\vtop{%
+      \clabel[ap_scores_histo]{Score distribution analysis, histogram}
+      \picw=8cm \cinspic figures/dataset_stats/score-hist.pdf
+      \caption/f Histogram of image scores from the initial dataset \textit{5556x\_markable} \textit{\_640x640}.
+   \par}}
+\endinsert
+
+
+\midinsert
+\line{\hsize=.5\hsize \vtop{%
+      \clabel[ap_edgelen_boxplot]{Edge length analysis, box plot}
+      \picw=8cm \cinspic figures/dataset_stats/edge_lengths-boxplot.pdf
+      \caption/f Edge lengths in the initial dataset \textit{5556x\_markable\_640x640}. We split this dataset in experiment \ref[ch6_dataset_longedgesplit].
+   \par}\vtop{%
+      \clabel[ap_scores_boxplot]{Score distribution analysis, box plot}
+      \picw=8cm \cinspic figures/dataset_stats/score-boxplot.pdf
+      \caption/f Images score distribution in the initial dataset \textit{5556x\_markable} \textit{\_640x640}.
+   \par}}
+\endinsert
+
+\midinsert
+\line{\hsize=.5\hsize \vtop{%
+      \clabel[ap_edgelen_sorted]{Edge length analysis, sorted values}
+      \picw=8cm \cinspic figures/dataset_stats/edge_lengths-plot.pdf
+      \caption/f Edge lengths from the initial dataset \textit{5556x\_markable\_640x640} sorted by value.
+   \par}\vtop{%
+      \clabel[ap_scores_sorted]{Score distribution analysis, sorted values}
+      \picw=8cm \cinspic figures/dataset_stats/score-plot.pdf
+      \caption/f Image scores from the initial dataset \textit{5556x\_markable\_640x640} sorted by value. Note that we are using images generated from valid edges, which had score labels in the initial dataset.
+   \par}}
+\endinsert
+
 
 \endinput
