@@ -1,61 +1,6 @@
 \label[visualization]
 \app Data visualization
 
-\sec Edge evaluation with models
-%------------------
-
-Once we have trained our model and saved it in its last epoch iteration, we can use it to estimate scores of a custom dataset. We chose to load the original GeoJSON Edge file mentioned in \ref[5_geojson] and have our model evaluate the edges with missing score. As can be seen in Table \ref[ap_evaluation_numbers_of_data], there is large amount of edges which didn’t have initial score. Note that for various models we have to make distinction, of if we can obtain images in the location. For 498 edges we weren’t able to download images and only the OSM vectors could have been collected. This reveals another advantage of the OSM model over Image and Mixed models, which depend on presence of imagery data.
-
-\midinsert
-\clabel[ap_evaluation_numbers_of_data]{Dataset evaluation, number of data}
-\picw=10cm \cinspic tables/ap_evaluation_numbers_of_data.pdf
-\captiontablehack/f Breakdown of scores in the initial dataset. We make a distinction between edges which were initially scored and also between those edges, where we can access imagery information versus where only the OSM vector is available.
-\endinsert
-
-
-Each edge is represented by multiple data entries, in our initial dataset where we didn’t use edge splitting this is maximally 6 images or vectors per edge. In some cases we couldn’t obtain all 6 images, because Google Street View didn’t have imagery information available at the location.
-
-We have used OSM model from experiment \ref[ch6_model_osm_wd] with parameters \textit{width=64} and \textit{depth=2} on dataset \textit{5556x\_markable\_640x640} to evaluate score of all images with initially missing score. We saved this information to a new GeoJSON file.
-
-Figure \ref[ap_viz_osm] shows our flagship OSM model with tweaked width of 64 and depth 2 from experiments in \ref[ch6_model_osm_wd]. The online resource Carto.com was used to visualize our GeoJSON data with relative ease. Note that in this example we were able to evaluate all present edges, even those without any Google Street View images. This visualization is avilable online at \url{https://goo.gl/SdNKoC}.
-
-Figure \ref[ap_viz_mix] shows Mixed model taught on the aggressively expanded original dataset which showed great promise in experiment \ref[ch6_dataset_augmentation]. Note that in this case we can't evaluate all edges as some lacked the imagery information where Google Street View service didn't have data. This visualization is avilable online at \url{https://goo.gl/GAcFpg}.
-
-These two models evaluate some of the edges differently, which could be expected as their error rate differs. For easier comparison of these two models, we provide another visualization with edges assigned with the value of absolute difference between the scores given by the OSM model from Figure \ref[ap_viz_osm] and by the Mixed model from Figure \ref[ap_viz_mix]. This auxiliary visualization can be accessed online at \url{https://goo.gl/iTKML9}. Note that most of the edges exhibit only very small absolute differences.
-
-\midinsert
-\clabel[ap_viz_osm]{Evaluated edges visualization, OSM model}
-\picw=13cm \cinspic figures/visualizations/osm_w64d2_v3.png
-\caption/f Model: \textit{OSM model width 64, depth 2}, Dataset: \textit{5556x\_markable\_640x640}. GeoJSON file visualization provided by the online service Carto.com. Note that all edges were evaluated as OSM model doesn’t depend on presence of imagery information. See this visualization online at \url{https://goo.gl/SdNKoC}.
-\endinsert
-
-\midinsert
-\clabel[ap_viz_mix]{Evaluated edges visualization, Mixed model}
-\picw=13cm \cinspic figures/visualizations/mix_model_v2.png
-\caption/f Model: \textit{Mixed model}, Dataset: the aggressively expanded dataset \textit{5556x\_markable\_640x640} from experiment \ref[ch6_dataset_augmentation]. GeoJSON file visualization provided by the online service Carto.com. Note that in this case we rely upon imagery information and thus edges where we couldn't download images are left unscored. See this visualization online at \url{https://goo.gl/GAcFpg}.
-\endinsert
-
-\secc Edge analysis
-%------------------
-
-Some streets in the initial dataset had relatively low scores which could be explained by the supposed high traffic in the area. This rather low score has spread to close by initially unevaluated edges.
-
-Opposite effect can be seen in parks or locations with the proximity of large amount of natural objects. We can notice the entire area of park will achieve a very high score. See Figure \ref[ap_viz_osm_extremes] for examples of these extreme values.
-
-Locations at the edges of parks and regions with lots of large and frequently used streets seem to achieve mixture of these scores and end up as being neutral (scoring around 50). Similarly streets inside blocks of town areas without parks and without large highways or primary roads will get relatively neutral score. See these neutral edges on Figure \ref[ap_viz_osm_neutral]. Note that there is still variability in the score depending on the subtle changes in their neighborhoods.
-
-\midinsert
-\clabel[ap_viz_osm_extremes]{Evaluation details}
-\picw=13cm \cinspic tables/tab_model_cuts400w_sub.pdf
-\caption/f Model: \textit{OSM model width 64, depth 2}, Dataset: \textit{5556x\_markable\_640x640}. Details of the evaluated dataset. We can notice the tendency to give parks and locations in proximity of greenery high scores. Note that this is a OSM model rating solely on the neighborhood vector data.
-\endinsert
-
-\midinsert
-\clabel[ap_viz_osm_neutral]{Evaluation details, neutral edges}
-\picw=13cm \cinspic tables/tab_model_neutralcuts.pdf
-\caption/f Model: \textit{OSM model width 64, depth 2}, Dataset: \textit{5556x\_markable\_640x640}. Details of the evaluated dataset. We have selected samples with neutral score (around 50, neither bad nor good to take).
-\endinsert
-
 
 
 \endinput
