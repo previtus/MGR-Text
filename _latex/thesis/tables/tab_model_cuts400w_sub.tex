@@ -1,0 +1,32 @@
+\documentclass[border={5pt 1pt 5pt 5pt}, varwidth=38em]{standalone}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+
+\begin{document}
+
+
+%cuts/osm_w64d2_11.png x
+%cuts/osm_w64d2_16.png
+%cuts/osm_w64d2_40.png
+%cuts/osm_w64d2_77.png x
+%cuts/osm_w64d2_99.png
+%cuts/osm_w64d2_100.png
+
+\setlength{\tabcolsep}{0.1em}
+{
+\renewcommand{\arraystretch}{0.5}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cccc}
+{\tiny 16} & {\tiny 40} & {\tiny 99} & {\tiny 100} \\
+\includegraphics[width=20mm]{cuts400/osm_w64d2_16.png} & \includegraphics[width=20mm]{cuts400/osm_w64d2_40.png} & \includegraphics[width=20mm]{cuts400/osm_w64d2_99.png} & \includegraphics[width=20mm]{cuts400/osm_w64d2_100.png}\\
+\end{tabular}
+%\caption{table caption...}
+\end{table}
+
+}
+
+\end{document} 
+
