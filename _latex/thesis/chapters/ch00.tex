@@ -3,6 +3,13 @@
 \chap Introduction
 %==============================================================
 
+This thesis is concerned with the task of evaluating road segments on abstracted map composed of edges and nodes while making use of the real world data available via Google Street View service and Open Street Map. We enrich our initial dataset with imagery and neighborhood information. 
+
+We are using Convolutional Neural Network models trained on a small annotated dataset for evaluation of edges with unknown score values. We explore both our task definition as well as the available methodology. Finally we describe our implementation in detail and explain various experiments testing different settings and their efficiency. The resulting evaluated dataset is then visualized as a map overlay.
+
+\sec Structure of the thesis
+%===================
+
 Section \ref[ch2] Research contains information about similar tasks as well as usage history of Convolutional Neural Networks.
 
 Section \ref[ch3] Task describes what we are trying to achieve as well as the dataset available for this task. We also comment on the possible ways of enhancing the initial dataset either with imagery data from Google Street View, or with vector representation of neighborhood collected from Open Street Map database.
@@ -11,13 +18,15 @@ Section \ref[ch4] Method goes deeper into the methodology of Convolutional Neura
 
 Section \ref[ch5] Implementation explores the actual code solutions and tries to illustrate chosen approaches with pseudocode. We also explore the syntax necessary for model building in framework Keras.
 
-Section \ref[ch6] Results presents measurements and evaluation of each individual approach we employed to enhance the performance of our models. It also shows the final assessment of our model capabilities.
+Section \ref[ch6] Results presents measurements and evaluation of each individual approach we employed to enhance the performance of our models. It also shows the final assessment of our model capabilities and the results visualization.
 
 Section \ref[ch7] Conclusion closes the topic with final words.
 
 \label[ch2]
 \chap Research
 %==============================================================
+
+In this chapter we are looking into various approaches taken for our task as well as a brief history overview of the methods we believe are useful for solving our task. Finally we also look at the related works.
 
 \label[ch2_planning]
 \sec Planning
@@ -198,6 +207,8 @@ Another work of ~\cite[scene-completion2007] makes use of large datasets of Goog
 \label[ch3]
 \chap Task
 %==============================================================
+
+In this chapter we describe what we want to achieve as well as the dataset we have available. We explore the options to enhance this dataset with additional imagery and neighborhood information. We present the details and explanations of important choices we took in the process of acquiring data.
 
 \sec Route planning for bicycles 
 %===================
@@ -677,6 +688,12 @@ This approach obviously increases the computational requirements, because it rep
 \chap Implementation
 %==============================================================
 
+Details of implementation as well as used frameworks and resources are mentioned in this chapter. We outline the project structure and go deeper into the description of pseudocode samples.
+
+We have used the Keras ~\cite[chollet2015keras] framework which supports fast model prototyping as well as efficient training and evaluation on custom datasets. We explain how to implement the designed model architectures in \ref[ch5_model_imp].
+
+We present a pipeline of running experiments with customizable settings in \ref[ch5_experiment_runner].
+
 \sec Project overview 
 %===================
 
@@ -954,7 +971,7 @@ Figure \ref[34_model_handler_structure] illustrates the various functions  which
 \caption/t "ModelHandler" functions. One experiment run interacts with multiple models each with their individual settings and dataset. Here we can see the pseudocode of model generation and training - we process one by one.
 \endinsert
 
-
+\label[ch5_model_imp]
 \sec Models
 %===================
 
