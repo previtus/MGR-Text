@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="185.32594mm"
+   width="187.03647mm"
    height="77.744202mm"
-   viewBox="0 0 656.66673 275.47158"
+   viewBox="0 0 662.72765 275.47158"
    id="svg4319"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="234.5622"
-     inkscape:cy="170.85214"
+     inkscape:cx="178.78686"
+     inkscape:cy="147.1783"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,7 +60,7 @@
     <rect
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="rect5080"
-       width="620.23364"
+       width="626.29456"
        height="224.25388"
        x="15.152288"
        y="24.026913" />
@@ -122,39 +122,39 @@
          sodipodi:role="line"
          x="40.911179"
          y="168.7807"
-         id="tspan4902-7-1">[x, y, x_val, y_val] = get_images(validation_split)</tspan><tspan
+         id="tspan4902-7-1">[x, y, x_val, y_val] = get_images(split)</tspan><tspan
          sodipodi:role="line"
          x="40.911179"
          y="187.5307"
-         id="tspan4990">[y, osm, y_val, osm_val] = get_osm_with_labels(v)</tspan><tspan
+         id="tspan4990">[y, osm, y_val, osm_val] = get_osm_with_labels(split)</tspan><tspan
          sodipodi:role="line"
          x="40.911179"
          y="206.2807"
-         id="tspan4992">[x, y, osm, x_val, y_val, osm_val] = get_all_data(v)</tspan><tspan
+         id="tspan4992">[x, y, osm, x_val, y_val, osm_val] = get_all_data(split)</tspan><tspan
          sodipodi:role="line"
          x="40.911179"
          y="222.53883"
          id="tspan4994"
-         style="font-style:italic;font-size:12.5px;fill:#008000"># x ~ images, y ~ scores, osm ~ neighborhood vector</tspan></text>
+         style="font-style:italic;font-size:12.5px;fill:#008000"># x ~ images, y ~ scores, osm ~ neighborhood vector, split ~ validation split</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="433.05405"
+       x="458.76834"
        y="168.7807"
        id="text4894-3-9-2"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="433.05405"
+         x="458.76834"
          y="168.7807"
          style="font-style:italic;font-size:15px;fill:#008000"
          id="tspan5070"># for images model</tspan><tspan
          sodipodi:role="line"
-         x="433.05405"
+         x="458.76834"
          y="187.5307"
          style="font-style:italic;font-size:15px;fill:#008000"
          id="tspan5072"># for osm model</tspan><tspan
          sodipodi:role="line"
-         x="433.05405"
+         x="458.76834"
          y="206.2807"
          style="font-style:italic;font-size:15px;fill:#008000"
          id="tspan4158"># for mixed model</tspan></text>
