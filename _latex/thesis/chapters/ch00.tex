@@ -35,7 +35,7 @@ We have a set of nodes N, which can be understood as places on map and edges E, 
 
 In real life scenario, road segments exhibit many different parameters which influence how fast we can traverse them. There are more or less objective criteria such as surface material, size of the road, time of the day, and criteria which depends solely on the preference of driver. What is the surrounding environment, what is the comfort level of the road, etc.
 
-This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see ~\cite[hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in realistic time. We can imagine such necessity on hand-held devices of car gps.
+This tasks gets more interesting, when we look at more complicated examples, where the cost function is multi-criterial. In such case we need more data at our disposal and we can also  expect the model to be more computationally difficult. For practical use, we need to use effective algorithm with speed up heuristics (see ~\cite[hrnvcivr2016practical]). Great part of research is also in the area of hardware efficient algorithms, which would work on maps containing continent-sized datasets of nodes and edges, and yet coming up with solution in real time. We can imagine such necessity on hand-held devices of car gps.
 
 \label[ch2_data_collection]
 \secc Data collection
@@ -204,7 +204,7 @@ Another work of ~\cite[scene-completion2007] makes use of large datasets of Goog
 
 The task we are faced with consists of planning a route for bicycle on a map of nodes and edges. We are designing an evaluation method, which will give each edge segment appropriate cost. In such a way we are building one part of route planner, which will use our model for cost evaluation and fit into a larger scheme mentioned in \ref[ch2_planning]. We are building a machine learning model, such as the one jokingly described in xkcd comic strip ~\cite[xkcd_machine_learning].
 
-As has been stated in \ref[ch2_data_collection] a cost function can be an explicitly defined formula depending on many measured variables. Similar formula has been used by the ATG research group, which produced a partially annotated section of map with scores of bike attractivity. We want to enrich this dataset with additional visual information from Google Street View and with vector data from Open Street Map.
+As has been stated in \ref[ch2_data_collection] a cost function can be an explicitly defined formula depending on many measured variables. Similar formula has been used by the ATG research group (such as in ~\cite[hrnvcivr2016practical]), which produced a partially annotated section of map with scores of bike attractivity. We want to enrich this dataset with additional visual information from Google Street View and with vector data from Open Street Map.
 
 We want to train a model on the small annotated map segment and later use it in areas where such detailed information is not available. We argue that Google Street View and Open Street Map data are more readily obtainable, than supply of highly qualitative measurements.
 
@@ -275,7 +275,7 @@ We will return to the issue of dataset augmentation in \ref[ch4_data_augmentatio
 
 We are looking for another source of information about an edge segment in the neighborhood surrounding its location in Open Street Map data.
 
-Open Street Map data is structured as vector objects placed with location parameters and large array of attributes and values. We can encounter point objects, line objects and polygon objects, which represent points of interest, streets and roads, buildings, parks and other landmarks.
+Open Street Map ~\cite[haklay2008openstreetmap] data is structured as vector objects placed with location parameters and large array of attributes and values. We can encounter point objects, line objects and polygon objects, which represent points of interest, streets and roads, buildings, parks and other landmarks. For more detailed description see ~\cite[osm_wiki].
 
 \midinsert
 \clabel[8_ex_params]{OSM data structure with parameters}
@@ -382,7 +382,7 @@ When building a CNN model, we can observe an abstracted view of such model in te
 
 Each of these segments will require different sets of building blocks and will prioritize different behavior. Good model design will lead to generalization of concrete task-specific data into general features, which will then be again converted into concrete categories or scores. The deeper the generic abstraction is, the better the model behavior in terms of overfitting will be.
 
-Classification segment transforms the internal feature representation back into the realm of concrete data related to our task. In our tasks we are interested in score in range from 0 to 1 as illustrated by Figure \ref[12_sigmoid_output].
+Classification segment transforms the internal feature representation back into the realm of concrete data related to our task. In our tasks we are interested in score in range from 0 to 1 as illustrated by Figure \ref[12_sigmoid_output]. We can consider the score to be the probability distribution between two extreme classes, or the whole task as a regression problem.
 
 \midinsert
 \clabel[12_sigmoid_output]{Classificator section formula}
@@ -394,7 +394,7 @@ Classification segment transforms the internal feature representation back into 
 \secc Fully-connected layers
 %------------------
 
-The fully-connected layer denoted as “Dense” in Keras stands for a structure of neurons connected with every input and output by weighed connections. In Neural Networks these are named as hidden layers.
+The fully-connected layer stands for a structure of neurons connected with every input and output by weighed connections. In Neural Networks these are named as hidden layers.
 
 \midinsert
 \clabel[13_fc]{Fully connected layer}
