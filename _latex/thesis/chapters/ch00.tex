@@ -1415,7 +1415,7 @@ As was explained in \ref[code7b_data_aug] we chose two schemes for data augmenta
 \clabel[37_augmentation]{Result of augmented datasets}
 \line{\hsize=.5\hsize \vtop{%
       %\clabel[37_augmentation_boxplots_last]{Dataset augmentation last epoch}
-      \picw=\prvniW \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_markable.pdf
+      \picw=\prvniW \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_best_markable.pdf
       %\caption/f Last epoch validation error
    \par}\vtop{%
       %\clabel[37_augmentation_evol]{Dataset augmentation evolution over epochs}
@@ -1426,13 +1426,13 @@ As was explained in \ref[code7b_data_aug] we chose two schemes for data augmenta
 \caption/f Model: \textit{Mixed}, Dataset: \textit{5556x\_markable\_640x640}. Comparison of the two augmented datasets with the original referential one. Expanded dataset used the transformations of image flipping and shifting. Aggressively expanded dataset used additional transformations of shear, scale and rotation. 
 \endinsert
 
-Figure \ref[37_augmentation] shows the evolution of validation error over the epochs, as well as the validation and training error distribution from k-fold cross-validation in its last epoch. On Figure \ref[37b_augmentation] we have the same experiment using "5556x_minlen30_640px" as the original dataset.
+Figure \ref[37_augmentation] shows the evolution of validation error over the epochs, as well as the validation and training error distribution from k-fold cross-validation in its best epoch. On Figure \ref[37b_augmentation] we have the same experiment using "5556x_minlen30_640px" as the original dataset.
 
 \midinsert
 \clabel[37b_augmentation]{Result of augmented datasets with edge splitting}
 \line{\hsize=.5\hsize \vtop{%
       %\clabel[37_augmentation_boxplots_last]{Dataset augmentation last epoch}
-      \picw=\prvniW \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_minlen30.pdf
+      \picw=\prvniW \cinspic graphs/6.1.3._augmentation-original,expanded,agg_expanded/figLeft_best_minlen30.pdf
       %\caption/f Last epoch validation error
    \par}\vtop{%
       %\clabel[37_augmentation_evol]{Dataset augmentation evolution over epochs}
@@ -1445,10 +1445,9 @@ Figure \ref[37_augmentation] shows the evolution of validation error over the ep
 
 Let us first focus on the effect of data augmentation over the basic "5556x_" "markable_640x640" dataset. When comparing the three used datasets in left plot of Figure \ref[37_augmentation], we see better results in terms of both median and mean an the distribution of errors - both expanded datasets improve the original one. When consulting the overall view on the right side of Figure \ref[37_augmentation] we see, that the average validation error is improved significantly for the expanded datasets over the whole training period.
 
-Situation with dataset "5556x_minlen30_640px" taken as the base for further augmentation hasn’t brought the same amount of performance boost, as can be see in Figure \ref[37b_augmentation]. In fact both the median and mean of validation error is worse in its last iteration in the cases of both expanded datasets. Looking at the values of training error, this might be due to the model overfitting more on the two expanded datasets. Overall view on the right side of Figure \ref[37b_augmentation] underscores that in this case the data augmentation didn’t help.
+Situation with dataset "5556x_minlen30_640px" taken as the base for further augmentation hasn’t brought the same amount of performance boost, as can be see in Figure \ref[37b_augmentation]. In fact both the median and mean of validation error has slightly worsened in the cases of both expanded datasets. However the spread of results is lower in the expanded datasets. Overall view on the right side of Figure \ref[37b_augmentation] underscores that in this case the data augmentation didn’t significantly help.
 
 It is interesting to compare the result of data augmentation on the original dataset, versus on the dataset with more data samples in "5556x_minlen30_640px". When looking at Table \ref[ch6_augmentation_table], we can see the exact numbers of images. It seems that the dual data enhancement, first with long edge splitting followed by augmentation by random image transformations didn’t bring in the expected error reduction. The byproduct was in fact vastly increased time needed for training and evaluation of models with more than 4 times the images than the initial dataset "5556x_markable_640x640".
-
 
 \label[ch6_model]
 \sec Strategies employed in model architecture
