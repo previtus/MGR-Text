@@ -1372,30 +1372,32 @@ We chose to run the experiment with the original dataset "5556x_markable_640x640
 For this experiment it again makes sense to test on the Image and Mixed models as those are the ones affected by imagery data input.
 
 \midinsert
-\clabel[36_splitedge_2x2]{Split long edges, Mixed model, overall comparison}
-\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig3_2x2comparison_mix.pdf
-\caption/f Model: \textit{Mixed}. Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference.
+\clabel[36_splitedge_2x2_img]{Split long edges, Image model, overall comparison}
+\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig3_2x2comparison_img.pdf
+\caption/f Model: \textit{Image}. Overall illustration of the training process of three datasets which were enhanced by long edge splitting and an original dataset for reference.
 \endinsert
 
 \midinsert
-\clabel[36_splitedge_valerr]{Split long edges, Mixed model, validation error over iterations}
-\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_mix.pdf
-\caption/f Model: \textit{Mixed}. Long edge splitting experiment. For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10.
+		\clabel[36_splitedge_valerr_img]{Split long edges, Image model, validation error over iterations}
+		\picw=12cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig2_average_valerr_img.pdf
+		\caption/f Model: \textit{Image}, Datasets: \textit{original}, \textit{minlen10}, \textit{minlen20}, \textit{minlen30}. Long edge splitting experiment. For better clarity we present only the averages of validation errors over the 10 runs of k-fold cross-validation with k=10.
 \endinsert
 
 \midinsert
-\clabel[36_splitedge_boxplot]{Split long edges, Mixed model, comparison of last epoch between datasets}
-\picw=13cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_last_mix.pdf
-\caption/f Model: \textit{Mixed}. Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison. 
+		\clabel[36_splitedge_boxplot_img]{Split long edges, Image model, comparison of best epoch between datasets}
+		\picw=12cm \cinspic graphs/6.1.2._splitting_long_edges-minlen/fig1_boxplot_best_img.pdf
+		\caption/f Model: \textit{Image}, Datasets: \textit{original}, \textit{minlen10}, \textit{minlen20}, \textit{minlen30}. Comparison of the results of splitting long edges into smaller segments. The smaller the minimal edge length was, the more images were generated. Dataset "5556x_markable_640x640" under the label original was used for comparison. Results are from the epoch with best validation error.
 \endinsert
 
-Starting with Mixed model, we chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2], which shows all four dataset variants alongside with its validation and training error. In Figure \ref[36_splitedge_valerr] we see the average validation errors plotted together in order to better compare their performances. Lastly in \ref[36_splitedge_boxplot] we can see the comparison of all four datasets in their last epoch.
+Starting with Image model, we chose to present the detailed information about the progress of training in Figure \ref[36_splitedge_2x2_img], which shows all four dataset variants alongside with its validation and training error. In Figure \ref[36_splitedge_valerr_img] we see the average validation errors plotted together in order to better compare their performances. Lastly in \ref[36_splitedge_boxplot_img] we can see the comparison of all four datasets with their best score over all epochs.
 
-Note that we also tested the Image model in Appendix with Figures \ref[36_splitedge_valerr_img] and \ref[36_splitedge_boxplot_img].
+Note that we also tested the Mixed model in Appendix with Figures \ref[36_splitedge_valerr] and \ref[36_splitedge_boxplot].
 
-When looking at Figure \ref[36_splitedge_boxplot_img] which portrays the comparison of Image model over the four datasets, we can notice slight improvement of “minlen30” dataset over the original untouched set. Except for one outlier, the lower and upper quartile of results over the ten tests evaluated in k-fold cross-validation are better. However note that for Image model the mean value remained the same across all datasets. This can be visible on Figure \ref[36_splitedge_valerr_img], where validation error averages converge to the same value in their last iteration. It is also worth noting, that in the initial 100 iterations the Expanded datasets performed better and only overfit towards the same mean average value with their 400th to 500th iteration.
+When looking at Figure \ref[36_splitedge_boxplot_img] which portrays the comparison of Image model over the four datasets, we can see quite clearly that the expanded datasets perform better with their median and mean values always improved over the original dataset. In the case of “minlen30” dataset we can see vast improvement with the exception of several outliers. However note that for the Image model the validation error averages seem to converge to the same value in their last epoch as can be seen on Figure \ref[36_splitedge_valerr_img]. It is also worth noting, that in the initial 100 iterations the Expanded datasets performed better and only overfit towards the same mean average value with their 400th to 500th iteration. The best validation errors in Figure \ref[36_splitedge_boxplot_img] clearly come from these initial iterations.
 
-Situation in Figure \ref[36_splitedge_valerr] is similar, however the original model seems to be performing better even in initial iterations. Look at Figure \ref[36_splitedge_boxplot] reveals that the state of the last iteration didn’t bring much improvement with the altered datasets of “minlen10”, “minlen20” and “minlen30”. The spread of results in the non-original datasets is wider, however both the median and mean of “minlen30” has improved over the original dataset. For several further experiments we chose dataset “5556x\_minlen30\_640px” to accompany the original “5556x\_markable\_640x640”.
+For several further experiments we chose dataset “5556x\_minlen30\_640px” to accompany the original “5556x\_markable\_640x640”.
+
+Situation in Figure \ref[36_splitedge_valerr] is different and the results show that the Mixed model is not as easily helped by the long edges splitting. Look at Figure \ref[36_splitedge_boxplot] shows the best result over all epochs and reveals that the altered datasets of “minlen10”, “minlen20” and “minlen30” didn’t bring much improvement over the original one. The spread of results in the non-original datasets is wider and seems to reach better score values, however both the median and mean of all expanded datasets has slightly worsened.
 
 \label[ch6_dataset_augmentation]
 \secc Dataset augmentation
