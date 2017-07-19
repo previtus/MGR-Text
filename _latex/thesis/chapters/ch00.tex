@@ -164,7 +164,7 @@ When designing the architecture of custom CNN model, we are using certain layers
 \midinsert
 \clabel[4_structure]{Generic CNN architecture formula}
 \picw=13cm \cinspic figures/2.2.4.building_blocks_with_blocks.pdf 
-\caption/f Formula describing a generic CNN architecture used with image data.
+\caption/f Formula describing a generic CNN architecture used with image data. Layers are used as building block for more complicated models. While designing a model, we need to keep in mind it's number of parameters.
 \endinsert
 
 Refer to Figure \ref[4_structure] for illustration of this recommended architecture. Naturally for custom tasks this architecture is later adapted and tweaked to serve well in its specific situation. We will return to this suggested architecture scheme when building our own custom CNN models in \ref[ch4_building_blocks].
@@ -232,7 +232,7 @@ We are given a dataset from the ATG research group of nodes and edges with score
 \midinsert
 \clabel[5_geojson]{Sample of the initial dataset}
 \picw=11cm \cinspic figures/3_example_geojson_data.pdf
-\caption/f Sample of the structure of initial dataset.
+\caption/f Sample of the structure of initial dataset. We are presented with a GeoJSON file with multiple properties stored for each Feature. Note that we are only interested in the location and score value in Edges file. 
 \endinsert
 
 
@@ -261,7 +261,7 @@ Google Street View API uses the parameters of location which is the latitude and
 \midinsert
 \clabel[6_google_api]{Google Street View API url generation}
 \picw=10cm \cinspic figures/3.2.2.1._google_api-get_svg_v2.pdf 
-\caption/f Illustration of Google Street View API url generation
+\caption/f Illustration of Google Street View API url generation. We are standing in starting location and look in the direction calculated from the relative position of ending point. Note that Google Street View API also requires a private API key to allow for frequently repeated queries.
 \endinsert
 
 In order to make good use of the location and collect enough data, we decided to break down longer edges into smaller segments maintaining the minimal edge size fixed. We also select both of the starting and ending locations of each segment. In each position we also rotate around the spot.
@@ -291,7 +291,7 @@ Open Street Map ~\cite[haklay2008openstreetmap] data is structured as vector obj
 \midinsert
 \clabel[8_ex_params]{OSM data structure with parameters}
 \picw=13cm \cinspic figures/3.2.3._osm_map_with_params.pdf 
-\caption/f Example of structure of OSM data with parameters showing its properties.
+\caption/f Example of structure of OSM data with parameters showing its properties. Each object also has a location information and most cases also a non-trivial shape. We will be interested in getting the attribute-value pairs.
 \endinsert
 
 From implementation standpoint, we have downloaded the OSM data covering map of our location and loaded it into a PostgreSQL database. In this way we can send queries for lists of objects in the vicinity of queried location. We will get into more detail about implementation in \ref[ch5_osm_marker].
@@ -307,7 +307,7 @@ Depending on the object type, different attributes will have sensible values whi
 \midinsert
 \clabel[8_osm_interesting_attributes]{Sample of OSM attributes}
 \picw=13cm \cinspic tables/3.6._attributes_and_their_vals.pdf 
-\captiontablehack/f Sample of interesting attributes and their possible values in OSM dataset.
+\captiontablehack/f Sample of interesting attributes and their possible values in OSM dataset. Note that there is a large number of attribute and value pairs that can be generated.
 \endinsert
 
 For example attribute “highway” will be empty for most objects, unless they are representing roads, in which case it reflects its importance and size. We will be interested in counting attribute-value pairs, for example the number of residential roads in the area, which will have “highway=residential”.
@@ -315,7 +315,7 @@ For example attribute “highway” will be empty for most objects, unless they 
 \midinsert
 \clabel[8_osm_objects]{Sample of OSM objects}
 \picw=9cm \cinspic tables/3.7._example_of_objects_in_osm.pdf 
-\captiontablehack/f Example of values given to a selection of objects from OSM dataset.
+\captiontablehack/f Example of values given to a selection of objects from OSM dataset. Note that for some objects we can encounter empty values.
 \endinsert
 
 Out of these pairs, we can build a vector of their occurrences. The only remaining issue is to determine which attribute-value pairs will we select into our vector. If we used every pair possible, the vector would be rather large and more importantly mostly filled with zeros.
@@ -335,7 +335,7 @@ Then for each distinct location of edge segment, we look into its neighborhood a
 \midinsert
 \clabel[10_vec_count]{Construction of neighborhood vector}
 \picw=11cm \cinspic figures/3.2.3.1_construction_of_osm_vec.pdf 
-\caption/f The construction of neighborhood vector from collection of nearby objects.
+\caption/f The construction of neighborhood vector from collection of nearby objects. We need a list of objects in proximity of desired location and then count in their attribute-value pairs. Note that each pair has its own index reserved in the final vector. Only some of the pairs were selected as important, to limit the length of the OSM vector.
 \endinsert
 
 Each distinct location of each edge will end up with same sized OSM vector marking their neighborhood. Note that due to the method of downloading multiple images per one edge, for example by using the same location and rotating around the spot, some of these will have the same OSM vectors.
@@ -388,7 +388,7 @@ When building a CNN model, we can observe an abstracted view of such model in te
 \midinsert
 \clabel[11_extractor_class]{Feature extractor and classificator}
 \picw=13cm \cinspic figures/4.1.1_model_abstraction.pdf 
-\caption/f An abstraction of CNN model into feature extractor section and classificator section.
+\caption/f An abstraction of CNN model into feature extractor section and classificator section. Feature extractor tries to abstract features from the concrete data and classificator projects the features back into concrete category or score data.
 \endinsert
 
 Each of these segments will require different sets of building blocks and will prioritize different behavior. Good model design will lead to generalization of concrete task-specific data into general features, which will then be again converted into concrete categories or scores. The deeper the generic abstraction is, the better the model behavior in terms of overfitting will be.
@@ -410,7 +410,7 @@ The fully-connected layer stands for a structure of neurons connected with every
 \midinsert
 \clabel[13_fc]{Fully connected layer}
 \picw=13cm \cinspic figures/4.1.2._fully-connected.pdf 
-\caption/f Shows the model of connections of neurons in fully connected layer.
+\caption/f Shows the model of connections of neurons in fully connected layer. Each neuron has weight for each input and its own bias value. The activation function can be customized, but the ReLU activation function is commonly used. Fully connected layer is composed of a certain number of these neurons, which is defined by the width of the layer.
 \endinsert
 
 The fully-connected layer suffers from a large amount of parameters it generates: weights in each connection between neurons and biases in individual neuron units. Fully-connected layers are usually present in the classification section of the model.
@@ -436,7 +436,7 @@ Pooling layers are put in between convolutional layers in order to decrease the 
 \midinsert
 \clabel[15_pool]{Pooling layer}
 \picw=10cm \cinspic figures/4.1.4._pooling_layer.pdf 
-\caption/f Pooling layer structure effectively downsampling the volume of input data.
+\caption/f Pooling layer structure is effectively downsampling the volume of input data. The operation applied when downsampling the data can be customized such as the maximal function in case of Max Pooling layer or average function in case of Average Pooling.
 \endinsert
 
 \label[ch4_dropout_layers]
@@ -489,7 +489,7 @@ As discussed in \ref[ch2_history_of_cnn] we are using a CNN model which has been
 \midinsert
 \clabel[19_base_top]{Reused base model with custom top model}
 \picw=12cm \cinspic figures/4.3._feature_transfer.pdf 
-\caption/f Reusing part of already trained CNN model as a base model and adding our custom top model.
+\caption/f Reusing part of already trained CNN model as a base model and adding our custom top model. Note that some of the features can be reused in between several runs of the code. We can change the character of the task from classification to regression problem by changing the custom top model.
 \endinsert
 
 We can generally divide even the more complicated CNN models into two abstract segments as mentioned in \ref[ch4_model_abstraction]. The beginning of the model, which usually composes of repeated structure of convolutional layers is the base model, followed by a classification section usually made of fully-connected layers.
@@ -518,7 +518,7 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 \midinsert
 \clabel[20_diff_in_diff_out]{Dimensionality of feature vectors}
 \picw=14cm \cinspic figures/4.3.1.1_different_sized_imgs.pdf 
-\caption/f Example of differently sized images on the input which result in different feature vector size.
+\caption/f Example of differently sized images on the input which results in different feature vector size. While the architecture of the base model will adapt itself to arbitrarily sized input, we have to keep in mind the consequences this will have for the following top model.
 \endinsert
 
 Base CNN models in Keras are loaded while specifying their "input_shape". The description files for these models are adjustable, they are defined by a sequence of interconnected layers. Without going deeper into the syntax of Keras (like we later do in \ref[ch5_keras]), it's worth noting that the size of input of each layer will influence the size of its output. Pooling and Convolutional layers are simply moving over the input volume data and as such they can adapt to any dimensions, however their output volume will be influenced. Pooling layers function effectively in downsampling their input. Some other layers can have fixed output sizes. Where this matters is in the moment of joining base CNN model with later custom top model. We need to be prepared for the dimension of features captured at the output of base model to be influenced by the size of its inputs. As we can see on example of Figure \ref[20_diff_in_diff_out], this can lead to vastly different sizes of feature vectors.
@@ -571,7 +571,7 @@ We can join the architectures designed in previous steps, or we can design a new
 \midinsert
 \clabel[24_mix_model]{Mixed model structure}
 \picw=15cm \cinspic figures/4.4._mixed_model_v2.pdf 
-\caption/f Final architecture of the Mixed model, which uses both OSM vector and the image data.
+\caption/f Final architecture of the Mixed model, which uses both OSM vector and the image data. There are several variables such as the depths and widths which control the shape of the final model as well as the number of it's parameters.
 \endinsert
 
 
@@ -608,7 +608,7 @@ We face similar issue when choosing a radius for obtaining OSM neighborhood vect
 \midinsert
 \clabel[26_image_augmentation_flips]{Image data augmentation}
 \picw=10cm \cinspic figures/4.5._data_augmentation_folder.jpg
-\caption/f Data augmentation example.
+\caption/f Data augmentation example. Images can be mirrored or slightly slided in one or both of the axes. We should keep in mind the number of images we are generating in total to limit the complexity of resulting augmented dataset.
 \endinsert
 
 \label[ch4_model_training]
@@ -647,7 +647,7 @@ We attach a custom classifier section to a base model and try to train it on a n
 \midinsert
 \clabel[28_training_stages]{Training stages schematics}
 \picw=10cm \cinspic figures/4.6.3_training_stages.pdf 
-\caption/f Training stages illustrated for feature transfer approach.
+\caption/f Training stages illustrated for feature transfer approach. We are reusing values of already trained base model, while adjusting the weights of our custom model. Another stage of finetunning can be used to adjust even some weights of the original base model, however note that it usually is computationally expensive.
 \endinsert
 
 This is sometimes followed with a finetunning period, where we unlock certain levels of the base CNN model for training. However this is commonly done with customized optimizer setting such as lowering the learning rate, so that the changes to the whole model weights are not too drastic. We are also usually not retraining the whole model, because of the computational load this would take.
@@ -665,7 +665,7 @@ This allows for fast prototyping of the custom top model, even if the whole mode
 \midinsert
 \clabel[29_reusing_features]{Reusing saved image features from a file}
 \picw=14cm \cinspic figures/4.6.4_feature_cooking.pdf 
-\caption/f Reusing saved image features from a file instead of costly computations.
+\caption/f Reusing saved image features from a file instead of costly computations, which saves time as well as the hardware requirements. We need to maintain the same order of the input data in relation with its labels, which requires a deterministic shuffling of the data. 
 \endinsert
 
 \label[ch4_model_evaluation]
@@ -681,7 +681,7 @@ This approach obviously increases the computational requirements, because it rep
 \midinsert
 \clabel[30_k_fold]{K-fold cross-validation}
 \picw=11cm \cinspic figures/4.7._k_fold_cross_validation.pdf 
-\caption/f Splitting schema employed in the k-fold cross-validation. We are given average score alongside with its standard deviation.
+\caption/f Splitting schema employed in the k-fold cross-validation. We are given average score alongside with its standard deviation. The chosen value of "k" will influence the size of the validation data.
 \endinsert
 
 \label[ch5]
@@ -708,7 +708,7 @@ To run more instances of models and later evaluate them, we have chosen to build
 \midinsert
 \clabel[31_overview]{Project structure overview}
 \picw=11cm \cinspic figures/5.1._project_overview.pdf 
-\caption/f Project structure in a schema.
+\caption/f Project structure in a schema. See the details for each of these boxes in this chapter.
 \endinsert
 
 \label[ch5_downloader]
@@ -722,7 +722,7 @@ The Downloader is the main method of acquiring imagery data and preparation of t
 \midinsert
 \clabel[code1_downloader]{RunDownload}
 \picw=13cm \cinspic pseudocodes/5.3._downloader.pdf
-\caption/t RunDownload code sample.
+\caption/t RunDownload code sample. It is the main function downloading new images from Google Street View service. We end up with a folder of images and generated Segments object saved in a pickled ".dump" file.
 \endinsert
 
 Downloading procedure is initiated in "RunDownload()" method (see Code \ref[code1_downloader]), which parses node and edge data in provided GeoJSON files and builds an array of Segments.
@@ -735,7 +735,7 @@ For each segment in this array, we generate list of images to download. Long seg
 http://maps.googleapis.com/maps/api/streetview?size=<width>x<height>
         &location=<lat>,<long>&heading=<angle from north>&key=<api>
 \endtt
-\caption/t Exact Google Street View API url we need to generate
+\caption/t Exact Google Street View API url we need to generate. Note that we are controlling the dimensions of the image as well as location and the direction in which we are looking. We need a API key for repeating the requests frequently.
 \endinsert
 
 \midinsert
@@ -751,7 +751,7 @@ We also check for invalid images in areas where Google Street View doesn’t hav
 \midinsert
 \clabel[32_noimagery]{No imagery available on Google Street View}
 \picw=6cm \cinspic figures/sorry_no_imagery_here.jpg 
-\caption/f Location outside of streets with available photographic imagery.
+\caption/f Location outside of streets with available photographic imagery. We have to detect these images and filter them out.
 \endinsert
 
 
@@ -767,7 +767,7 @@ images/0000_1.jpg
 …
 images/5546_5.jpg
 \endtt
-\caption/t Folder structure of dataset.
+\caption/t Folder structure of dataset. We keep the images downloaded in a separated folder with information of their location and labels in the saved Segments object in "SegmentsData.dump" file. Later we also add the downloaded OSM data into the stored Segments file.
 \endinsert
 
 Function "RunCheck()" in \ref[code5_downloader_check] allows us to load previously downloaded Segments file and check for erroneous data - for example in case of sudden network failure we can download only the missing files and then save the fixed Segments file.
@@ -775,7 +775,7 @@ Function "RunCheck()" in \ref[code5_downloader_check] allows us to load previous
 \midinsert
 \clabel[code5_downloader_check]{Check downloaded dataset}
 \picw=13cm \cinspic pseudocodes/5.3._downloader_check.pdf
-\caption/t RunCheck code sample checks the downloaded dataset and redownloads missing images.
+\caption/t RunCheck code sample checks the downloaded dataset and redownloads missing images. As the downloading itself can take time and there is a daily limitation imposed by the Google Street View API, we want to fix the data on the fly.
 \endinsert
 
 \label[ch5_osm_marker]
@@ -787,7 +787,7 @@ Our code works with data downloaded from Open Street Maps to estimate what is th
 \midinsert
 \clabel[code6_convert_osm_to_db]{Loading data into PostgreSQL database}
 \picw=13cm \cinspic pseudocodes/5.4._osm_db_import.pdf
-\caption/t Loading data into PostgreSQL database.
+\caption/t Loading data into PostgreSQL database. We are using the Osm2pgsql tool available at ~\cite[osm2pgsql]. 
 \endinsert
 
 	Having a  PostgreSQL database is advantageous, because it allows us sending repeated queries to database of objects with geographical location while using PostgreSQL macros and functions for getting distance and intersections between areas. PostgreSQL database has hierarchical structure of data storage which is necessary for fast data access. Our python code can access this database with simple queries and then process its responses.
@@ -795,7 +795,7 @@ Our code works with data downloaded from Open Street Maps to estimate what is th
 \midinsert
 \clabel[code7_osm_marker]{Marking data with OSM vector}
 \picw=13cm \cinspic pseudocodes/5.4._osm_marker.pdf
-\caption/t Marking data with OSM vector.
+\caption/t Marking data with OSM vector. We iterate over each Segment in Segments file marking its unique locations.
 \endinsert
 
 The code \ref[code7_osm_marker] loads array of Segments and one by one accesses all the distinct locations stored in each Segment. This could be only two locations for segments too short to be broken down, or more if the original segment was split. Minimally these are the starting and the ending locations of the segment.
