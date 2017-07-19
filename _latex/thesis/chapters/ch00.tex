@@ -332,7 +332,7 @@ Each distinct location of each edge will end up with same sized OSM vector marki
 \midinsert
 \clabel[10b_six_imgs]{Generation of data entries from edge segment}
 \picw=10cm \cinspic figures/3.2.3.1_6images_and_their_shared_data.pdf 
-\caption/f Example of further not divided edge segment, which generates data entries, where certain values overlap. For example the score is shared among all images produced from one segment.
+\caption/f Example of further not divided edge segment, which generates data entries, where certain values overlap. The score is shared among all images produced from one segment.
 \endinsert
 
 One further undivided edge segment contains 6 images which share the same score, and some of which will share location and therefore also their OSM vectors. For illustration see Figure \ref[10b_six_imgs].
@@ -447,11 +447,11 @@ The dropout layer placed between two fully-connected layers functions randomly d
 \sec Open Street Map neighborhood vector model 
 %===================
 
-In this version of model, we broke down edge segments formerly representing streets in real world into regularly sized sections each containing two locations of its beginning and ending location. These locations were enriched with OSM neighborhood vectors in \ref[ch3_neighborhood_in_osm].
+In this version of model, we broke down edge segments formerly representing streets in real world into regularly sized sections each containing two locations of its beginning and ending location. The unique locations were enriched with OSM neighborhood vectors in \ref[ch3_neighborhood_in_osm].
 	
 \midinsert
 \clabel[17_one_edge_to_many_loc]{Distinct locations from edge segment}
-\picw=12cm \cinspic figures/4.2._edge_progress.pdf 
+\picw=11cm \cinspic figures/4.2._edge_progress.pdf 
 \caption/f Edge segment broken down into set of distinct locations, where each of these locations is assigned its own neighborhood vector.
 \endinsert
 
@@ -462,7 +462,7 @@ The \textit{OSM model} is built from repeated building blocks of fully-connected
 \midinsert
 \clabel[18_osm_model]{OSM neighborhood vector CNN model}
 \picw=15cm \cinspic figures/4.2._model.pdf 
-\caption/f CNN model making use of only the neighborhood OSM vector data.
+\caption/f CNN model making use of only the neighborhood OSM vector data. Size of "594" corresponds to the size of the vectors. As stated in \ref[ch3_osm_vector] we have made a selection of frequent attribute-value pairs.
 \endinsert
 
 \label[img_model]
@@ -510,7 +510,7 @@ The remains of base CNN model are followed by a Flatten layer which converts the
 \caption/f Example of differently sized images on the input which result in different feature vector size.
 \endinsert
 
-Base CNN models in Keras are loaded while specifying their "input_shape". The description files for these models are adjustable, they are defined by a sequence of interconnected layers. Without going deeper into the syntax of Keras (like we later do in \ref[ch5_keras]), it's worth noting that the size of input of each layer will influence the size of its output. For example pooling layers function effectively in downsampling their input, so their output size is therefore influenced by input dimension. Some other layers can have fixed output sizes. Where this matters is in the moment of joining base CNN model with later custom top model. We need to be prepared for the dimension of features captured at the output of base model to be influenced by the size of its inputs. As we can see on example of Figure \ref[20_diff_in_diff_out], this can lead to vastly different sizes of feature vectors.
+Base CNN models in Keras are loaded while specifying their "input_shape". The description files for these models are adjustable, they are defined by a sequence of interconnected layers. Without going deeper into the syntax of Keras (like we later do in \ref[ch5_keras]), it's worth noting that the size of input of each layer will influence the size of its output. Pooling and Convolutional layers are simply moving over the input volume data and as such they can adapt to any dimensions, however their output volume will be influenced. Pooling layers function effectively in downsampling their input. Some other layers can have fixed output sizes. Where this matters is in the moment of joining base CNN model with later custom top model. We need to be prepared for the dimension of features captured at the output of base model to be influenced by the size of its inputs. As we can see on example of Figure \ref[20_diff_in_diff_out], this can lead to vastly different sizes of feature vectors.
 
 \label[ch4_custom_top]
 \secc{Custom top model}
@@ -639,7 +639,7 @@ We attach a custom classifier section to a base model and try to train it on a n
 \caption/f Training stages illustrated for feature transfer approach.
 \endinsert
 
-This is sometimes followed with a finetunning period, where we unlock certain levels of the base CNN model for training. However this is commonly done with customized optimizer setting, so that the changes to the whole model weights are not too drastic. We are also usually not retraining the whole model, because of the computational load this would take.
+This is sometimes followed with a finetunning period, where we unlock certain levels of the base CNN model for training. However this is commonly done with customized optimizer setting such as lowering the learning rate, so that the changes to the whole model weights are not too drastic. We are also usually not retraining the whole model, because of the computational load this would take.
 
 \label[ch4_feature_cooking]
 \secc Feature cooking 
@@ -789,7 +789,7 @@ We generate a SQL command, which targets particular columns which we chose to ob
 \midinsert
 \clabel[sql_query]{Generated SQL query}
 \picw=14cm \cinspic pseudocodes/5.3._marker_sql.pdf
-\caption/t SQL query for attributes which caught our interest. In this examples the coordinates of "14.4310, 50.0631" constitute for the location of edge and value "50" for the radius.
+\caption/t SQL query for attributes which caught our interest. In this examples the coordinates of "14.4310, 50.0631" constitute for one of the unique locations of edge and value "50" for the radius. Edge has multiple unique locations as per the number of segments we broke it down into.
 \endinsert
 
 %\midinsert
@@ -1642,6 +1642,8 @@ Locations at the edges of parks and regions with lots of large and frequently us
 There are two main fields of strategies we can analyze when approaching our task – dataset augmentation in \ref[ch6_dataset] and model design in \ref[ch6_model]. As was discussed in section \ref[ch3_available_data], there are some ways to alter the scheme of generating data from edges. We understand data as lists of items each with a triple (image, OSM vector, score). When expanding the initial dataset with imagery information, we chose a scheme of generating six non-overlapping images per segment. We rotate by 120\degrees degrees two sides of each segment. Furthermore as described in \ref[7_edge_breakdown] we chose to split long edges into smaller segments and then generate images from them.
 
 It could be argued that it is in our interest to generate as many images as possible, which would encourage breaking long edges into many very short segments and perhaps also adapting the amount of degrees we rotate around on the same spot. In theory the continuous quality of real world could make us want to sample it in the most detailed way, generating an infinity of distinct images. However the practical reality we are faced with is very much different. In fact we are working with a discrete representation of real world into a limited set of images. If we ask Google Street View for samples too close to each other, we will in fact obtain the same images from its API. Similarly choosing to rotate for less than 120\degrees degrees would produce images with vastly overlapping content.
+
+Both methods of new data generation in \ref[ch6_dataset_longedgesplit] and \ref[ch6_dataset_augmentation] can face the same problem of being wasteful and not bringing in any meaningful data. A balance needs to be found in all these cases.
 
 Note that increasing number of images inevitably also introduces an increase in time and resource consumption. We should consider the advantages of being economical with resources as well as watching the validation error.
 
