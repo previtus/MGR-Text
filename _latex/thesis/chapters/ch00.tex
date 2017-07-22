@@ -922,7 +922,7 @@ Dropout layer is used accompanying the Dense layers and follows the process ment
 \midinsert
 \clabel[code10_build_generic_model]{Building generic model in Keras}
 \picw=13cm \cinspic pseudocodes/5.6._build_generic_model.pdf
-\caption/t Building generic model in Keras.
+\caption/t Building generic model in Keras. This particular model will take input of any size and use Fully-connected layer followed by Dropout layer. The final output will be a single score per each input.
 \endinsert
 
 %We are using these mentioned layers in our models, for more detailed survey check \ref[APPENDIX KERAS SYNTAX] APPENDIX KERAS SYNTAX.
@@ -947,7 +947,7 @@ The full code to build and train a generic Keras model on a dataset can be seen 
 \midinsert
 \clabel[code11_run_generic_experiment]{Fit generic model to data}
 \picw=13cm \cinspic pseudocodes/5.6._run_generic_experiment.pdf
-\caption/t Fit generic model to data in Keras.
+\caption/t Fit generic model to data in Keras and then save and plot the history of the training.
 \endinsert
 
 \sec ModelHandler 
@@ -1006,7 +1006,7 @@ Our second model is then made of just our custom top architecture discussed in \
 \midinsert
 \clabel[code14_feature_cooking_img_model]{Image model feature cooking}
 \picw=13cm \cinspic pseudocodes/5.6._feature_cooking_img_model.pdf
-\caption/t Images only model using the feature cooking method.
+\caption/t Images only model using the feature cooking method. We can save the intermediate product of feature files to save on future computations.
 \endinsert
 
 \secc Mixed model
@@ -1037,7 +1037,7 @@ Finally the reasoning behind experiments is to join these individual model runs 
 \midinsert
 \clabel[code16_default_settings]{Default Settings initialization}
 \picw=13cm \cinspic pseudocodes/5.7._default_settings.pdf
-\caption/t Default Settings initialization.
+\caption/t Default Settings initialization. Setup function is loaded from a customized setting file and alters the default values where it is needed.
 \endinsert
 
 Settings is initialized from default values, built as a python object dictionary as seen in Code \ref[code16_default_settings]. Then a custom Setup function is called which specifies differences from the default settings. This allows for descriptions of new experiments to be relatively small and to reuse already written code. This also allows for very small settings description files specifying either simple problems, while also being able to design complex experiments going into great detail. See Code \ref[code16_minimal_settings_file] for example of a minimal experiment specification.
@@ -1051,7 +1051,7 @@ Settings is initialized from default values, built as a python object dictionary
 \midinsert
 \clabel[34_settings_syntax]{Settings syntax}
 \picw=12cm \cinspic figures/5.7._settings_syntax.pdf 
-\caption/f Settings syntax.
+\caption/f Settings syntax. Python dictionary object with list of models each also pointing to a dictionary. This structure allows for high degree of customization.
 \endinsert
 
 Following are tables of important values of Settings syntax. Note that we write these following syntax shown in Figure \ref[34_settings_syntax]. Table \ref[ch5_settings_table_whole] contains list of parameters which are applied over the whole experiment run. All other parameters are model specific and are listed in Tables \ref[ch5_settings_table_model] and \ref[ch5_settings_table_model_cont1].
@@ -1205,7 +1205,7 @@ Finally we are given a history stored in dictionary of arrays with tracked value
 \midinsert
 \clabel[code17_training]{Model training syntax}
 \picw=13cm \cinspic pseudocodes/5.8._training.pdf
-\caption/t Model training syntax.
+\caption/t Model training syntax. Model is trained on a specific dataset according to the settings. History is saved for later graph plotting.
 \endinsert
 
 \sec Testing 
